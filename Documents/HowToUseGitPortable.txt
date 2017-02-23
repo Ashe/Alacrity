@@ -1,0 +1,34 @@
+By Ashley Smith <3
+----------------------------------------
+TO PULL ( Get the files that you want to work with) Either :
+
+- Go to http://github.com/crysikrend/P4G and 'clone'
+
+- Download git portable ( https://git-scm.com/download/win ) and type:
+	git clone http://github.com/crysikrend/P4G
+
+OR IF IT'S ALREADY DOWNLOADED, navigate to that folder in git portable and type
+	git pull
+- this will pull all new changes.
+
+----------------------------------------
+TO UPLOAD
+
+- Navigate to the assignment in the git portable terminal (section below)
+- type:
+	~      git add .
+
+	~      git commit -m"type a message here about what you have done"
+
+	~      git push
+----------------------------------------
+TO NAVIGATE
+
+- Open the git-bash terminal
+- type cd to change directory (example: cd P4G-master    will find a file in the current folder called P4G master and go into it
+- type cd .. to go up a folder
+
+When you clone, it clones into the folder you are in, and when you push / pull, make sure you are in the assignment directory else it won't work!
+
+GOOD LUCK!
+

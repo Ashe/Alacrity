@@ -34,10 +34,12 @@ public:
 	//camera
 	const DirectX::SimpleMath::Vector3 mDefCamPos = DirectX::SimpleMath::Vector3(0, 0.5f, -5);
 	DirectX::SimpleMath::Vector3 mCamPos = DirectX::SimpleMath::Vector3(5, 4, -6);
+
 	//ensure each mesh is loaded and release exactly once
 	MeshManager mMeshMgr;
+
 	//game models that reference meshes
-	Model mCar;
+	Model mCube;
 
 	//handy rendering state
 	FX::MyFX mFX;
@@ -53,8 +55,8 @@ private:
 	//light position
 	DirectX::SimpleMath::Vector3 mLightPos = DirectX::SimpleMath::Vector3(0, 0, 0);
 	//text
-	DirectX::SpriteBatch *mpSpriteBatch = nullptr;
-	DirectX::SpriteFont *mpFont = nullptr, *mpFont2 = nullptr;
+	//DirectX::SpriteBatch *mpSpriteBatch = nullptr;
+	//DirectX::SpriteFont *mpFont = nullptr, *mpFont2 = nullptr;
 	
 	//loading handler
 	struct LoadData

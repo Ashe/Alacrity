@@ -36,6 +36,16 @@ void Game::Load()
 	//mCar.GetMesh().GetSubMesh(1).material.gfxData.Set(Vector4(1,1,1,1), Vector4(1,1,1,1), Vector4(0.125f, 0.125f, 0.05f, 5));  //body has a touch of speculr shinyness
 	//mCar.GetMesh().GetSubMesh(0).material.gfxData.Set(Vector4(1, 1, 1, 1), Vector4(1, 1, 1, 1), Vector4(0, 0, 0, 1));  //tyres are not shiny!
 	//mLoadData.loadedSoFar++;
+
+
+	mCube.Initialise(BuildCube(mMeshMgr));
+	//MaterialExt *pMat = &mCube.GetMesh().GetSubMesh(0).material;
+	//pMat->gfxData.Set(Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0, 0, 0, 1));
+	//pMat->pTextureRV = mFX.mCache.LoadTexture("floor.dds", true, gd3dDevice);
+	//pMat->texture = "floor";
+	mLoadData.loadedSoFar++;
+
+
 }
 
 void Game::LoadDisplay(float dTime)
@@ -47,6 +57,7 @@ void Game::LoadDisplay(float dTime)
 	static int pips = 0;
 	static float elapsed = 0;
 	elapsed += dTime;
+
 	//if (elapsed > 0.25f){
 	//	pips++;
 	//	elapsed = 0;
@@ -83,10 +94,13 @@ void Game::Initialise()
 	//mpFont2 = new SpriteFont(gd3dDevice, L"data/algerian.spritefont");
 	//assert(mpFont2);
 
+	
+
 	mLoadData.totalToLoad = 2;
 	mLoadData.loadedSoFar = 0;
 	mLoadData.running = true;
 	mLoadData.loader = std::async(launch::async, &Game::Load, this);
+
 
 	mMKInput.Initialise(GetMainWnd());
 	mGamepad.Initialise();
@@ -107,7 +121,7 @@ void Game::Release()
 void Game::Update(float dTime)
 {
 	mGamepad.Update();
-	/*GetIAudioMgr()->Update();
+	GetIAudioMgr()->Update();
 
 	const float camInc = 10.f * dTime;
 
@@ -131,7 +145,7 @@ void Game::Update(float dTime)
 	mCamPos.z += mGamepad.GetState(0).leftStickY * dTime;
 	mCamPos.y += mGamepad.GetState(0).rightStickY * dTime;
 
-	mCar.GetRotation().y = GetClock();*/
+	mCube.GetRotation().y = GetClock();
 }
 
 
@@ -159,6 +173,8 @@ void Game::Render(float dTime)
 	CreateViewMatrix(FX::GetViewMatrix(), Vector3(0,0,-6), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	//mFX.Render(mCar, gd3dImmediateContext);
+
+	mFX.Render(mCube, gd3dImmediateContext);
 
 
 	CommonStates state(gd3dDevice);

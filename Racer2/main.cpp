@@ -10,9 +10,6 @@ using namespace DirectX::SimpleMath;
 
 Game gGame;
 
-
-
-
 void Update(float dTime)
 {
 	gGame.Update(dTime);

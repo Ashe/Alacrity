@@ -105,6 +105,7 @@
     <ClCompile Include="FX.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GeometryBuilder.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="FX.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GeometryBuilder.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />

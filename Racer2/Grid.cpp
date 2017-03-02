@@ -43,9 +43,6 @@ void Grid::Load()
 	//pMat->gfxData.Set(Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0, 0, 0, 1));
 	//pMat->pTextureRV = mFX.mCache.LoadTexture("floor.dds", true, gd3dDevice);
 	//pMat->texture = "floor";
-	
-
-
 }
 
 void Grid::Initialise()
@@ -60,7 +57,7 @@ void Grid::Initialise()
 	//mpFont2 = new SpriteFont(gd3dDevice, L"data/algerian.spritefont");
 	//assert(mpFont2);
 
-	mLoadData.totalToLoad = 100;
+	mLoadData.totalToLoad = 1;
 	mLoadData.loadedSoFar = 0;
 	mLoadData.running = true;
 	mLoadData.loader = std::async(launch::async, &Grid::Load, this);
@@ -98,12 +95,11 @@ void Grid::Render(float dTime)
 		return;
 	}
 
-
-	
-
 	for (int i = 0; i < 10; i++)
 		for (int j = 0; j < 10; j++) {
 			mFX.Render(cubeArray[i][j], gd3dImmediateContext);
+			cubeArray[i][j].GetPosition().x = (j-5) * 2.25;
+			cubeArray[i][j].GetPosition().y = (i-5) * 2.25;
 		}
 
 }

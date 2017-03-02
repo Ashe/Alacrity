@@ -1,22 +1,22 @@
-#ifndef GRID_H
-#define GRID_H
+#ifndef TILE_H
+#define TILE_H
 
 #include <vector>
 #include <future>
 
 #include "Mesh.h"
 #include "Model.h"
-#include "Tile.h"
 #include "FX.h"
 
 //wrap up common behaviors, initialization+shutdown
-class Grid
+class Tile
 {
 public:
 	//start up and shut down
-	Grid() 
-	{}
-	~Grid() {
+
+	Tile(int x, int y, float width, float pad) 
+		:cellX(x), cellY(y), cellWidth(width), padding(pad) {}
+	~Tile() {
 		Release();
 	}
 	//game logic, called constantly, elapsed time passed in
@@ -27,7 +27,7 @@ public:
 
 	//called when ALT+ENTER or drag
 	void OnResize(int screenWidth, int screenHeight);
-	void Initialise();
+	void Initialise(Mesh& tileMesh);
 	void Release();
 
 	//ensure each mesh is loaded and release exactly once
@@ -35,19 +35,18 @@ public:
 
 	//game models that reference meshes
 	//Model mCube;
+	Model tile;
 
 	//handy rendering state
 	FX::MyFX mFX;
 
 private:
 
-	float tilePadding;
-	float tileWidth;
-
-	// Array of tiles
-	//Tile tileArray[10][10];
-	vector<vector<Tile>> tileArray;
-
+	// attributes for positioning
+	const int cellX;
+	const int cellY;
+	const float cellWidth;
+	const float padding;
 };
 
 #endif

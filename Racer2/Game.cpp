@@ -37,8 +37,6 @@ void Game::Load()
 	//mCar.GetMesh().GetSubMesh(0).material.gfxData.Set(Vector4(1, 1, 1, 1), Vector4(1, 1, 1, 1), Vector4(0, 0, 0, 1));  //tyres are not shiny!
 	//mLoadData.loadedSoFar++;
 
-
-	mCube.Initialise(BuildCube(mMeshMgr));
 	//MaterialExt *pMat = &mCube.GetMesh().GetSubMesh(0).material;
 	//pMat->gfxData.Set(Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0, 0, 0, 1));
 	//pMat->pTextureRV = mFX.mCache.LoadTexture("floor.dds", true, gd3dDevice);
@@ -82,7 +80,7 @@ void Game::LoadDisplay(float dTime)
 void Game::Initialise()
 {
 	mFX.Init(gd3dDevice);
-
+	grid.Initialise();
 
 	FX::SetupDirectionalLight(0, true, Vector3(-0.7f, -0.7f, 0.7f), Vector3(0.9f, 0.85f, 0.85f), Vector3(0.1f, 0.1f, 0.1f), Vector3(1, 1, 1));
 
@@ -108,6 +106,8 @@ void Game::Initialise()
 
 void Game::Release()
 {
+	grid.Release();
+
 	mFX.Release();
 	mMeshMgr.Release();
 	/*delete mpFont;
@@ -122,6 +122,8 @@ void Game::Update(float dTime)
 {
 	mGamepad.Update();
 	GetIAudioMgr()->Update();
+
+	grid.Update(dTime);
 
 	const float camInc = 10.f * dTime;
 
@@ -144,8 +146,6 @@ void Game::Update(float dTime)
 	mCamPos.x += mGamepad.GetState(0).leftStickX * dTime;
 	mCamPos.z += mGamepad.GetState(0).leftStickY * dTime;
 	mCamPos.y += mGamepad.GetState(0).rightStickY * dTime;
-
-	mCube.GetRotation().y = GetClock();
 }
 
 
@@ -165,6 +165,8 @@ void Game::Render(float dTime)
 
 	BeginRender(Colours::Black);
 
+	grid.Render(dTime);
+
 	FX::SetPerFrameConsts(gd3dImmediateContext, mCamPos);
 
 	CreateProjectionMatrix(FX::GetProjectionMatrix(), 0.25f*PI, GetAspectRatio(), 1, 1000.f);
@@ -173,9 +175,6 @@ void Game::Render(float dTime)
 	CreateViewMatrix(FX::GetViewMatrix(), Vector3(0,0,-6), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	//mFX.Render(mCar, gd3dImmediateContext);
-
-	mFX.Render(mCube, gd3dImmediateContext);
-
 
 	CommonStates state(gd3dDevice);
 	//mpSpriteBatch->Begin(SpriteSortMode_Deferred, state.NonPremultiplied());

@@ -9,6 +9,7 @@
 #include "FX.h"
 #include "SpriteFont.h"
 #include "Input.h"
+#include "Grid.h"
 
 //wrap up common behaviors, initialization+shutdown
 class Game
@@ -38,8 +39,8 @@ public:
 	//ensure each mesh is loaded and release exactly once
 	MeshManager mMeshMgr;
 
-	//game models that reference meshes
-	Model mCube;
+	// Grid
+	Grid grid;
 
 	//handy rendering state
 	FX::MyFX mFX;

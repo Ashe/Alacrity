@@ -9,7 +9,7 @@
 #include "FX.h"
 #include "SpriteFont.h"
 #include "Input.h"
-#include "Grid.h"
+#include "LevelMGR.h"
 
 //wrap up common behaviors, initialization+shutdown
 class Game
@@ -39,8 +39,8 @@ public:
 	//ensure each mesh is loaded and release exactly once
 	MeshManager mMeshMgr;
 
-	// Grid
-	Grid grid;
+	// Level Manager
+	LevelMGR levelMGR = LevelMGR(mMeshMgr, DirectX::SimpleMath::Vector3(0, 0, 0), 1);
 
 	//handy rendering state
 	FX::MyFX mFX;

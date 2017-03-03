@@ -13,10 +13,6 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-
-
-
-
 void Game::OnResize(int screenWidth, int screenHeight)
 {
 	
@@ -26,7 +22,7 @@ void Game::OnResize(int screenWidth, int screenHeight)
 
 void Game::Load()
 {
-	GetIAudioMgr()->Initialise();
+	//GetIAudioMgr()->Initialise();
 	mLoadData.loadedSoFar++;
 
 	//Mesh& ecar = mMeshMgr.CreateMesh("ferrari");
@@ -80,9 +76,9 @@ void Game::LoadDisplay(float dTime)
 void Game::Initialise()
 {
 	mFX.Init(gd3dDevice);
-	grid.Initialise();
+	levelMGR.Initialise();
 
-	FX::SetupDirectionalLight(0, true, Vector3(-0.7f, -0.7f, 0.7f), Vector3(0.9f, 0.85f, 0.85f), Vector3(0.1f, 0.1f, 0.1f), Vector3(1, 1, 1));
+	FX::SetupDirectionalLight(0, true, Vector3(-0.7f, -0.7f, -0.7f), Vector3(0.9f, 0.85f, 0.85f), Vector3(0.1f, 0.1f, 0.1f), Vector3(1, 1, 1));
 
 	//mpSpriteBatch = new SpriteBatch(gd3dImmediateContext);
 	//assert(mpSpriteBatch);
@@ -106,7 +102,7 @@ void Game::Initialise()
 
 void Game::Release()
 {
-	grid.Release();
+	levelMGR.Release();
 
 	mFX.Release();
 	mMeshMgr.Release();
@@ -123,7 +119,7 @@ void Game::Update(float dTime)
 	mGamepad.Update();
 	GetIAudioMgr()->Update();
 
-	grid.Update(dTime);
+	levelMGR.Update(dTime);
 
 	const float camInc = 10.f * dTime;
 
@@ -165,14 +161,14 @@ void Game::Render(float dTime)
 
 	BeginRender(Colours::Black);
 
-	grid.Render(dTime);
+	levelMGR.Render(dTime);
 
 	FX::SetPerFrameConsts(gd3dImmediateContext, mCamPos);
 
 	CreateProjectionMatrix(FX::GetProjectionMatrix(), 0.25f*PI, GetAspectRatio(), 1, 1000.f);
 
 
-	CreateViewMatrix(FX::GetViewMatrix(), Vector3(0,0,-6), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	CreateViewMatrix(FX::GetViewMatrix(), Vector3(-10,-10, 25), Vector3(0, 0, 10), Vector3(0, 0, 1));
 
 	//mFX.Render(mCar, gd3dImmediateContext);
 

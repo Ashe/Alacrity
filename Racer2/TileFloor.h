@@ -14,10 +14,12 @@ class TileFloor : public Tile
 {
 public:
 	//start up and shut down
-	TileFloor(int x, int y, float width, float pad, const Vector3& anch, bool hide = 0)
-		:Tile(x, y, width, pad, anch, hide) {}
+	TileFloor(const TileType& type, int x, int y, float width, float pad, const Vector3& anch)
+		:Tile(type, x, y, width, pad, anch) {}
 
 	void Render(float dTime) override;
+	void Initialise(Mesh& tileMesh);
+
 
 private:
 

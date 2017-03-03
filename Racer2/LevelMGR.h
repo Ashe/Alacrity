@@ -2,6 +2,7 @@
 #define LEVELMGR_H
 
 #include "Level.h"
+#include "Tile.h"
 
 using namespace std;
 using namespace DirectX;
@@ -40,7 +41,7 @@ private:
 	{
 		int tileDim;
 		float tilePadding;
-		vector<vector<Level::tileType>> tileList;
+		vector<vector<Tile::TileType>> tileList;
 	};
 
 	int currentLevel;

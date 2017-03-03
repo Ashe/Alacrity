@@ -12,7 +12,6 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-
 void Tile::OnResize(int screenWidth, int screenHeight)
 {
 	OnResize_Default(screenWidth, screenHeight);
@@ -21,6 +20,8 @@ void Tile::OnResize(int screenWidth, int screenHeight)
 void Tile::Initialise(Mesh& tileMesh)
 {
 	tile.Initialise(tileMesh);
+	if (tileType == eEmpty)
+		hidden = true;
 
 	mFX.Init(gd3dDevice);
 }

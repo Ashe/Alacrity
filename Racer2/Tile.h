@@ -16,22 +16,29 @@ using namespace DirectX::SimpleMath;
 class Tile
 {
 public:
+
+	enum TileType
+	{
+		eEmpty, eFloor, eBasic
+	};
+
 	//start up and shut down
-	Tile(int x, int y, float width, float pad, const Vector3& anch, bool hide = 0) 
-		:cellX(x), cellY(y), cellWidth(width), padding(pad), anchor(anch), hidden(hide) {}
+	Tile(const TileType& type, int x, int y, float width, float pad, const Vector3& anch) 
+		:tileType(type), cellX(x), cellY(y), cellWidth(width), padding(pad), anchor(anch), hidden(false) {}
+
 	~Tile() {
 		Release();
 	}	
 	
 	//game logic, called constantly, elapsed time passed in
-	void Update(float dTime);
+	virtual void Update(float dTime);
 
 	//render images, called constantly, elapsed time passed in
 	virtual void Render(float dTime);
 
 	//called when ALT+ENTER or drag
 	void OnResize(int screenWidth, int screenHeight);
-	void Initialise(Mesh& tileMesh);
+	virtual void Initialise(Mesh& tileMesh);
 	void Release();
 
 	//game models that reference meshes
@@ -50,13 +57,15 @@ public:
 
 private:
 
+	const TileType tileType;
+
 	// attributes for positioning
 	const int cellX;
 	const int cellY;
 	const float cellWidth;
-	const float padding;
+	float padding;
 	const Vector3 anchor;
-	const bool hidden;
+	bool hidden;
 };
 
 #endif

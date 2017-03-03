@@ -17,7 +17,7 @@ void Level::OnResize(int screenWidth, int screenHeight)
 	OnResize_Default(screenWidth, screenHeight);
 }
 
-void Level::Initialise(const vector<vector<tileType>>& layout,float padding, int dim)
+void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float padding, int dim)
 {
 	mFX.Init(gd3dDevice);
 
@@ -34,15 +34,15 @@ void Level::Initialise(const vector<vector<tileType>>& layout,float padding, int
 	// Initialise both foreground and background
 	for (int i = 0; i < dim; i++) {
 		vector<Tile> tempLevel;
-		vector<Tile> tempBack;
+		vector<TileFloor> tempBack;
 
 		for (int j = 0; j < dim; j++) {
 			// Create and intialise a floor tile and place it on the background grid
-			tempBack.push_back(getTile(eFloor, j, i));
+			tempBack.push_back(TileFloor(layout[i][j], j, i, tileWidth, tilePadding, anchorPos));
 			tempBack[j].Initialise(cubeMesh);// meshArray[1]);
 
 			// Create and initialise a tile given in the layout, created in the levelMGR
-			tempLevel.push_back(getTile(layout[i][j], j, i));
+			tempLevel.push_back(Tile(layout[i][j],j, i, tileWidth,tilePadding,anchorPos));
 			tempLevel[j].Initialise(cubeMesh);// meshArray[layout[i][j]]);
 		}
 
@@ -70,24 +70,6 @@ void Level::Render(float dTime)
 			background[i][j].Render(dTime);  
 			level[i][j].Render(dTime);
 		}
-}
-
-Tile Level::getTile(const tileType& type, int cellX, int cellY) {
-
-	// TODO. This function will take the type, find the specialised tile class, create and return it
-
-	switch (type)
-	{
-		case eEmpty :
-			return Tile(cellX, cellY, tileWidth, tilePadding, anchorPos, true);
-			break;
-		case eFloor :
-			return TileFloor(cellX, cellY, tileWidth, tilePadding, anchorPos);
-			break;
-		case eBasic :
-			return Tile(cellX, cellY, tileWidth, tilePadding, anchorPos);
-			break;
-	}
 }
 
 void Level::Load(MeshManager meshMGR)

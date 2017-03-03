@@ -12,12 +12,6 @@ using namespace DirectX::SimpleMath;
 class Level
 {
 public:
-
-	enum tileType
-	{
-		eEmpty, eFloor, eBasic
-	};
-
 	//start up and shut down
 	Level(const MeshManager& meshMGR, const Vector3& anch, const float width)
 		: mMeshMgr(meshMGR), anchorPos(anch), tileWidth(width)
@@ -39,7 +33,7 @@ public:
 	void OnResize(int screenWidth, int screenHeight);
 
 	// Called everytime a new level is created
-	void Initialise(const vector<vector<tileType>>& layout, float padding = 1.25, int dim = 10);
+	void Initialise(const vector<vector<Tile::TileType>>& layout, float padding = 1.25, int dim = 10);
 
 	void Release();
 
@@ -53,16 +47,14 @@ private:
 	int cellDim;
 	float tilePadding;
 
-	// Arrays of tiles
-	vector<vector<Tile>> background;
+	// Arrays of tile pointers
+	vector<vector<TileFloor>> background;
 	vector<vector<Tile>> level;
 
 	//ensure each mesh is loaded and release exactly once
 	MeshManager mMeshMgr;
 	//vector<Mesh> meshArray;
 
-	// Create a tile from the enum
-	Tile getTile(const tileType& type, int cellX, int cellY);
 
 	// Load all the meshes required to build a level
 	void Load(MeshManager meshMGR);

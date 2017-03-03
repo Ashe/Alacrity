@@ -57,16 +57,16 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 
 			nextLevel.tileList = {
 
-				{Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic},
-				{Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic},
-				{Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic},
-				{Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic},
-				{Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic},
-				{Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic},
-				{Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic},
-				{Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic},
-				{Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic},
-				{Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic, Level::eBasic}
+				{Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
+				{Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic}
 
 			};
 

@@ -59,7 +59,11 @@ void Level::Release()
 
 void Level::Update(float dTime)
 {
-	
+	for (int i = 0; i < cellDim; i++)
+		for (int j = 0; j < cellDim; j++) {
+			background[i][j].Update(dTime);  
+			level[i][j].Update(dTime);
+		}
 }
 
 

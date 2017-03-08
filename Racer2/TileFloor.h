@@ -18,10 +18,17 @@ public:
 		:Tile(type, x, y, width, pad, anch) {}
 
 	void Render(float dTime) override;
-	void Initialise(Mesh& tileMesh);
+	void Initialise(Mesh& tileMesh) override;
+	void Update(float dTime) override;
+
+	void killTile() override;
 
 
 private:
+	enum DestroyStatus
+	{
+		stable, unstable, degrading, destroyed
+	} destroyStatus;
 
 };
 

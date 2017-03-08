@@ -39,7 +39,10 @@ public:
 	//called when ALT+ENTER or drag
 	void OnResize(int screenWidth, int screenHeight);
 	virtual void Initialise(Mesh& tileMesh);
-	void Release();
+	virtual void Release();
+
+	// Function to call when you wish to remove the tile from play
+	virtual void killTile();
 
 	//game models that reference meshes
 	Model tile;
@@ -51,9 +54,15 @@ public:
 	int getCellX();
 	int getCellY();
 	Vector3 getAnchor();
+	Vector3 getDisplacement();
 	float getPadding();
 	float getCellWidth();
 	bool getHidden();
+
+	TileType getTileType();
+
+	void addDisplacement(const Vector3& disp);
+	void resetDisplacement();
 
 private:
 
@@ -65,6 +74,11 @@ private:
 	const float cellWidth;
 	float padding;
 	const Vector3 anchor;
+
+	// vector for displacing the tile
+	Vector3 adjustVector;
+
+	// visibility of the tile
 	bool hidden;
 };
 

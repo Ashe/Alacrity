@@ -20,8 +20,13 @@ void Tile::OnResize(int screenWidth, int screenHeight)
 void Tile::Initialise(Mesh& tileMesh)
 {
 	tile.Initialise(tileMesh);
+
+	// If the tile should be hidden, remove it from play
 	if (tileType == eEmpty)
 		hidden = true;
+
+	// Remove any displacement to reset the location
+	adjustVector = { 0, 0, 0 };
 
 	mFX.Init(gd3dDevice);
 }
@@ -46,10 +51,28 @@ void Tile::Render(float dTime)
 		tile.GetPosition().x = anchor.x + cellX * (cellWidth + padding);
 		tile.GetPosition().y = anchor.y + cellY * (cellWidth + padding);
 		tile.GetPosition().z = anchor.z + cellWidth + padding;
+
+		tile.GetPosition() += adjustVector;
+	}
+}
+///////////////////////////////////////////////////////
+// Tile Functions
+///////////////////////////////////////////////////////
+
+void Tile::killTile() {
+	
+	// This function will call if a specific tile should be killed off
+	// - unique animations and mechanics to be inserted here
+	switch (tileType) {
+		default:
+			break;
 	}
 }
 
-// getters
+///////////////////////////////////////////////////////
+// Getters
+///////////////////////////////////////////////////////
+
 int Tile::getCellX() {
 	return cellX;
 }
@@ -68,6 +91,27 @@ float Tile::getCellWidth() {
 Vector3 Tile::getAnchor() {
 	return anchor;
 }
+
+Vector3 Tile::getDisplacement() {
+	return adjustVector;
+}
+
 bool Tile::getHidden() {
 	return hidden;
+}
+
+Tile::TileType Tile::getTileType() {
+	return tileType;
+}
+
+///////////////////////////////////////////////////////
+// Setters
+///////////////////////////////////////////////////////
+
+void Tile::addDisplacement(const Vector3& disp) {
+	adjustVector += disp;
+}
+
+void Tile::resetDisplacement() {
+	adjustVector = { 0, 0, 0 };
 }

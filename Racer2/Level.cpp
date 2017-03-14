@@ -73,11 +73,17 @@ void Level::Update(float dTime)
 
 void Level::Render(float dTime)
 {
-	waveEffect += dTime * 1.5;
+	if (waveLevel)
+		waveEffect += dTime * 1.5;
 
 	for (int i = 0; i < cellDim; i++)
 		for (int j = 0; j < cellDim; j++) {
-			floor[i][j]->Render(dTime, (sinf(waveEffect + (i + j) / (PI / 2))) / 4);  
+
+			if (waveLevel)
+				floor[i][j]->Render(dTime, (sinf(waveEffect + (i + j) / (PI / 2))) / 4); 
+			else
+				floor[i][j]->Render(dTime);
+
 			level[i][j]->Render(dTime, floor[i][j]->getPosition().z, true);
 		}
 }

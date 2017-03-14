@@ -36,9 +36,8 @@ void TileFloor::Update(float dTime) {
 	}
 }
 
-void TileFloor::Render(float dTime)
+void TileFloor::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 {
-
 	if (!getHidden())
 	{
 		mFX.Render(tile, gd3dImmediateContext);
@@ -47,7 +46,11 @@ void TileFloor::Render(float dTime)
 		tile.GetPosition().y = getAnchor().y + getCellY() * (getCellWidth() + getPadding());
 
 		tile.GetScale().z = 0.2;
-		tile.GetPosition().z = getAnchor().z + getCellWidth() - (getCellWidth() * tile.GetScale().z);
+
+		if (!setInsteadOfAdd)
+			tile.GetPosition().z = getAnchor().z + getCellWidth() - (getCellWidth() * tile.GetScale().z) + zAdjust;
+		else
+			tile.GetPosition().z = zAdjust;
 
 		tile.GetPosition() += getDisplacement();
 	}

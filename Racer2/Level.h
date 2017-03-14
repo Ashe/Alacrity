@@ -47,9 +47,12 @@ private:
 	int cellDim;
 	float tilePadding;
 
+	float waveEffect;
+	bool waveLevel;
+
 	// Arrays of tile pointers
-	vector<vector<TileFloor>> background;
-	vector<vector<Tile>> level;
+	vector<vector<TileFloor*>> floor;
+	vector<vector<Tile*>> level;
 
 	//ensure each mesh is loaded and release exactly once
 	MeshManager mMeshMgr;
@@ -58,6 +61,9 @@ private:
 
 	// Load all the meshes required to build a level
 	void Load(MeshManager meshMGR);
+
+	Tile* createTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch);
+	TileFloor* createFloorTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch);
 
 
 };

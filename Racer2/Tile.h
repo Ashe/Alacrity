@@ -19,12 +19,12 @@ public:
 
 	enum TileType
 	{
-		eEmpty, eFloor, eBasic
+		eEmpty, eBasic
 	};
 
 	//start up and shut down
-	Tile(const TileType& type, int x, int y, float width, float pad, const Vector3& anch) 
-		:tileType(type), cellX(x), cellY(y), cellWidth(width), padding(pad), anchor(anch), hidden(false) {}
+	Tile(const TileType& type, int x, int y, float width, float pad, const Vector3& anch, bool isHidden = false) 
+		:tileType(type), cellX(x), cellY(y), cellWidth(width), padding(pad), anchor(anch), hidden(isHidden) {}
 
 	~Tile() {
 		Release();
@@ -34,7 +34,7 @@ public:
 	virtual void Update(float dTime);
 
 	//render images, called constantly, elapsed time passed in
-	virtual void Render(float dTime);
+	virtual void Render(float dTime, float zAdjust = 0, bool setInsteadOfAdd = false);
 
 	//called when ALT+ENTER or drag
 	void OnResize(int screenWidth, int screenHeight);
@@ -58,6 +58,8 @@ public:
 	float getPadding();
 	float getCellWidth();
 	bool getHidden();
+
+	Vector3 getPosition();
 
 	TileType getTileType();
 

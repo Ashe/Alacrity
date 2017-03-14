@@ -42,7 +42,7 @@ void Tile::Update(float dTime)
 }
 
 
-void Tile::Render(float dTime)
+void Tile::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 {
 	if (!hidden)
 	{
@@ -50,11 +50,16 @@ void Tile::Render(float dTime)
 
 		tile.GetPosition().x = anchor.x + cellX * (cellWidth + padding);
 		tile.GetPosition().y = anchor.y + cellY * (cellWidth + padding);
-		tile.GetPosition().z = anchor.z + cellWidth + padding;
+
+		if (!setInsteadOfAdd)
+			tile.GetPosition().z = anchor.z + cellWidth + padding + zAdjust;
+		else
+			tile.GetPosition().z = zAdjust + padding;
 
 		tile.GetPosition() += adjustVector;
 	}
 }
+
 ///////////////////////////////////////////////////////
 // Tile Functions
 ///////////////////////////////////////////////////////
@@ -72,6 +77,10 @@ void Tile::killTile() {
 ///////////////////////////////////////////////////////
 // Getters
 ///////////////////////////////////////////////////////
+
+Vector3 Tile::getPosition() {
+	return tile.GetPosition();
+}
 
 int Tile::getCellX() {
 	return cellX;

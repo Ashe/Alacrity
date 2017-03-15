@@ -115,6 +115,7 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileFloor.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="UtilsDefines.cpp" />
     <ClCompile Include="WindowUtils.cpp" />
   </ItemGroup>
@@ -138,6 +139,7 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileFloor.h" />
+    <ClInclude Include="UserInterface.h" />
     <ClInclude Include="UtilsDefines.h" />
     <ClInclude Include="WindowUtils.h" />
   </ItemGroup>

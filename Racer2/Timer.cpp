@@ -1,25 +1,25 @@
 #include "Timer.h"
 
 void Timer::startTimer(){
-	countdown_ = true;
+	mCountdown = true;
 }
 
 void Timer::pauseTimer(){
-	countdown_ = false;
+	mCountdown = false;
 }
 void Timer::resetTimer(){
-	countdown_ = false;
-	currentTime_ = totalTime_;
+	mCountdown = false;
+	mCurrentTime = mTotalTime;
 }
 void Timer::setTimer(float time){
-	totalTime_ = time;
+	mTotalTime = time;
 }
 
 void Timer::updateTimer(float dtime){
-	if (countdown_)
-		currentTime_ -= dtime * 0.1;
+	if (mCountdown)
+		mCurrentTime -= dtime * 0.1;
 }
 
 float Timer::getTimer() const{
-	return currentTime_;
+	return mCurrentTime;
 }

@@ -7,7 +7,7 @@ class Timer
 {
 public:
 	//constructors
-	Timer(float time = 30.0f) : totalTime_(time), currentTime_(totalTime_), countdown_(false) {
+	Timer(float time = 30.0f) : mTotalTime(time), mCurrentTime(mTotalTime), mCountdown(false) {
 	}
 	~Timer();
 	//update functions
@@ -19,9 +19,9 @@ public:
 	//query functions
 	float getTimer() const;			//return value of current time
 private:
-	bool countdown_;				//controls whether timer should countdown or not
-	float totalTime_;				//starting time for timer
-	float currentTime_;				//current time of timer
+	bool mCountdown;				//controls whether timer should countdown or not
+	float mTotalTime;				//starting time for timer
+	float mCurrentTime;				//current time of timer
 };
 #endif
 

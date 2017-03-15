@@ -10,6 +10,7 @@
 #include "SpriteFont.h"
 #include "Input.h"
 #include "LevelMGR.h"
+#include "UserInterface.h"
 
 //wrap up common behaviors, initialization+shutdown
 class Game
@@ -74,6 +75,7 @@ private:
 	LoadData mLoadData;
 	MouseAndKeys mMKInput;
 	Gamepad mGamepad;
+	UserInterface mUI;
 };
 
 #endif

@@ -70,6 +70,8 @@ void Game::LoadDisplay(float dTime)
 
 	//mpSpriteBatch->End();
 
+	
+
 	EndRender();
 }
 
@@ -88,7 +90,7 @@ void Game::Initialise()
 	//mpFont2 = new SpriteFont(gd3dDevice, L"data/algerian.spritefont");
 	//assert(mpFont2);
 
-	
+	mUI.Initialise();
 
 	mLoadData.totalToLoad = 2;
 	mLoadData.loadedSoFar = 0;
@@ -106,6 +108,7 @@ void Game::Release()
 
 	mFX.Release();
 	mMeshMgr.Release();
+	mUI.Release();
 	/*delete mpFont;
 	mpFont = nullptr;
 	delete mpSpriteBatch;
@@ -185,6 +188,7 @@ void Game::Render(float dTime)
 
 	//mpSpriteBatch->End();
 
+	mUI.DisplayMessage(dTime);
 
 	EndRender();
 

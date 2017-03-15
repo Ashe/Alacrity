@@ -15,7 +15,6 @@ void Timer::setTimer(float time){
 	totalTime_ = time;
 }
 
-
 void Timer::updateTimer(float dtime){
 	if (countdown_)
 		currentTime_ -= dtime * 0.1;

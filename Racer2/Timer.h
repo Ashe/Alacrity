@@ -22,6 +22,6 @@ private:
 	bool countdown_;				//controls whether timer should countdown or not
 	float totalTime_;				//starting time for timer
 	float currentTime_;				//current time of timer
-}
+};
 #endif
 

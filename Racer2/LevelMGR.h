@@ -32,6 +32,9 @@ public:
 
 	void changeLevel(int levelNo);
 
+	//player interaction
+	Vector3 move(const Vector3& pos, const Vector2& dir, bool& success);
+
 	//handy rendering state
 	FX::MyFX mFX;
 

@@ -23,8 +23,8 @@ public:
 	};
 
 	//start up and shut down
-	Tile(const TileType& type, int x, int y, float width, float pad, const Vector3& anch, bool isHidden = false) 
-		:tileType(type), cellX(x), cellY(y), cellWidth(width), padding(pad), anchor(anch), hidden(isHidden) {}
+	Tile(const TileType& type, int x, int y, float width, float pad, const Vector3& anch, bool isHidden = false, bool isTraverseable = false) 
+		:tileType(type), cellX(x), cellY(y), cellWidth(width), padding(pad), anchor(anch), hidden(isHidden), traverseable(isTraverseable) {}
 
 	~Tile() {
 		Release();
@@ -50,25 +50,35 @@ public:
 	//handy rendering state
 	FX::MyFX mFX;
 
-	// getters
+	// getters & setters
 	int getCellX();
 	int getCellY();
-	Vector3 getAnchor();
-	Vector3 getDisplacement();
-	float getPadding();
-	float getCellWidth();
-	bool getHidden();
 
+	Vector3 getAnchor();
 	Vector3 getPosition();
 
-	TileType getTileType();
-
+	Vector3 getDisplacement();
 	void addDisplacement(const Vector3& disp);
 	void resetDisplacement();
+
+	TileType getTileType();
+	bool getHidden() const;
+	void setHidden(bool b);
+	bool getTraverseable() const;
+	void setTraverseable(bool b);
+
+	float getPadding();
+	float getCellWidth();
+
+	// movement functions
+	virtual bool bump();
+	virtual void moveOn();
+	virtual void moveOff();
 
 private:
 
 	const TileType tileType;
+	bool traverseable;
 
 	// attributes for positioning
 	const int cellX;

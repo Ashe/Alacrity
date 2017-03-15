@@ -35,6 +35,9 @@ public:
 	// Called everytime a new level is created
 	void Initialise(const vector<vector<Tile::TileType>>& layout, float padding = 1.25, int dim = 10);
 
+	// player interaction
+	Vector3 move(const Vector3& pos, const Vector2& dir, bool& success);
+
 	void Release();
 
 	//handy rendering state
@@ -62,8 +65,13 @@ private:
 	// Load all the meshes required to build a level
 	void Load(MeshManager meshMGR);
 
+	// Tile creation
 	Tile* createTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch);
 	TileFloor* createFloorTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch);
+
+	// Locating functions
+	Vector2 getCellFromCoords(const Vector3& pos);
+	Vector3 getCoordsFromCell(const Vector2& cell, const Vector3& prevPos);
 
 
 };

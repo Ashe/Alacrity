@@ -14,8 +14,8 @@ class TileFloor : public Tile
 {
 public:
 	//start up and shut down
-	TileFloor(const TileType& type, int x, int y, float width, float pad, const Vector3& anch, bool isHidden = false)
-		:Tile(type, x, y, width, pad, anch, isHidden) {}
+	TileFloor(const TileType& type, int x, int y, float width, float pad, const Vector3& anch, bool isHidden = false, bool isTraverseable = false)
+		:Tile(type, x, y, width, pad, anch, isHidden, isTraverseable) {}
 
 	void Render(float dTime, float zAdjust = 0, bool setInsteadOfAdd = false) override;
 	void Initialise(Mesh& tileMesh) override;

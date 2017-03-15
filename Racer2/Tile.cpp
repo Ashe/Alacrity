@@ -33,7 +33,7 @@ void Tile::Initialise(Mesh& tileMesh)
 
 void Tile::Release()
 {
-	
+	// DELETE DYNAMICALLY ALLOCATED MEMORY (somehow)
 }
 
 void Tile::Update(float dTime)
@@ -97,6 +97,19 @@ float Tile::getCellWidth() {
 	return cellWidth;
 }
 
+bool Tile::bump()
+{
+	return getTraverseable();
+}
+
+void Tile::moveOn()
+{
+}
+
+void Tile::moveOff()
+{
+}
+
 Vector3 Tile::getAnchor() {
 	return anchor;
 }
@@ -105,8 +118,23 @@ Vector3 Tile::getDisplacement() {
 	return adjustVector;
 }
 
-bool Tile::getHidden() {
+bool Tile::getHidden() const{
 	return hidden;
+}
+
+void Tile::setHidden(bool b)
+{
+	hidden = b;
+}
+
+bool Tile::getTraverseable() const
+{
+	return traverseable;
+}
+
+void Tile::setTraverseable(bool b)
+{
+	traverseable = b;
 }
 
 Tile::TileType Tile::getTileType() {

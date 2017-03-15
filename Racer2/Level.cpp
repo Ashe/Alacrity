@@ -58,7 +58,11 @@ void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float paddin
 
 void Level::Release()
 {
-
+	for (int i = 0; i < cellDim; i++)
+		for (int j = 0; j < cellDim; j++) {
+			floor[i][j]->Release();
+			level[i][j]->Release();
+		}
 }
 
 void Level::Update(float dTime)
@@ -108,7 +112,7 @@ Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, f
 		break;
 
 	case Tile::TileType::eEmpty:
-		return new Tile(type, x, y, width, pad, anch, true);
+		return new Tile(type, x, y, width, pad, anch, true, true);
 		break;
 	}
 }
@@ -120,4 +124,38 @@ TileFloor* Level::createFloorTile(const Tile::TileType& type, int x, int y, floa
 		return new TileFloor(type, x, y, width, pad, anch);
 		break;
 	}
+}
+
+Vector3 Level::move(const Vector3& pos, const Vector2& dir, bool& success)
+{
+	const Vector2 pPos = getCellFromCoords(pos);
+	const Vector2 newPos = pPos + dir;
+
+	// 'Bump' lets the new tile know that the player wishes to move there, while returning if it's possible
+	success = level[newPos.x][newPos.y]->bump() && floor[newPos.x][newPos.y]->bump();
+
+	if (success) {
+
+		// Move off of the previous tile and floor
+		floor[pPos.x][pPos.y]->moveOff();
+		level[pPos.x][pPos.y]->moveOff();
+
+		// Call any important functions for moving onto a new tile
+		floor[newPos.x][newPos.y]->moveOn();
+		level[newPos.x][newPos.y]->moveOn();
+
+		return getCoordsFromCell(newPos, pos);
+	}
+	else
+		return pos;
+}
+
+Vector2 Level::getCellFromCoords(const Vector3& pos)
+{
+	return Vector2((pos.x - anchorPos.x) / (tileWidth + tilePadding), (pos.y - anchorPos.y) / (tileWidth + tilePadding));
+}
+
+Vector3 Level::getCoordsFromCell(const Vector2& cell, const Vector3& prevPos)
+{
+	return Vector3(cell.x * (tileWidth + tilePadding) + anchorPos.x, cell.y * (tileWidth + tilePadding) + anchorPos.y, prevPos.z);
 }

@@ -44,6 +44,14 @@ void LevelMGR::changeLevel(int levelNo) {
 	level.Initialise(nextLevel.tileList, nextLevel.tilePadding, nextLevel.tileDim);
 }
 
+// Complex one. Pass in your coordinate position and your direction (0/1 x, 0/1 y) and a bool.
+// The function will return the location the player should go to at the end of the function.
+// The bool will change depending on a whether a move was made.
+Vector3 LevelMGR::move(const Vector3& pos, const Vector2& dir, bool& success)
+{
+	return level.move(pos, dir, success);
+}
+
 LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 
 	levelTemplate nextLevel;

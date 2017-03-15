@@ -1,11 +1,4 @@
-#include <thread>
-#include <iomanip>
-
-#include "WindowUtils.h" 
-#include "D3D.h"
 #include "Level.h"
-#include "GeometryBuilder.h"
-#include "CommonStates.h"
 
 using namespace std;
 using namespace DirectX;
@@ -113,6 +106,10 @@ Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, f
 
 	case Tile::TileType::eEmpty:
 		return new Tile(type, x, y, width, pad, anch, true, true);
+		break;
+
+	case Tile::TileType::ePickup:
+		return new TilePickup(type, x, y, width, pad, anch, false, true);
 		break;
 	}
 }

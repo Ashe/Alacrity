@@ -1,7 +1,6 @@
 #ifndef TILEFLOOR_H
 #define TILEFLOOR_H
 
-
 #include "Tile.h"
 #include "D3D.h"
 
@@ -17,12 +16,11 @@ public:
 	TileFloor(const TileType& type, int x, int y, float width, float pad, const Vector3& anch, bool isHidden = false, bool isTraverseable = false)
 		:Tile(type, x, y, width, pad, anch, isHidden, isTraverseable) {}
 
-	void Render(float dTime, float zAdjust = 0, bool setInsteadOfAdd = false) override;
 	void Initialise(Mesh& tileMesh) override;
 	void Update(float dTime) override;
+	void Render(float dTime, float zAdjust = 0, bool setInsteadOfAdd = false) override;
 
 	void killTile() override;
-
 
 private:
 	enum DestroyStatus

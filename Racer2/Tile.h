@@ -7,6 +7,7 @@
 #include "Mesh.h"
 #include "Model.h"
 #include "FX.h"
+#include "D3D.h"
 
 using namespace std;
 using namespace DirectX;
@@ -19,7 +20,7 @@ public:
 
 	enum TileType
 	{
-		eEmpty, eBasic
+		eEmpty, eBasic, ePickup
 	};
 
 	//start up and shut down

@@ -3,6 +3,10 @@
 
 #include "Tile.h"
 #include "TileFloor.h"
+#include "TilePickup.h"
+
+#include "D3D.h"
+#include "GeometryBuilder.h"
 
 using namespace std;
 using namespace DirectX;

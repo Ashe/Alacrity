@@ -1,14 +1,8 @@
 #include "TileFloor.h"
 
-using namespace std;
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 void TileFloor::Initialise(Mesh& tileMesh)
 {
-	tile.Initialise(tileMesh);
-
-	mFX.Init(gd3dDevice);
+	Tile::Initialise(tileMesh);
 
 	destroyStatus = stable;
 

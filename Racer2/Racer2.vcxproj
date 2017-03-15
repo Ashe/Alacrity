@@ -114,6 +114,7 @@
     <ClCompile Include="ShaderTypes.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileFloor.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UtilsDefines.cpp" />
     <ClCompile Include="WindowUtils.cpp" />
   </ItemGroup>
@@ -127,6 +128,7 @@
     <ClInclude Include="FX.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GeometryBuilder.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="LevelMGR.h" />

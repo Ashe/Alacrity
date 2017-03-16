@@ -10,6 +10,7 @@
 #include "SpriteFont.h"
 #include "Input.h"
 #include "LevelMGR.h"
+#include "Player.h"
 #include "UserInterface.h"
 
 //wrap up common behaviors, initialization+shutdown
@@ -50,6 +51,8 @@ private:
 	Game& operator=(const Game&) = delete;
 	Game(const Game& m) = delete;
 
+	Player player;
+
 	//load meshes
 	void Load();
 	//display a message
@@ -74,7 +77,6 @@ private:
 	};
 	LoadData mLoadData;
 	MouseAndKeys mMKInput;
-	Gamepad mGamepad;
 	UserInterface mUI;
 };
 

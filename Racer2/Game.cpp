@@ -79,6 +79,8 @@ void Game::Initialise()
 {
 	mFX.Init(gd3dDevice);
 	levelMGR.Initialise();
+	Mesh& playerMesh = BuildPyramid(mMeshMgr);
+	player.Initialise(playerMesh, &levelMGR, &mMKInput);
 
 	FX::SetupDirectionalLight(0, true, Vector3(-0.7f, -0.7f, -0.7f), Vector3(0.9f, 0.85f, 0.85f), Vector3(0.1f, 0.1f, 0.1f), Vector3(1, 1, 1));
 
@@ -97,14 +99,13 @@ void Game::Initialise()
 	mLoadData.running = true;
 	mLoadData.loader = std::async(launch::async, &Game::Load, this);
 
-
 	mMKInput.Initialise(GetMainWnd());
-	mGamepad.Initialise();
 }
 
 void Game::Release()
 {
 	levelMGR.Release();
+	player.Release();
 
 	mFX.Release();
 	mMeshMgr.Release();
@@ -119,32 +120,13 @@ void Game::Release()
 
 void Game::Update(float dTime)
 {
-	mGamepad.Update();
 	GetIAudioMgr()->Update();
 
 	levelMGR.Update(dTime);
-
-	const float camInc = 10.f * dTime;
-
-	if (mMKInput.IsPressed(VK_A))
-			mCamPos.y += camInc;
-	else if(mMKInput.IsPressed(VK_Z))
-			mCamPos.y -= camInc;
-	else if (mMKInput.IsPressed(VK_D))
-			mCamPos.x -= camInc;
-	else if (mMKInput.IsPressed(VK_F))
-			mCamPos.x += camInc;
-	else if (mMKInput.IsPressed(VK_W))
-			mCamPos.z += camInc;
-	else if (mMKInput.IsPressed(VK_S))
-			mCamPos.z -= camInc;
+	player.Update(dTime);
 
 	if (mLoadData.running)
 		return;
-
-	mCamPos.x += mGamepad.GetState(0).leftStickX * dTime;
-	mCamPos.z += mGamepad.GetState(0).leftStickY * dTime;
-	mCamPos.y += mGamepad.GetState(0).rightStickY * dTime;
 }
 
 
@@ -165,6 +147,8 @@ void Game::Render(float dTime)
 	BeginRender(Colours::Black);
 
 	levelMGR.Render(dTime);
+
+	player.Render(dTime);
 
 	FX::SetPerFrameConsts(gd3dImmediateContext, mCamPos);
 

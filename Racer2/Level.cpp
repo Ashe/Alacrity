@@ -118,7 +118,7 @@ TileFloor* Level::createFloorTile(const Tile::TileType& type, int x, int y, floa
 {
 	switch (type) {
 	default:
-		return new TileFloor(type, x, y, width, pad, anch);
+		return new TileFloor(type, x, y, width, pad, anch, false, true);
 		break;
 	}
 }
@@ -154,5 +154,6 @@ Vector2 Level::getCellFromCoords(const Vector3& pos)
 
 Vector3 Level::getCoordsFromCell(const Vector2& cell, const Vector3& prevPos)
 {
+	// TEST
 	return Vector3(cell.x * (tileWidth + tilePadding) + anchorPos.x, cell.y * (tileWidth + tilePadding) + anchorPos.y, prevPos.z);
 }

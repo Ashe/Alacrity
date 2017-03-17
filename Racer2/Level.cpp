@@ -128,32 +128,42 @@ Vector3 Level::move(const Vector3& pos, const Vector2& dir, bool& success)
 	const Vector2 pPos = getCellFromCoords(pos);
 	const Vector2 newPos = pPos + dir;
 
-	// 'Bump' lets the new tile know that the player wishes to move there, while returning if it's possible
-	success = level[newPos.x][newPos.y]->bump() && floor[newPos.x][newPos.y]->bump();
+	success = (newPos.x >= 0 && newPos.x < cellDim && newPos.y >= 0 && newPos.y < cellDim);
+	if (success)
+	{
+		// 'Bump' lets the new tile know that the player wishes to move there, while returning if it's possible
+		success = level[newPos.x][newPos.y]->bump() && floor[newPos.x][newPos.y]->bump();
 
-	if (success) {
+		if (success) {
+			// Move off of the previous tile and floor
+			floor[pPos.x][pPos.y]->moveOff();
+			level[pPos.x][pPos.y]->moveOff();
 
-		// Move off of the previous tile and floor
-		floor[pPos.x][pPos.y]->moveOff();
-		level[pPos.x][pPos.y]->moveOff();
+			// Call any important functions for moving onto a new tile
+			floor[newPos.x][newPos.y]->moveOn();
+			level[newPos.x][newPos.y]->moveOn();
 
-		// Call any important functions for moving onto a new tile
-		floor[newPos.x][newPos.y]->moveOn();
-		level[newPos.x][newPos.y]->moveOn();
-
-		return getCoordsFromCell(newPos, pos);
+			return getCoordsFromCell(newPos, pos);
+		}
+		else
+			return pos;
 	}
 	else
 		return pos;
 }
 
+float Level::getZOfTile(const Vector3 & pos)
+{
+	Vector2 location = getCellFromCoords(pos);
+	return floor[location.x][location.y]->getPosition().z;
+}
+
 Vector2 Level::getCellFromCoords(const Vector3& pos)
 {
-	return Vector2((pos.x - anchorPos.x) / (tileWidth + tilePadding), (pos.y - anchorPos.y) / (tileWidth + tilePadding));
+	return Vector2((pos.y - anchorPos.x) / (tileWidth + tilePadding), (pos.x - anchorPos.y) / (tileWidth + tilePadding));
 }
 
 Vector3 Level::getCoordsFromCell(const Vector2& cell, const Vector3& prevPos)
 {
-	// TEST
-	return Vector3(cell.x * (tileWidth + tilePadding) + anchorPos.x, cell.y * (tileWidth + tilePadding) + anchorPos.y, prevPos.z);
+	return Vector3(cell.y * (tileWidth + tilePadding) + anchorPos.x, cell.x * (tileWidth + tilePadding) + anchorPos.y, prevPos.z);
 }

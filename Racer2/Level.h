@@ -41,6 +41,7 @@ public:
 
 	// player interaction
 	Vector3 move(const Vector3& pos, const Vector2& dir, bool& success);
+	float getZOfTile(const Vector3& pos);
 
 	void Release();
 

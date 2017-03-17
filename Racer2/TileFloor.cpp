@@ -5,11 +5,6 @@ void TileFloor::Initialise(Mesh& tileMesh)
 	Tile::Initialise(tileMesh);
 
 	destroyStatus = stable;
-
-	// DEBUG
-	if (getCellX() == 0 && getCellY() == 0)
-		killTile();
-
 }
 
 void TileFloor::Update(float dTime) {

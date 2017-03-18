@@ -12,6 +12,7 @@
 #include "LevelMGR.h"
 #include "Player.h"
 #include "UserInterface.h"
+#include "Timer.h"
 
 //wrap up common behaviors, initialization+shutdown
 class Game
@@ -78,6 +79,7 @@ private:
 	LoadData mLoadData;
 	MouseAndKeys mMKInput;
 	UserInterface mUI;
+	Timer mGameTimer;
 };
 
 #endif

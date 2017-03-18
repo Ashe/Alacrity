@@ -39,6 +39,9 @@ public:
 	//handy rendering state
 	FX::MyFX mFX;
 
+	//Number of pickups on current level
+	int getPickupNo() const;
+
 private:
 
 	struct levelTemplate
@@ -58,6 +61,7 @@ private:
 
 	Level level;
 
+	int pickupNo_;
 };
 
 #endif

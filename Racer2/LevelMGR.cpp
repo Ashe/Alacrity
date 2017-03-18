@@ -82,6 +82,7 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 				{Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic}
 
 			};
+		
 
 			break;
 		}
@@ -92,4 +93,9 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 
 int LevelMGR::getLayoutDim(int levelNo) {
 	return 0;
+}
+
+int LevelMGR::getPickupNo() const
+{
+	return level.getPickupNo();
 }

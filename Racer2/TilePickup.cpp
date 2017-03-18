@@ -41,3 +41,9 @@ void TilePickup::collect()
 	isCollected = true;
 	setHidden(true);
 }
+
+
+bool TilePickup::getCollected() const
+{
+	return isCollected;
+}

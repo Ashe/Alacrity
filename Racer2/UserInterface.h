@@ -16,7 +16,7 @@ public:
 	UserInterface() {}
 	~UserInterface() {}
 	void Initialise();
-	void DisplayMessage(float dTime);
+	void DisplayMessage(string& message, float timer, int currentPickUps, int pickupTotal);
 	void Release();
 private:
 	string mMessage;

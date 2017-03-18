@@ -18,7 +18,7 @@ class Level
 public:
 	//start up and shut down
 	Level(const MeshManager& meshMGR, const Vector3& anch, const float width)
-		: mMeshMgr(meshMGR), anchorPos(anch), tileWidth(width)
+		: mMeshMgr(meshMGR), anchorPos(anch), tileWidth(width), pickupNo_(0)
 	{
 		Load(meshMGR);
 	}
@@ -48,7 +48,13 @@ public:
 	//handy rendering state
 	FX::MyFX mFX;
 
+
+	//Number of pickups on current level
+	int getPickupNo() const;
+
 private:
+	int pickupNo_;
+	int collectedNo_;
 	const Vector3 anchorPos;
 	const float tileWidth;
 
@@ -79,6 +85,10 @@ private:
 	Vector3 getCoordsFromCell(const Vector2& cell, const Vector3& prevPos);
 
 
+	//Count number of pickups on current level
+	void countPickups(const Tile::TileType& layout);
+	void countCollectedPickups(const TilePickup& pickup);
+	
 };
 
 #endif

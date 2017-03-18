@@ -12,6 +12,7 @@ void Level::OnResize(int screenWidth, int screenHeight)
 
 void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float padding, int dim)
 {
+	pickupNo_ = 0;
 	mFX.Init(gd3dDevice);
 
 	// Set level specific params
@@ -37,6 +38,8 @@ void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float paddin
 			// Create and initialise a tile given in the layout, created in the levelMGR
 			tempLevel.push_back(createTile(layout[i][j],j, i, tileWidth,tilePadding,anchorPos));
 			tempLevel[j]->Initialise(cubeMesh);// meshArray[layout[i][j]]);
+
+			countPickups(layout[i][j]);
 		}
 
 		// Add the row of tiles to the level's storage and repeat
@@ -166,4 +169,21 @@ Vector2 Level::getCellFromCoords(const Vector3& pos)
 Vector3 Level::getCoordsFromCell(const Vector2& cell, const Vector3& prevPos)
 {
 	return Vector3(cell.y * (tileWidth + tilePadding) + anchorPos.x, cell.x * (tileWidth + tilePadding) + anchorPos.y, prevPos.z);
+}
+
+int Level::getPickupNo() const
+{
+	return pickupNo_;
+}
+
+void Level::countPickups(const Tile::TileType& layout){
+	if (layout == Tile::ePickup){
+		pickupNo_++;
+	}
+}
+
+void Level::countCollectedPickups(const TilePickup& pickup){
+	if (pickup.getCollected()){
+		collectedNo_++;
+	}
 }

@@ -9,7 +9,7 @@ public:
 	//constructors
 	Timer(float time = 30.0f) : mTotalTime(time), mCurrentTime(mTotalTime), mCountdown(false) {
 	}
-	~Timer();
+	~Timer(){}
 	//update functions
 	void startTimer();				//start countdown of timer
 	void pauseTimer();				//pause countdown of timer

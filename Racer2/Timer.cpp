@@ -16,8 +16,10 @@ void Timer::setTimer(float time){
 }
 
 void Timer::updateTimer(float dtime){
-	if (mCountdown)
-		mCurrentTime -= dtime * 0.1;
+	if (mCountdown && mCurrentTime > 0)
+		mCurrentTime -= dtime;
+	if (mCurrentTime < 0)
+		mCurrentTime = 0.0;
 }
 
 float Timer::getTimer() const{

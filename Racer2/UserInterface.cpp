@@ -18,12 +18,21 @@ void UserInterface::Initialise(){
 	assert(mpFont);
 }
 
-void UserInterface::DisplayMessage(float dTime){
+void UserInterface::DisplayMessage(string& message, float timer, int currentPickUps, int pickupTotal){
 	mpSpriteBatch->Begin();
 
-	wstringstream ss;
-	ss << "HELLO!";
-	mpFont->DrawString(mpSpriteBatch, ss.str().c_str(), Vector2(10, 550), Colours::White, 0, Vector2(0, 0), Vector2(0.5f, 0.5f));
+	wstringstream ssMessage;
+	ssMessage << message.c_str();
+	mpFont->DrawString(mpSpriteBatch, ssMessage.str().c_str(), Vector2(10, 550), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+
+
+	wstringstream ssTimer;
+	ssTimer << timer;
+	mpFont->DrawString(mpSpriteBatch, ssTimer.str().c_str(), Vector2(10, 570), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+
+	wstringstream ssPickUps;
+	ssPickUps << currentPickUps << "/" << pickupTotal << " pick ups!";
+	mpFont->DrawString(mpSpriteBatch, ssPickUps.str().c_str(), Vector2(10, 590), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 	mpSpriteBatch->End();
 }

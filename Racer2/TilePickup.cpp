@@ -40,10 +40,11 @@ void TilePickup::collect()
 {
 	isCollected = true;
 	setHidden(true);
+	setChecked(false);
 }
-
 
 bool TilePickup::getCollected() const
 {
 	return isCollected;
 }
+

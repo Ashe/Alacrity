@@ -13,6 +13,7 @@ void Level::OnResize(int screenWidth, int screenHeight)
 void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float padding, int dim)
 {
 	pickupNo_ = 0;
+
 	mFX.Init(gd3dDevice);
 
 	// Set level specific params
@@ -67,6 +68,10 @@ void Level::Update(float dTime)
 		for (int j = 0; j < cellDim; j++) {
 			floor[i][j]->Update(dTime);  
 			level[i][j]->Update(dTime);
+			if (level[i][j]->getCollected() && !level[i][j]->getChecked()){
+				level[i][j]->setChecked(true);
+				collectedNo_++;
+			}
 		}
 }
 
@@ -176,14 +181,14 @@ int Level::getPickupNo() const
 	return pickupNo_;
 }
 
+int Level::getCollectedNo() const
+{
+	return collectedNo_;
+}
+
 void Level::countPickups(const Tile::TileType& layout){
 	if (layout == Tile::ePickup){
 		pickupNo_++;
 	}
 }
 
-void Level::countCollectedPickups(const TilePickup& pickup){
-	if (pickup.getCollected()){
-		collectedNo_++;
-	}
-}

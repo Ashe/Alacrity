@@ -99,3 +99,8 @@ int LevelMGR::getPickupNo() const
 {
 	return level.getPickupNo();
 }
+
+int LevelMGR::getCollectedNo() const
+{
+	return level.getCollectedNo();
+}

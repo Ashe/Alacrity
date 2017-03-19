@@ -176,7 +176,7 @@ void Game::Render(float dTime)
 
 	//mpSpriteBatch->End();
 	string message = "This is a game message sent to UI";
-	mUI.DisplayMessage(message, mGameTimer.getTimer(), 0, levelMGR.getPickupNo());
+	mUI.DisplayMessage(message, mGameTimer.getTimer(), levelMGR.getCollectedNo(), levelMGR.getPickupNo());
 
 	EndRender();
 

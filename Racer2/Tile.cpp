@@ -136,3 +136,15 @@ void Tile::addDisplacement(const Vector3& disp) {
 void Tile::resetDisplacement() {
 	adjustVector = { 0, 0, 0 };
 }
+
+bool Tile::getCollected() const
+{
+	return false;
+}
+
+void Tile::setChecked(bool b) {
+	checked_ = b;
+}
+bool Tile::getChecked() const{
+	return checked_;
+}

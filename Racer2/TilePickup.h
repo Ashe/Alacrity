@@ -17,8 +17,8 @@ public:
 	void moveOn() override;
 	void moveOff() override;
 
-	//return if tile is collected
-	bool getCollected() const;
+	bool getCollected() const override;
+	
 
 private:
 

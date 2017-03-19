@@ -51,6 +51,7 @@ public:
 
 	//Number of pickups on current level
 	int getPickupNo() const;
+	int getCollectedNo() const;
 
 private:
 	int pickupNo_;
@@ -87,7 +88,7 @@ private:
 
 	//Count number of pickups on current level
 	void countPickups(const Tile::TileType& layout);
-	void countCollectedPickups(const TilePickup& pickup);
+	
 	
 };
 

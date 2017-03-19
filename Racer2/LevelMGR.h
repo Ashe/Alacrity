@@ -41,6 +41,7 @@ public:
 
 	//Number of pickups on current level
 	int getPickupNo() const;
+	int getCollectedNo() const;
 
 private:
 

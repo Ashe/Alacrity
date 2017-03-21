@@ -12,8 +12,8 @@ void Player::Initialise(Mesh& playerMesh, LevelMGR* levelPointer, MouseAndKeys* 
 	mFX.Init(gd3dDevice);
 
 	player.Initialise(playerMesh);
-	player.GetPosition() = Vector3(0, 0, 2);
-	adjustVector = { 0, 0, 2 };
+	player.GetPosition() = levelPointer->getStartingPosition();
+	adjustVector = player.GetPosition();
 	levelManager = levelPointer;
 	mMKInput = mMKPointer;
 }

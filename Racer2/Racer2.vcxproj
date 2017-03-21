@@ -116,6 +116,7 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileFloor.cpp" />
     <ClCompile Include="TilePickup.cpp" />
+    <ClCompile Include="TileStart.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="UtilsDefines.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="GeometryBuilder.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TilePickup.h" />
+    <ClInclude Include="TileStart.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Input.h" />

@@ -15,7 +15,6 @@ using namespace DirectX::SimpleMath;
 
 void Game::OnResize(int screenWidth, int screenHeight)
 {
-	
 	OnResize_Default(screenWidth, screenHeight);
 }
 

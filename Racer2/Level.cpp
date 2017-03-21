@@ -123,6 +123,10 @@ Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, f
 	case Tile::TileType::ePickup:
 		return new TilePickup(type, x, y, width, pad, anch, false, true);
 		break;
+
+	case Tile::TileType::eStart:
+		return new TileStart(type, x, y, width, pad, anch, false, true);
+		break;
 	}
 }
 
@@ -164,18 +168,31 @@ Vector3 Level::move(const Vector3& pos, const Vector2& dir, bool& success)
 		return pos;
 }
 
+Vector3 Level::getStartingPosition() const
+{
+	for (int i = 0; i < cellDim; i++)
+	{
+		for (int j = 0; j < cellDim; j++)
+			if (level[i][j]->getTileType() == Tile::eStart)
+				return getCoordsFromCell(Vector2(i, j));
+	}
+
+	// If this function gets this far, there is no starting tile and MUST be fixed
+	assert(false);
+}
+
 float Level::getZOfTile(const Vector3 & pos)
 {
 	Vector2 location = getCellFromCoords(pos);
 	return floor[location.x][location.y]->getPosition().z;
 }
 
-Vector2 Level::getCellFromCoords(const Vector3& pos)
+Vector2 Level::getCellFromCoords(const Vector3& pos) const
 {
 	return Vector2((pos.y - anchorPos.x) / (tileWidth + tilePadding), (pos.x - anchorPos.y) / (tileWidth + tilePadding));
 }
 
-Vector3 Level::getCoordsFromCell(const Vector2& cell, const Vector3& prevPos)
+Vector3 Level::getCoordsFromCell(const Vector2& cell, const Vector3& prevPos) const
 {
 	return Vector3(cell.y * (tileWidth + tilePadding) + anchorPos.x, cell.x * (tileWidth + tilePadding) + anchorPos.y, prevPos.z);
 }
@@ -194,5 +211,17 @@ void Level::countPickups(const Tile::TileType& layout){
 	if (layout == Tile::ePickup){
 		pickupNo_++;
 	}
+}
+
+bool Level::getLevelStarted() const
+{
+	for (int i = 0; i < cellDim; i++)
+	{
+		for (int j = 0; j < cellDim; j++)
+			if (level[i][j]->getTileType() == Tile::eStart)
+				return level[i][j]->getInfo();
+	}
+
+	return false;
 }
 

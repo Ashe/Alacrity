@@ -4,6 +4,7 @@
 #include "Tile.h"
 #include "TileFloor.h"
 #include "TilePickup.h"
+#include "TileStart.h"
 
 #include "D3D.h"
 #include "GeometryBuilder.h"
@@ -41,6 +42,7 @@ public:
 
 	// player interaction
 	Vector3 move(const Vector3& pos, const Vector2& dir, bool& success);
+	Vector3 getStartingPosition() const;
 	float getZOfTile(const Vector3& pos);
 
 	void Release();
@@ -82,12 +84,14 @@ private:
 	TileFloor* createFloorTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch);
 
 	// Locating functions
-	Vector2 getCellFromCoords(const Vector3& pos);
-	Vector3 getCoordsFromCell(const Vector2& cell, const Vector3& prevPos);
+	Vector2 getCellFromCoords(const Vector3& pos) const;
+	Vector3 getCoordsFromCell(const Vector2& cell, const Vector3& prevPos = Vector3(0, 0, 0)) const;
 
 	//Count number of pickups on current level
 	void countPickups(const Tile::TileType& layout);
 	
+	// Gets whether the level has started
+	bool getLevelStarted() const;
 	
 };
 

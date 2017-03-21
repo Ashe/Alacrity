@@ -11,10 +11,8 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-
 void LevelMGR::OnResize(int screenWidth, int screenHeight)
 {
-
 	OnResize_Default(screenWidth, screenHeight);
 }
 
@@ -52,6 +50,11 @@ Vector3 LevelMGR::move(const Vector3& pos, const Vector2& dir, bool& success)
 	return level.move(pos, dir, success);
 }
 
+Vector3 LevelMGR::getStartingPosition() const
+{
+	return level.getStartingPosition();
+}
+
 float LevelMGR::getZOfTile(const Vector3 & pos)
 {
 	return level.getZOfTile(pos);
@@ -73,7 +76,7 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 				{Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
 				{Tile::ePickup, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
 				{Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
-				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eStart, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
 				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
 				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
 				{Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
@@ -103,4 +106,9 @@ int LevelMGR::getPickupNo() const
 int LevelMGR::getCollectedNo() const
 {
 	return level.getCollectedNo();
+}
+
+bool LevelMGR::getLevelStarted() const
+{
+	return level.getLevelStarted();
 }

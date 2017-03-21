@@ -55,6 +55,9 @@ public:
 	int getPickupNo() const;
 	int getCollectedNo() const;
 
+	// Gets whether the level has started
+	bool getLevelStarted() const;
+
 private:
 	int pickupNo_;
 	int collectedNo_;
@@ -90,8 +93,6 @@ private:
 	//Count number of pickups on current level
 	void countPickups(const Tile::TileType& layout);
 	
-	// Gets whether the level has started
-	bool getLevelStarted() const;
 	
 };
 

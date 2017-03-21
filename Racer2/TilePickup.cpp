@@ -8,16 +8,12 @@ void TilePickup::Initialise(Mesh & tileMesh)
 	isCollected = false;
 }
 
-void TilePickup::Update(float dTime)
-{
-}
-
 void TilePickup::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 {
 	spinAngle += dTime;
 
 	Tile::Render(dTime, zAdjust, setInsteadOfAdd);
-	tile.GetRotation() = Vector3(PI / 4, 0, spinAngle);
+	tile.GetRotation() = Vector3(PI / 4, PI / 4, spinAngle);
 	tile.GetScale() = Vector3(0.5, 0.5, 0.5);
 }
 

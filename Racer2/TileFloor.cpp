@@ -7,7 +7,11 @@ void TileFloor::Initialise(Mesh& tileMesh)
 	destroyStatus = stable;
 }
 
-void TileFloor::Update(float dTime) {
+void TileFloor::Update(float dTime, float newPadding) {
+
+	Tile::Update(dTime, newPadding);
+
+
 	switch (destroyStatus) {
 		case stable:
 			// A happy floor tile

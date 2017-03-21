@@ -8,22 +8,9 @@ void TileStart::Initialise(Mesh& tileMesh)
 	safe = true;
 }
 
-void TileStart::Update(float dTime)
-{
-}
-
 void TileStart::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 {
 	Tile::Render(dTime, zAdjust, setInsteadOfAdd);
-}
-
-bool TileStart::bump()
-{
-	return true;
-}
-
-void TileStart::moveOn()
-{
 }
 
 void TileStart::moveOff()

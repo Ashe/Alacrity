@@ -20,9 +20,10 @@ void Tile::Release()
 	// DELETE DYNAMICALLY ALLOCATED MEMORY (somehow)
 }
 
-void Tile::Update(float dTime)
+void Tile::Update(float dTime, float newPadding)
 {
-
+	if (newPadding > 0)
+		padding = newPadding;
 }
 
 

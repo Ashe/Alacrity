@@ -9,7 +9,6 @@ public:
 		:Tile(type, x, y, width, pad, anch, isHidden, isTraverseable) {};
 
 	void Initialise(Mesh& tileMesh) override;
-	void Update(float dTime) override;
 	void Render(float dTime, float zAdjust = 0, bool setInsteadOfAdd = false) override;
 
 	// movement functions

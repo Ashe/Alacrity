@@ -114,6 +114,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ShaderTypes.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileEnd.cpp" />
     <ClCompile Include="TileFloor.cpp" />
     <ClCompile Include="TilePickup.cpp" />
     <ClCompile Include="TileStart.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GeometryBuilder.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="TileEnd.h" />
     <ClInclude Include="TilePickup.h" />
     <ClInclude Include="TileStart.h" />
     <ClInclude Include="Timer.h" />

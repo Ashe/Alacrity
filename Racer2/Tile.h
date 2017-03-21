@@ -20,7 +20,7 @@ public:
 
 	enum TileType
 	{
-		eEmpty, eBasic, eStart, ePickup
+		eEmpty, eBasic, eStart, eEnd, ePickup
 	};
 
 	//start up and shut down
@@ -32,7 +32,7 @@ public:
 	}	
 	
 	//game logic, called constantly, elapsed time passed in
-	virtual void Update(float dTime);
+	virtual void Update(float dTime, float newPadding = -1);
 
 	//render images, called constantly, elapsed time passed in
 	virtual void Render(float dTime, float zAdjust = 0, bool setInsteadOfAdd = false);

@@ -99,6 +99,9 @@
     <ClCompile Include="TileStart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TileEnd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -174,6 +177,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TileStart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileEnd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

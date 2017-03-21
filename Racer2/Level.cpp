@@ -19,6 +19,11 @@ void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float paddin
 	// Set level specific params
 	cellDim = dim;
 	tilePadding = padding;
+	additionalPadding = 0;
+
+	levelReadyToPlay = true;
+	playerInPlay = false;
+	playerReachedGoal = false;
 
 	floor.empty();
 	level.empty();
@@ -64,21 +69,12 @@ void Level::Release()
 
 void Level::Update(float dTime)
 {
-	// Re-counting whether something is collected
-	collectedNo_ = 0;
-
 	for (int i = 0; i < cellDim; i++)
 		for (int j = 0; j < cellDim; j++) {
-			floor[i][j]->Update(dTime);  
-			level[i][j]->Update(dTime);
-
-			// Count how many pickups have been collected
-			if (level[i][j]->getTileType() == Tile::ePickup && level[i][j]->getInfo()){
-				collectedNo_++;
-			}
+			floor[i][j]->Update(dTime, tilePadding);  
+			level[i][j]->Update(dTime, tilePadding);
 		}
 }
-
 
 void Level::Render(float dTime)
 {
@@ -127,6 +123,9 @@ Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, f
 	case Tile::TileType::eStart:
 		return new TileStart(type, x, y, width, pad, anch, false, true);
 		break;
+
+	case Tile::TileType::eEnd:
+		return new TileEnd(type, x, y, width, pad, anch, false, true);
 	}
 }
 
@@ -141,25 +140,33 @@ TileFloor* Level::createFloorTile(const Tile::TileType& type, int x, int y, floa
 
 Vector3 Level::move(const Vector3& pos, const Vector2& dir, bool& success)
 {
-	const Vector2 pPos = getCellFromCoords(pos);
-	const Vector2 newPos = pPos + dir;
-
-	success = (newPos.x >= 0 && newPos.x < cellDim && newPos.y >= 0 && newPos.y < cellDim);
-	if (success)
+	if (levelReadyToPlay)
 	{
-		// 'Bump' lets the new tile know that the player wishes to move there, while returning if it's possible
-		success = level[newPos.x][newPos.y]->bump() && floor[newPos.x][newPos.y]->bump();
+		const Vector2 pPos = getCellFromCoords(pos);
+		const Vector2 newPos = pPos + dir;
 
-		if (success) {
-			// Move off of the previous tile and floor
-			floor[pPos.x][pPos.y]->moveOff();
-			level[pPos.x][pPos.y]->moveOff();
+		success = (newPos.x >= 0 && newPos.x < cellDim && newPos.y >= 0 && newPos.y < cellDim);
+		if (success)
+		{
+			// 'Bump' lets the new tile know that the player wishes to move there, while returning if it's possible
+			success = level[newPos.x][newPos.y]->bump() && floor[newPos.x][newPos.y]->bump();
 
-			// Call any important functions for moving onto a new tile
-			floor[newPos.x][newPos.y]->moveOn();
-			level[newPos.x][newPos.y]->moveOn();
+			if (success) {
+				// Move off of the previous tile and floor
+				floor[pPos.x][pPos.y]->moveOff();
+				level[pPos.x][pPos.y]->moveOff();
 
-			return getCoordsFromCell(newPos, pos);
+				// Call any important functions for moving onto a new tile
+				floor[newPos.x][newPos.y]->moveOn();
+				level[newPos.x][newPos.y]->moveOn();
+
+				// Check the state of the game
+				checkLevel();
+
+				return getCoordsFromCell(newPos, pos);
+			}
+			else
+				return pos;
 		}
 		else
 			return pos;
@@ -184,7 +191,7 @@ Vector3 Level::getStartingPosition() const
 float Level::getZOfTile(const Vector3 & pos)
 {
 	Vector2 location = getCellFromCoords(pos);
-	return floor[location.x][location.y]->getPosition().z;
+	return floor[location.x][location.y]->getPosition().z + tilePadding;
 }
 
 Vector2 Level::getCellFromCoords(const Vector3& pos) const
@@ -213,15 +220,39 @@ void Level::countPickups(const Tile::TileType& layout){
 	}
 }
 
+void Level::checkLevel()
+{
+	collectedNo_ = 0;
+
+	for (int i = 0; i < cellDim; i++)
+		for (int j = 0; j < cellDim; j++) {
+			checkTile(level[i][j]);
+		}
+}
+
+void Level::checkTile(Tile* tile)
+{
+	// Count how many pickups have been collected
+	if (tile->getTileType() == Tile::ePickup && tile->getInfo()) {
+		collectedNo_++;
+	}
+	// Check if the player has begun the level
+	else if (tile->getTileType() == Tile::eStart) {
+		playerInPlay = tile->getInfo();
+	}
+	// Check if the player has reached the end
+	else if (tile->getTileType() == Tile::eEnd) {
+		playerReachedGoal = tile->getInfo();
+	}
+}
+
 bool Level::getLevelStarted() const
 {
-	for (int i = 0; i < cellDim; i++)
-	{
-		for (int j = 0; j < cellDim; j++)
-			if (level[i][j]->getTileType() == Tile::eStart)
-				return level[i][j]->getInfo();
-	}
+	return playerInPlay;
+}
 
-	return false;
+bool Level::getLevelEnded() const
+{
+	return playerReachedGoal;
 }
 

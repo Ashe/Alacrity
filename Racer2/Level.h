@@ -5,6 +5,7 @@
 #include "TileFloor.h"
 #include "TilePickup.h"
 #include "TileStart.h"
+#include "TileEnd.h"
 
 #include "D3D.h"
 #include "GeometryBuilder.h"
@@ -55,8 +56,9 @@ public:
 	int getPickupNo() const;
 	int getCollectedNo() const;
 
-	// Gets whether the level has started
+	// Gets whether the level has started/ended
 	bool getLevelStarted() const;
+	bool getLevelEnded() const;
 
 private:
 	int pickupNo_;
@@ -64,8 +66,13 @@ private:
 	const Vector3 anchorPos;
 	const float tileWidth;
 
+	bool levelReadyToPlay;
+	bool playerInPlay;
+	bool playerReachedGoal;
+
 	int cellDim;
 	float tilePadding;
+	float additionalPadding;
 
 	float waveEffect;
 	bool waveLevel;
@@ -92,6 +99,10 @@ private:
 
 	//Count number of pickups on current level
 	void countPickups(const Tile::TileType& layout);
+
+	// Stat updating
+	void checkLevel();
+	void checkTile(Tile* tile);
 	
 	
 };

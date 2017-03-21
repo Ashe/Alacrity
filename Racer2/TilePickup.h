@@ -17,8 +17,8 @@ public:
 	void moveOn() override;
 	void moveOff() override;
 
-	bool getCollected() const override;
-	
+	bool getCollected() const;
+	int getInfo() const override;
 
 private:
 

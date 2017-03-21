@@ -36,11 +36,15 @@ void TilePickup::moveOff()
 {
 }
 
+int TilePickup::getInfo() const
+{
+	return getCollected();
+}
+
 void TilePickup::collect()
 {
 	isCollected = true;
 	setHidden(true);
-	setChecked(false);
 }
 
 bool TilePickup::getCollected() const

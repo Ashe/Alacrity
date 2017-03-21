@@ -137,14 +137,7 @@ void Tile::resetDisplacement() {
 	adjustVector = { 0, 0, 0 };
 }
 
-bool Tile::getCollected() const
+int Tile::getInfo() const
 {
-	return false;
-}
-
-void Tile::setChecked(bool b) {
-	checked_ = b;
-}
-bool Tile::getChecked() const{
-	return checked_;
+	return 0;
 }

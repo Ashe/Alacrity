@@ -3,13 +3,14 @@
 
 #include "Level.h"
 #include "Tile.h"
+#include "Singleton.h"
 
 using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 //wrap up common behaviors, initialization+shutdown
-class LevelMGR
+class LevelMGR : public Singleton<LevelMGR>
 {
 public:
 	//start up and shut down
@@ -64,5 +65,5 @@ private:
 
 	int pickupNo_;
 };
-
+SINGLETON_GET(LevelMGR);
 #endif

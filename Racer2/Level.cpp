@@ -64,12 +64,16 @@ void Level::Release()
 
 void Level::Update(float dTime)
 {
+	// Re-counting whether something is collected
+	collectedNo_ = 0;
+
 	for (int i = 0; i < cellDim; i++)
 		for (int j = 0; j < cellDim; j++) {
 			floor[i][j]->Update(dTime);  
 			level[i][j]->Update(dTime);
-			if (level[i][j]->getCollected() && !level[i][j]->getChecked()){
-				level[i][j]->setChecked(true);
+
+			// Count how many pickups have been collected
+			if (level[i][j]->getTileType() == Tile::ePickup && level[i][j]->getInfo()){
 				collectedNo_++;
 			}
 		}

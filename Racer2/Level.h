@@ -85,7 +85,6 @@ private:
 	Vector2 getCellFromCoords(const Vector3& pos);
 	Vector3 getCoordsFromCell(const Vector2& cell, const Vector3& prevPos);
 
-
 	//Count number of pickups on current level
 	void countPickups(const Tile::TileType& layout);
 	

@@ -64,10 +64,8 @@ public:
 
 	TileType getTileType();
 	bool getHidden() const;
-	bool getChecked() const;
-	virtual bool getCollected() const;
+	virtual int getInfo() const;
 	void setHidden(bool b);
-	void setChecked(bool b);
 	bool getTraverseable() const;
 	void setTraverseable(bool b);
 
@@ -80,14 +78,11 @@ public:
 	virtual void moveOff();
 
 	//return if tile is collected
-	
-	
 
 private:
 
 	const TileType tileType;
 	bool traverseable;
-	bool checked_;
 	// attributes for positioning
 	const int cellX;
 	const int cellY;

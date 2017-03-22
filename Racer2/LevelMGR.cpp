@@ -29,6 +29,10 @@ void LevelMGR::Release()
 void LevelMGR::Update(float dTime)
 {
 	level.Update(dTime);
+	if (level.getLevelSwitch())
+	{
+		changeLevel(0);
+	}
 }
 
 
@@ -55,9 +59,9 @@ Vector3 LevelMGR::getStartingPosition() const
 	return level.getStartingPosition();
 }
 
-float LevelMGR::getZOfTile(const Vector3 & pos)
+Vector3 LevelMGR::getCurrentLocationOfTile(const Vector3 & pos)
 {
-	return level.getZOfTile(pos);
+	return level.getCurrentLocationOfTile(pos);
 }
 
 LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {

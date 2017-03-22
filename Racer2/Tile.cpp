@@ -33,13 +33,13 @@ void Tile::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 	{
 		mFX.Render(tile, gd3dImmediateContext);
 
-		tile.GetPosition().x = anchor.x + cellX * (cellWidth + padding);
-		tile.GetPosition().y = anchor.y + cellY * (cellWidth + padding);
+		tile.GetPosition().x = anchor.x + (cellX - 5) * (cellWidth + padding);
+		tile.GetPosition().y = anchor.y + (cellY - 5) * (cellWidth + padding);
 
 		if (!setInsteadOfAdd)
 			tile.GetPosition().z = anchor.z + cellWidth + padding + zAdjust;
 		else
-			tile.GetPosition().z = zAdjust + padding;
+			tile.GetPosition().z = zAdjust + 1.1 * padding;
 
 		tile.GetPosition() += adjustVector;
 	}

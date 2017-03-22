@@ -41,11 +41,11 @@ void Player::Update(float dTime){
 }
 void Player::Render(float dTime){
 	mFX.Render(player, gd3dImmediateContext);
-
+	adjustVector = levelManager->getCurrentLocationOfTile(adjustVector);
 	player.GetPosition() = adjustVector;
 
 	// This is so that the player sits on top of his tile. You need to add the size of the player on the end so that he's not inside it
-	player.GetPosition().z = levelManager->getZOfTile(adjustVector) + 1.25;
+	player.GetPosition().z += 2;
 }
 bool Player::getMoveRequest(){
 	bool state = moveRequest;

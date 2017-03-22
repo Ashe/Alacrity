@@ -44,7 +44,8 @@ public:
 	// player interaction
 	Vector3 move(const Vector3& pos, const Vector2& dir, bool& success);
 	Vector3 getStartingPosition() const;
-	float getZOfTile(const Vector3& pos);
+	Vector3 getEndingPosition() const;
+	Vector3 getCurrentLocationOfTile(const Vector3& pos);
 
 	void Release();
 
@@ -59,6 +60,7 @@ public:
 	// Gets whether the level has started/ended
 	bool getLevelStarted() const;
 	bool getLevelEnded() const;
+	bool getLevelSwitch() const;
 
 private:
 	int pickupNo_;
@@ -69,10 +71,13 @@ private:
 	bool levelReadyToPlay;
 	bool playerInPlay;
 	bool playerReachedGoal;
+	bool readyToTransition;
 
 	int cellDim;
 	float tilePadding;
 	float additionalPadding;
+	float maxAdditionalPadding;
+	float levelTransitionSpeed;
 
 	float waveEffect;
 	bool waveLevel;
@@ -103,7 +108,9 @@ private:
 	// Stat updating
 	void checkLevel();
 	void checkTile(Tile* tile);
-	
+
+	// Controlling the flow of play
+	void checkGameState(float dTime);	
 	
 };
 

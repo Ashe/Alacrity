@@ -35,13 +35,13 @@ void TileFloor::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 	{
 		mFX.Render(tile, gd3dImmediateContext);
 
-		tile.GetPosition().x = getAnchor().x + getCellX() * (getCellWidth() + getPadding());
-		tile.GetPosition().y = getAnchor().y + getCellY() * (getCellWidth() + getPadding());
+		tile.GetPosition().x = getAnchor().x + (getCellX() - 5) * (getCellWidth() + getPadding());
+		tile.GetPosition().y = getAnchor().y + (getCellY() - 5) * (getCellWidth() + getPadding());
 
 		tile.GetScale().z = 0.2;
 
 		if (!setInsteadOfAdd)
-			tile.GetPosition().z = getAnchor().z + getCellWidth() - (getCellWidth() * tile.GetScale().z) + zAdjust;
+			tile.GetPosition().z = getAnchor().z + getCellWidth() - (getCellWidth() * tile.GetScale().z) + zAdjust + getPadding();
 		else
 			tile.GetPosition().z = zAdjust;
 

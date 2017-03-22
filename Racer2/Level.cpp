@@ -12,6 +12,8 @@ void Level::OnResize(int screenWidth, int screenHeight)
 
 void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float padding, int dim)
 {
+	static Mesh& tempMesh = BuildCube(mMeshMgr);
+
 	pickupNo_ = 0;
 
 	mFX.Init(gd3dDevice);
@@ -19,17 +21,18 @@ void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float paddin
 	// Set level specific params
 	cellDim = dim;
 	tilePadding = padding;
-	additionalPadding = 0;
 
-	levelReadyToPlay = true;
+	maxAdditionalPadding = 30;
+	levelTransitionSpeed = 16;
+	additionalPadding = maxAdditionalPadding;
+
+	levelReadyToPlay = false;
 	playerInPlay = false;
 	playerReachedGoal = false;
+	readyToTransition = false;
 
-	floor.empty();
-	level.empty();
-
-	// DELETE THIS LATER
-	Mesh& cubeMesh = BuildCube(mMeshMgr);
+	floor.clear();
+	level.clear();
 
 	// Initialise both foreground and background
 	for (int i = 0; i < dim; i++) {
@@ -39,11 +42,11 @@ void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float paddin
 		for (int j = 0; j < dim; j++) {
 			// Create and intialise a floor tile and place it on the background grid
 			tempBack.push_back(createFloorTile(layout[i][j], j, i, tileWidth, tilePadding, anchorPos));
-			tempBack[j]->Initialise(cubeMesh);// meshArray[1]);
+			tempBack[j]->Initialise(tempMesh);// meshArray[1]);
 
 			// Create and initialise a tile given in the layout, created in the levelMGR
 			tempLevel.push_back(createTile(layout[i][j],j, i, tileWidth,tilePadding,anchorPos));
-			tempLevel[j]->Initialise(cubeMesh);// meshArray[layout[i][j]]);
+			tempLevel[j]->Initialise(tempMesh);// meshArray[layout[i][j]]);
 
 			countPickups(layout[i][j]);
 		}
@@ -69,10 +72,12 @@ void Level::Release()
 
 void Level::Update(float dTime)
 {
+	checkGameState(dTime);
+
 	for (int i = 0; i < cellDim; i++)
 		for (int j = 0; j < cellDim; j++) {
-			floor[i][j]->Update(dTime, tilePadding);  
-			level[i][j]->Update(dTime, tilePadding);
+			floor[i][j]->Update(dTime, tilePadding + additionalPadding);  
+			level[i][j]->Update(dTime, tilePadding + additionalPadding);
 		}
 }
 
@@ -188,20 +193,46 @@ Vector3 Level::getStartingPosition() const
 	assert(false);
 }
 
-float Level::getZOfTile(const Vector3 & pos)
+Vector3 Level::getEndingPosition() const
 {
-	Vector2 location = getCellFromCoords(pos);
-	return floor[location.x][location.y]->getPosition().z + tilePadding;
+	for (int i = 0; i < cellDim; i++)
+	{
+		for (int j = 0; j < cellDim; j++)
+			if (level[i][j]->getTileType() == Tile::eEnd)
+				return getCoordsFromCell(Vector2(i, j));
+	}
+
+	// If this function gets this far, there is no starting tile and MUST be fixed
+	assert(false);
+}
+
+Vector3 Level::getCurrentLocationOfTile(const Vector3 & pos)
+{
+	Vector3 pPos;
+
+	if (playerInPlay) {
+		const Vector3 temp = { std::floor(pos.x * 100) / 100, std::floor(pos.y * 100) / 100, pos.z };
+		const Vector2 v2 = getCellFromCoords(temp);
+		pPos = getCoordsFromCell(v2);
+	}
+	else if (playerReachedGoal)
+		pPos = getEndingPosition();
+	else
+		pPos = getStartingPosition();
+
+	pPos.z += tilePadding + additionalPadding;
+	return pPos;
 }
 
 Vector2 Level::getCellFromCoords(const Vector3& pos) const
 {
-	return Vector2((pos.y - anchorPos.x) / (tileWidth + tilePadding), (pos.x - anchorPos.y) / (tileWidth + tilePadding));
+	//return Vector2(std::floor((pos.y - anchorPos.x) / (tileWidth + tilePadding + additionalPadding)), std::floor((pos.x - anchorPos.y) / (tileWidth + tilePadding + additionalPadding)));
+	return Vector2(std::ceil((pos.y - anchorPos.x) / (tileWidth + tilePadding + additionalPadding)) + 5, std::ceil((pos.x - anchorPos.y) / (tileWidth + tilePadding + additionalPadding)) + 5);
 }
 
 Vector3 Level::getCoordsFromCell(const Vector2& cell, const Vector3& prevPos) const
 {
-	return Vector3(cell.y * (tileWidth + tilePadding) + anchorPos.x, cell.x * (tileWidth + tilePadding) + anchorPos.y, prevPos.z);
+	return Vector3((cell.y - 5) * (tileWidth + tilePadding + additionalPadding) + anchorPos.x, (cell.x - 5) * (tileWidth + tilePadding + additionalPadding) + anchorPos.y, (sinf(waveEffect + (cell.x + cell.y) / (PI / 2))) / 4);
 }
 
 int Level::getPickupNo() const
@@ -246,6 +277,30 @@ void Level::checkTile(Tile* tile)
 	}
 }
 
+void Level::checkGameState(float dTime)
+{
+	if (playerReachedGoal) {
+		levelReadyToPlay = false;
+
+		if (additionalPadding >= maxAdditionalPadding) {
+			additionalPadding = maxAdditionalPadding;
+			readyToTransition = true;
+			playerReachedGoal = false;
+		}
+
+		additionalPadding += dTime * levelTransitionSpeed;
+	}
+	else if (!levelReadyToPlay)
+	{
+		if (additionalPadding <= 0) {
+			additionalPadding = 0;
+			levelReadyToPlay = true;
+		}
+
+		additionalPadding -= dTime * levelTransitionSpeed;
+	}
+}
+
 bool Level::getLevelStarted() const
 {
 	return playerInPlay;
@@ -254,5 +309,10 @@ bool Level::getLevelStarted() const
 bool Level::getLevelEnded() const
 {
 	return playerReachedGoal;
+}
+
+bool Level::getLevelSwitch() const
+{
+	return readyToTransition;
 }
 

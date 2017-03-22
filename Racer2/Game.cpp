@@ -158,7 +158,7 @@ void Game::Render(float dTime)
 	CreateProjectionMatrix(FX::GetProjectionMatrix(), 0.25f*PI, GetAspectRatio(), 1, 1000.f);
 
 
-	CreateViewMatrix(FX::GetViewMatrix(), Vector3(-10,-10, 25), Vector3(0, 0, 10), Vector3(0, 0, 1));
+	CreateViewMatrix(FX::GetViewMatrix(), Vector3(-25,-15, 25), Vector3(0, 0, 0), Vector3(0, 0, 1));
 
 	//mFX.Render(mCar, gd3dImmediateContext);
 

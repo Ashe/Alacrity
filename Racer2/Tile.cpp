@@ -17,7 +17,7 @@ void Tile::Initialise(Mesh& tileMesh)
 
 void Tile::Release()
 {
-	// DELETE DYNAMICALLY ALLOCATED MEMORY (somehow)
+	// Release the used data (somehow)
 }
 
 void Tile::Update(float dTime, float newPadding)

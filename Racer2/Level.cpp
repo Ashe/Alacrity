@@ -31,8 +31,7 @@ void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float paddin
 	playerReachedGoal = false;
 	readyToTransition = false;
 
-	floor.clear();
-	level.clear();
+	Release();
 
 	// Initialise both foreground and background
 	for (int i = 0; i < dim; i++) {
@@ -59,15 +58,21 @@ void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float paddin
 	// Fancy effects
 	waveEffect = 0;
 	waveLevel = true;
+
+	checkLevel();
 }
 
 void Level::Release()
 {
-	for (int i = 0; i < cellDim; i++)
-		for (int j = 0; j < cellDim; j++) {
-			floor[i][j]->Release();
-			level[i][j]->Release();
+	for (int i = 0; i < floor.size(); i++)
+		for (int j = 0; j < floor.size(); j++)
+		{
+			delete floor[i][j];
+			delete level[i][j];
 		}
+
+	floor.clear();
+	level.clear();
 }
 
 void Level::Update(float dTime)

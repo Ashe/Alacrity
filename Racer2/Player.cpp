@@ -16,6 +16,9 @@ void Player::Initialise(Mesh& playerMesh, LevelMGR* levelPointer, MouseAndKeys* 
 	adjustVector = player.GetPosition();
 	levelManager = levelPointer;
 	mMKInput = mMKPointer;
+	buttonHold = false;
+	moveWait = 0;
+	playerOne = true;
 }
 void Player::Release(){
 
@@ -23,21 +26,21 @@ void Player::Release(){
 void Player::Update(float dTime){
 	bool success = false;
 
-	if (mMKInput->IsPressed(VK_W)){
-		moveDirection = Vector2(0, 1);
+	move();
+
+	if (!buttonHold || (buttonHold && moveWait <= 0)){
 		adjustVector = levelManager->move(player.GetPosition(), moveDirection, success);
-	}else if (mMKInput->IsPressed(VK_A)){
-		moveDirection = Vector2(-1, 0);
-		adjustVector = levelManager->move(player.GetPosition(), moveDirection, success);
-	}else if (mMKInput->IsPressed(VK_S)){
-		moveDirection = Vector2(0, -1);
-		adjustVector = levelManager->move(player.GetPosition(), moveDirection, success);
-	}else if (mMKInput->IsPressed(VK_D)){
-		moveDirection = Vector2(1, 0);
-		adjustVector = levelManager->move(player.GetPosition(), moveDirection, success);
+		moveWait = 50;
 	}
-	if (!success)
-		moveDirection = Vector2(0, 0);
+
+	if (moveDirection != Vector2(0, 0))
+		buttonHold = true;
+	else
+		buttonHold = false;
+
+	--moveWait;
+
+	moveDirection = Vector2(0, 0);
 }
 void Player::Render(float dTime){
 	mFX.Render(player, gd3dImmediateContext);
@@ -57,4 +60,39 @@ Vector3 Player::getPlayerPostion(){
 }
 Vector2 Player::getMoveDirection(){
 	return moveDirection;
+}
+void Player::makePlayerOne(){
+	playerOne = true;
+}
+void Player::makePlayerTwo(){
+	playerOne = false;
+}
+void Player::move(){
+	if (playerOne){
+		if (mMKInput->IsPressed(VK_W)){
+			moveDirection = Vector2(0, 1);
+		}
+		else if (mMKInput->IsPressed(VK_A)){
+			moveDirection = Vector2(-1, 0);
+		}
+		else if (mMKInput->IsPressed(VK_S)){
+			moveDirection = Vector2(0, -1);
+		}
+		else if (mMKInput->IsPressed(VK_D)){
+			moveDirection = Vector2(1, 0);
+		}
+	}else{
+		if (mMKInput->IsPressed(VK_UP)){
+			moveDirection = Vector2(0, 1);
+		}
+		else if (mMKInput->IsPressed(VK_LEFT)){
+			moveDirection = Vector2(-1, 0);
+		}
+		else if (mMKInput->IsPressed(VK_DOWN)){
+			moveDirection = Vector2(0, -1);
+		}
+		else if (mMKInput->IsPressed(VK_RIGHT)){
+			moveDirection = Vector2(1, 0);
+		}
+	}
 }

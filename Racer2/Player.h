@@ -17,6 +17,8 @@ public:
 	void Release();
 	void Update(float);
 	void Render(float);
+	void makePlayerOne();
+	void makePlayerTwo();
 	bool getMoveRequest();
 	Vector3 getPlayerPostion();
 	Vector2 getMoveDirection();
@@ -29,7 +31,11 @@ public:
 private:
 	int cellX;
 	int cellY;
+	int moveWait;
+	bool buttonHold;
 	bool moveRequest;
+	bool playerOne;
+	void move();
 	Vector3 adjustVector;
 	Vector2 moveDirection;
 	LevelMGR* levelManager;

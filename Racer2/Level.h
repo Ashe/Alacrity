@@ -19,8 +19,8 @@ class Level
 {
 public:
 	//start up and shut down
-	Level(const MeshManager& meshMGR, const Vector3& anch, const float width)
-		: mMeshMgr(meshMGR), anchorPos(anch), tileWidth(width), pickupNo_(0)
+	Level(MeshManager& meshMGR, const Vector3& anch, const float width)
+		: mMeshMgr(&meshMGR), anchorPos(anch), tileWidth(width), pickupNo_(0)
 	{
 		Load(meshMGR);
 	}
@@ -28,6 +28,11 @@ public:
 	~Level() {
 		Release();
 	}
+
+	struct TextureInfo
+	{
+
+	} textureInfo;
 
 	//game logic, called constantly, elapsed time passed in
 	void Update(float dTime);
@@ -39,7 +44,7 @@ public:
 	void OnResize(int screenWidth, int screenHeight);
 
 	// Called everytime a new level is created
-	void Initialise(const vector<vector<Tile::TileType>>& layout, float padding = 1.25, int dim = 10);
+	void Initialise(const TextureInfo& textInf, const vector<vector<Tile::TileType>>& layout, float padding = 1.25, int dim = 10);
 
 	// player interaction
 	Vector3 move(const Vector3& pos, const Vector2& dir, bool& success);
@@ -87,7 +92,7 @@ private:
 	vector<vector<Tile*>> level;
 
 	//ensure each mesh is loaded and release exactly once
-	MeshManager mMeshMgr;
+	MeshManager* mMeshMgr;
 	//vector<Mesh> meshArray;
 
 

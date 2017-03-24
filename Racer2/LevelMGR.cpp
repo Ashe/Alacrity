@@ -18,6 +18,8 @@ void LevelMGR::OnResize(int screenWidth, int screenHeight)
 
 void LevelMGR::Initialise()
 {
+	BuildCube(*mMeshMgr);
+
 	changeLevel(0);
 }
 
@@ -43,7 +45,7 @@ void LevelMGR::Render(float dTime)
 
 void LevelMGR::changeLevel(int levelNo) {
 	levelTemplate nextLevel = getLayout(levelNo);
-	level.Initialise(nextLevel.tileList, nextLevel.tilePadding, nextLevel.tileDim);
+	level.Initialise(texInfo, nextLevel.tileList, nextLevel.tilePadding, nextLevel.tileDim);
 }
 
 // Complex one. Pass in your coordinate position and your direction (0/1 x, 0/1 y) and a bool.

@@ -14,8 +14,8 @@ class LevelMGR : public Singleton<LevelMGR>
 {
 public:
 	//start up and shut down
-	LevelMGR(const MeshManager& meshMGR, const Vector3& anch, float width)
-		: mMeshMgr(meshMGR), level(meshMGR, anch, width)
+	LevelMGR(MeshManager& meshMGR, const Vector3& anch, float width)
+		: mMeshMgr(&meshMGR), level(meshMGR, anch, width)
 	{}
 	~LevelMGR() {
 		Release();
@@ -57,10 +57,12 @@ private:
 		vector<vector<Tile::TileType>> tileList;
 	};
 
+	Level::TextureInfo texInfo;
+
 	int currentLevel;
 
 	//ensure each mesh is loaded and release exactly once
-	MeshManager mMeshMgr;
+	MeshManager* mMeshMgr;
 
 	int getLayoutDim(int levelNo);
 	levelTemplate getLayout(int LevelNo);

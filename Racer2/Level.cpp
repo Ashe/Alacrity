@@ -10,9 +10,11 @@ void Level::OnResize(int screenWidth, int screenHeight)
 	OnResize_Default(screenWidth, screenHeight);
 }
 
-void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float padding, int dim)
+void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::TileType>>& layout,float padding, int dim)
 {
-	static Mesh& tempMesh = BuildCube(mMeshMgr);
+
+	// Import references to the textures
+	textureInfo = texInf;
 
 	pickupNo_ = 0;
 
@@ -41,11 +43,9 @@ void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float paddin
 		for (int j = 0; j < dim; j++) {
 			// Create and intialise a floor tile and place it on the background grid
 			tempBack.push_back(createFloorTile(layout[i][j], j, i, tileWidth, tilePadding, anchorPos));
-			tempBack[j]->Initialise(tempMesh);// meshArray[1]);
 
 			// Create and initialise a tile given in the layout, created in the levelMGR
 			tempLevel.push_back(createTile(layout[i][j],j, i, tileWidth,tilePadding,anchorPos));
-			tempLevel[j]->Initialise(tempMesh);// meshArray[layout[i][j]]);
 
 			countPickups(layout[i][j]);
 		}
@@ -65,11 +65,15 @@ void Level::Initialise(const vector<vector<Tile::TileType>>& layout,float paddin
 void Level::Release()
 {
 	for (int i = 0; i < floor.size(); i++)
+	{
 		for (int j = 0; j < floor.size(); j++)
 		{
 			delete floor[i][j];
 			delete level[i][j];
 		}
+		floor[i].clear();
+		level[i].clear();
+	}
 
 	floor.clear();
 	level.clear();
@@ -117,35 +121,47 @@ void Level::Load(MeshManager meshMGR)
 
 Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch)
 {
+	Tile* peter;
+	Mesh* randy = mMeshMgr->GetMesh("cube");
+
 	switch (type) {
 	case Tile::TileType::eBasic:
-		return new Tile(type, x, y, width, pad, anch);
+		peter = new Tile(type, x, y, width, pad, anch);
 		break;
 
 	case Tile::TileType::eEmpty:
-		return new Tile(type, x, y, width, pad, anch, true, true);
+		peter = new Tile(type, x, y, width, pad, anch, true, true);
 		break;
 
 	case Tile::TileType::ePickup:
-		return new TilePickup(type, x, y, width, pad, anch, false, true);
+		peter = new TilePickup(type, x, y, width, pad, anch, false, true);
 		break;
 
 	case Tile::TileType::eStart:
-		return new TileStart(type, x, y, width, pad, anch, false, true);
+		peter = new TileStart(type, x, y, width, pad, anch, false, true);
 		break;
 
 	case Tile::TileType::eEnd:
-		return new TileEnd(type, x, y, width, pad, anch, false, true);
+		peter = new TileEnd(type, x, y, width, pad, anch, false, true);
 	}
+
+	peter->Initialise(*randy);
+	return peter;
 }
 
 TileFloor* Level::createFloorTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch)
 {
+	TileFloor* peter;
+	Mesh* randy = mMeshMgr->GetMesh("cube");
+
 	switch (type) {
 	default:
-		return new TileFloor(type, x, y, width, pad, anch, false, true);
+		peter = new TileFloor(type, x, y, width, pad, anch, false, true);
 		break;
 	}
+
+	peter->Initialise(*randy);
+	return peter;
 }
 
 Vector3 Level::move(const Vector3& pos, const Vector2& dir, bool& success)

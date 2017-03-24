@@ -32,6 +32,10 @@ void Game::Load()
 	//mCar.GetMesh().GetSubMesh(0).material.gfxData.Set(Vector4(1, 1, 1, 1), Vector4(1, 1, 1, 1), Vector4(0, 0, 0, 1));  //tyres are not shiny!
 	//mLoadData.loadedSoFar++;
 
+	//wood floor
+
+
+
 	//MaterialExt *pMat = &mCube.GetMesh().GetSubMesh(0).material;
 	//pMat->gfxData.Set(Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0, 0, 0, 1));
 	//pMat->pTextureRV = mFX.mCache.LoadTexture("floor.dds", true, gd3dDevice);
@@ -81,6 +85,13 @@ void Game::Initialise()
 	Mesh& playerMesh = BuildPyramid(mMeshMgr);
 	player.Initialise(playerMesh, &levelMGR, &mMKInput);
 
+	mQuad.Initialise(BuildQuad(mMeshMgr));
+	MaterialExt *pMat = &mQuad.GetMesh().GetSubMesh(0).material;
+	pMat->gfxData.Set(Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0, 0, 0, 1));
+	pMat->pTextureRV = mFX.mCache.LoadTexture("floor.dds", true, gd3dDevice);
+	pMat->texture = "block";
+
+
 	FX::SetupDirectionalLight(0, true, Vector3(-0.7f, -0.7f, -0.7f), Vector3(0.9f, 0.85f, 0.85f), Vector3(0.1f, 0.1f, 0.1f), Vector3(1, 1, 1));
 
 	//mpSpriteBatch = new SpriteBatch(gd3dImmediateContext);
@@ -112,6 +123,7 @@ void Game::Release()
 	mFX.Release();
 	mMeshMgr.Release();
 	mUI.Release();
+
 	/*delete mpFont;
 	mpFont = nullptr;
 	delete mpSpriteBatch;
@@ -153,6 +165,8 @@ void Game::Render(float dTime)
 
 	player.Render(dTime);
 
+	
+
 	FX::SetPerFrameConsts(gd3dImmediateContext, mCamPos);
 
 	CreateProjectionMatrix(FX::GetProjectionMatrix(), 0.25f*PI, GetAspectRatio(), 1, 1000.f);
@@ -161,6 +175,10 @@ void Game::Render(float dTime)
 	CreateViewMatrix(FX::GetViewMatrix(), Vector3(-25,-15, 25), Vector3(0, 0, 0), Vector3(0, 0, 1));
 
 	//mFX.Render(mCar, gd3dImmediateContext);
+	mQuad.GetPosition() = Vector3(15, 0, 0);
+	mQuad.GetRotation() = Vector3(PI / 2, 0, PI/4);
+	mQuad.GetScale() = Vector3(45, 1, 40);
+	mFX.Render(mQuad, gd3dImmediateContext);
 
 	CommonStates state(gd3dDevice);
 	//mpSpriteBatch->Begin(SpriteSortMode_Deferred, state.NonPremultiplied());

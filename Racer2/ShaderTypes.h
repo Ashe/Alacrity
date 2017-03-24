@@ -17,6 +17,22 @@ struct VertexPosNormTex
 	static const D3D11_INPUT_ELEMENT_DESC sVertexDesc[3];
 };
 
+
+struct VertexPosColour
+{
+	DirectX::SimpleMath::Vector3 Pos;
+	DirectX::SimpleMath::Vector4 Colour;
+
+	static const D3D11_INPUT_ELEMENT_DESC sVertexDesc[2];
+	void SetColour(unsigned int argb)
+	{
+		Colour.w = (float)(argb >> 24) / 255.f;
+		Colour.x = (float)((argb >> 16) & 255) / 255.f;
+		Colour.y = (float)((argb >> 8) & 255) / 255.f;
+		Colour.z = (float)((argb >> 24) & 255) / 255.f;
+	}
+};
+
 /*
 Insted of a colour in each vertex we define a material
 for a group of primitves (an entire surface)

@@ -48,6 +48,8 @@ public:
 	//handy rendering state
 	FX::MyFX mFX;
 
+
+	Model mQuad;
 private:
 	Game& operator=(const Game&) = delete;
 	Game(const Game& m) = delete;

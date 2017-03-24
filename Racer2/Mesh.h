@@ -43,6 +43,7 @@ public:
 	void Release();
 	void CreateFrom(const VertexPosNormTex verts[], int numVerts, const unsigned int indices[],
 		int numIndices, const MaterialExt& mat, int meshNumIndices);
+
 	void CreateFrom(const std::string& fileName, ID3D11Device *pD3DDevice, FX::TexCache& texCache);
 	int GetNumSubMeshes() const {
 		return (int)mSubMeshes.size();

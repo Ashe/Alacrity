@@ -13,8 +13,8 @@ class TileFloor : public Tile
 {
 public:
 	//start up and shut down
-	TileFloor(const TileType& type, int x, int y, float width, float pad, const Vector3& anch, bool isHidden = false, bool isTraverseable = false)
-		:Tile(type, x, y, width, pad, anch, isHidden, isTraverseable) {}
+	TileFloor(const TileType& type, int x, int y, float width, float pad, const Vector3& anch, int gridDim, bool isHidden = false, bool isTraverseable = false)
+		:Tile(type, x, y, width, pad, anch, gridDim, isHidden, isTraverseable) {}
 
 	void Initialise(Mesh& tileMesh) override;
 	void Update(float dTime, float newPadding = -1) override;

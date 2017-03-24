@@ -116,6 +116,9 @@ private:
 
 	// Controlling the flow of play
 	void checkGameState(float dTime);	
+
+	// Progress of loading the level
+
 	
 };
 

@@ -24,8 +24,8 @@ public:
 	};
 
 	//start up and shut down
-	Tile(const TileType& type, int x, int y, float width, float pad, const Vector3& anch, bool isHidden = false, bool isTraverseable = false) 
-		:tileType(type), cellX(x), cellY(y), cellWidth(width), padding(pad), anchor(anch), hidden(isHidden), traverseable(isTraverseable) {}
+	Tile(const TileType& type, int x, int y, float width, float pad, const Vector3& anch, int gridDim, bool isHidden = false, bool isTraverseable = false) 
+		:tileType(type), cellX(x), cellY(y), cellWidth(width), padding(pad), anchor(anch), gridDimensions(gridDim), hidden(isHidden), traverseable(isTraverseable) {}
 
 	~Tile() {
 		Release();
@@ -54,6 +54,7 @@ public:
 	// getters & setters
 	int getCellX();
 	int getCellY();
+	int getDim();
 
 	Vector3 getAnchor();
 	Vector3 getPosition();
@@ -77,8 +78,6 @@ public:
 	virtual void moveOn();
 	virtual void moveOff();
 
-	//return if tile is collected
-
 private:
 
 	const TileType tileType;
@@ -89,6 +88,7 @@ private:
 	const float cellWidth;
 	float padding;
 	const Vector3 anchor;
+	const int gridDimensions;
 
 	// vector for displacing the tile
 	Vector3 adjustVector;

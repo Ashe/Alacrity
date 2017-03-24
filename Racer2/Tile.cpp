@@ -33,8 +33,8 @@ void Tile::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 	{
 		mFX.Render(tile, gd3dImmediateContext);
 
-		tile.GetPosition().x = anchor.x + (cellX - 5) * (cellWidth + padding);
-		tile.GetPosition().y = anchor.y + (cellY - 5) * (cellWidth + padding);
+		tile.GetPosition().x = anchor.x + (cellX - gridDimensions / 2) * (cellWidth + padding);
+		tile.GetPosition().y = anchor.y + (cellY - gridDimensions / 2) * (cellWidth + padding);
 
 		if (!setInsteadOfAdd)
 			tile.GetPosition().z = anchor.z + cellWidth + padding + zAdjust;
@@ -73,6 +73,11 @@ int Tile::getCellX() {
 
 int Tile::getCellY() {
 	return cellY;
+}
+
+int Tile::getDim()
+{
+	return gridDimensions;
 }
 
 float Tile::getPadding() {

@@ -16,8 +16,6 @@ void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::Tile
 	// Import references to the textures
 	textureInfo = texInf;
 
-	pickupNo_ = 0;
-
 	mFX.Init(gd3dDevice);
 
 	// Set level specific params
@@ -126,23 +124,23 @@ Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, f
 
 	switch (type) {
 	case Tile::TileType::eBasic:
-		peter = new Tile(type, x, y, width, pad, anch);
+		peter = new Tile(type, x, y, width, pad, anch, cellDim);
 		break;
 
 	case Tile::TileType::eEmpty:
-		peter = new Tile(type, x, y, width, pad, anch, true, true);
+		peter = new Tile(type, x, y, width, pad, anch, cellDim, true, true);
 		break;
 
 	case Tile::TileType::ePickup:
-		peter = new TilePickup(type, x, y, width, pad, anch, false, true);
+		peter = new TilePickup(type, x, y, width, pad, anch, cellDim, false, true);
 		break;
 
 	case Tile::TileType::eStart:
-		peter = new TileStart(type, x, y, width, pad, anch, false, true);
+		peter = new TileStart(type, x, y, width, pad, anch, cellDim, false, true);
 		break;
 
 	case Tile::TileType::eEnd:
-		peter = new TileEnd(type, x, y, width, pad, anch, false, true);
+		peter = new TileEnd(type, x, y, width, pad, anch, cellDim, false, true);
 	}
 
 	peter->Initialise(*randy);
@@ -156,7 +154,7 @@ TileFloor* Level::createFloorTile(const Tile::TileType& type, int x, int y, floa
 
 	switch (type) {
 	default:
-		peter = new TileFloor(type, x, y, width, pad, anch, false, true);
+		peter = new TileFloor(type, x, y, width, pad, anch, cellDim, false, true);
 		break;
 	}
 
@@ -248,12 +246,12 @@ Vector3 Level::getCurrentLocationOfTile(const Vector3 & pos)
 Vector2 Level::getCellFromCoords(const Vector3& pos) const
 {
 	//return Vector2(std::floor((pos.y - anchorPos.x) / (tileWidth + tilePadding + additionalPadding)), std::floor((pos.x - anchorPos.y) / (tileWidth + tilePadding + additionalPadding)));
-	return Vector2(std::ceil((pos.y - anchorPos.x) / (tileWidth + tilePadding + additionalPadding)) + 5, std::ceil((pos.x - anchorPos.y) / (tileWidth + tilePadding + additionalPadding)) + 5);
+	return Vector2(std::ceil((pos.y - anchorPos.x) / (tileWidth + tilePadding + additionalPadding)) + cellDim / 2, std::ceil((pos.x - anchorPos.y) / (tileWidth + tilePadding + additionalPadding)) + cellDim / 2);
 }
 
 Vector3 Level::getCoordsFromCell(const Vector2& cell, const Vector3& prevPos) const
 {
-	return Vector3((cell.y - 5) * (tileWidth + tilePadding + additionalPadding) + anchorPos.x, (cell.x - 5) * (tileWidth + tilePadding + additionalPadding) + anchorPos.y, (sinf(waveEffect + (cell.x + cell.y) / (PI / 2))) / 4);
+	return Vector3((cell.y - cellDim / 2) * (tileWidth + tilePadding + additionalPadding) + anchorPos.x, (cell.x - cellDim / 2) * (tileWidth + tilePadding + additionalPadding) + anchorPos.y, (sinf(waveEffect + (cell.x + cell.y) / (PI / 2))) / 4);
 }
 
 int Level::getPickupNo() const

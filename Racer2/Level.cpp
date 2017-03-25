@@ -48,7 +48,7 @@ void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::Tile
 
 		for (int j = 0; j < dim; j++) {
 			// Create and intialise a floor tile and place it on the background grid
-			tempBack.push_back(createFloorTile(layout[i][j], j, i, tileWidth, tilePadding, anchorPos, safeTime, fallSpeedSafe, fallSpeedDead));
+			tempBack.push_back(createFloorTile(layout[i][j], j, i, tileWidth, tilePadding + additionalPadding, anchorPos, safeTime, fallSpeedSafe, fallSpeedDead));
 
 			// Create and initialise a tile given in the layout, created in the levelMGR
 			tempLevel.push_back(createTile(layout[i][j],j, i, tileWidth,tilePadding,anchorPos));

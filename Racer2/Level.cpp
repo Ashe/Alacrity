@@ -108,6 +108,7 @@ void Level::Render(float dTime)
 	if (waveLevel)
 		waveEffect += dTime * 1.5;
 
+	
 	for (int i = 0; i < cellDim; i++)
 		for (int j = 0; j < cellDim; j++) {
 

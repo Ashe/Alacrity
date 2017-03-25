@@ -28,6 +28,7 @@ public:
 
 	int getInfo() const override;
 
+	
 
 private:
 	enum DestroyStatus

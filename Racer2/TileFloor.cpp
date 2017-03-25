@@ -45,6 +45,8 @@ void TileFloor::Update(float dTime, float newPadding) {
 
 void TileFloor::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 {
+
+
 	if (!getHidden())
 	{
 		mFX.Render(tile, gd3dImmediateContext);

@@ -88,11 +88,11 @@ void Game::Initialise()
 	mQuad.Initialise(BuildQuad(mMeshMgr));
 	MaterialExt *pMat = &mQuad.GetMesh().GetSubMesh(0).material;
 	pMat->gfxData.Set(Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0, 0, 0, 1));
-	pMat->pTextureRV = mFX.mCache.LoadTexture("floor.dds", true, gd3dDevice);
-	pMat->texture = "block";
+	pMat->pTextureRV = mFX.mCache.LoadTexture("gamebgd.dds", true, gd3dDevice);
+	pMat->texture = "gamebgd";
 
 
-	FX::SetupDirectionalLight(0, true, Vector3(-0.7f, -0.7f, -0.7f), Vector3(0.9f, 0.85f, 0.85f), Vector3(0.1f, 0.1f, 0.1f), Vector3(1, 1, 1));
+	FX::SetupDirectionalLight(0, true, Vector3(-0.7f, -0.7f, -0.7f), Vector3(1.0f, 1.0f, 1.0f), Vector3(0.5f, 0.5f, 0.5f), Vector3(1, 1, 1));
 
 	//mpSpriteBatch = new SpriteBatch(gd3dImmediateContext);
 	//assert(mpSpriteBatch);

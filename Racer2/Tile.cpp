@@ -9,6 +9,8 @@ void Tile::Initialise(Mesh& tileMesh)
 {
 	tile.Initialise(tileMesh);
 
+
+
 	// Remove any displacement to reset the location
 	adjustVector = { 0, 0, 0 };
 

@@ -45,7 +45,7 @@ void LevelMGR::Render(float dTime)
 
 void LevelMGR::changeLevel(int levelNo) {
 	levelTemplate nextLevel = getLayout(levelNo);
-	level.Initialise(texInfo, nextLevel.tileList, nextLevel.tilePadding, nextLevel.tileDim);
+	level.Initialise(texInfo, nextLevel.tileList, nextLevel.tilePadding, nextLevel.tileDim, nextLevel.safeTime, nextLevel.fallSpeedSafe, nextLevel.fallSpeedDead);
 }
 
 // Complex one. Pass in your coordinate position and your direction (0/1 x, 0/1 y) and a bool.
@@ -74,19 +74,22 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 	{
 		case 0:
 		{
-			nextLevel.tileDim = 10;
-			nextLevel.tilePadding = 1.25;
+			nextLevel.tileDim = 10;			// Amount of tiles (n*n)
+			nextLevel.tilePadding = 1.25;	// Padding between blocks
+			nextLevel.safeTime = 3;			// Players have 3 seconds before death
+			nextLevel.fallSpeedSafe = 3;	// Speed at which the tiles fall when safe
+			nextLevel.fallSpeedDead = 10;	// Speed at which the tiles fall when not safe
 
 			nextLevel.tileList = {
 
 				{Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
-				{Tile::ePickup, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
-				{Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
-				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eStart, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
-				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
-				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
-				{Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
-				{Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
+				{Tile::ePickup, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic},
+				{Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eStart, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::ePickup, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic},
+				{Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic},
 				{Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic},
 				{Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEnd, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic}
 

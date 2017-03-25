@@ -175,9 +175,9 @@ void Game::Render(float dTime)
 	CreateViewMatrix(FX::GetViewMatrix(), Vector3(-25,-15, 25), Vector3(0, 0, 0), Vector3(0, 0, 1));
 
 	//mFX.Render(mCar, gd3dImmediateContext);
-	mQuad.GetPosition() = Vector3(15, 0, 0);
+	mQuad.GetPosition() = Vector3(100, 60, -40);
 	mQuad.GetRotation() = Vector3(PI / 2, 0, PI/4);
-	mQuad.GetScale() = Vector3(45, 1, 40);
+	mQuad.GetScale() = Vector3(150, 1, 150);
 	mFX.Render(mQuad, gd3dImmediateContext);
 
 	CommonStates state(gd3dDevice);

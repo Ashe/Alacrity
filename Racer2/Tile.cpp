@@ -46,20 +46,6 @@ void Tile::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 }
 
 ///////////////////////////////////////////////////////
-// Tile Functions
-///////////////////////////////////////////////////////
-
-void Tile::killTile() {
-	
-	// This function will call if a specific tile should be killed off
-	// - unique animations and mechanics to be inserted here
-	switch (tileType) {
-		default:
-			break;
-	}
-}
-
-///////////////////////////////////////////////////////
 // Getters
 ///////////////////////////////////////////////////////
 

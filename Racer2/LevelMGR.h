@@ -54,6 +54,9 @@ private:
 	{
 		int tileDim;
 		float tilePadding;
+		float safeTime;
+		float fallSpeedSafe;
+		float fallSpeedDead;
 		vector<vector<Tile::TileType>> tileList;
 	};
 

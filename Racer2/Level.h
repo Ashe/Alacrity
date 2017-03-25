@@ -44,7 +44,7 @@ public:
 	void OnResize(int screenWidth, int screenHeight);
 
 	// Called everytime a new level is created
-	void Initialise(const TextureInfo& textInf, const vector<vector<Tile::TileType>>& layout, float padding = 1.25, int dim = 10);
+	void Initialise(const TextureInfo& textInf, const vector<vector<Tile::TileType>>& layout, float padding = 1.25, int dim = 10, float safeTime = 5, float fallSpeedSafe = 3, float fallSpeedDead = 10);
 
 	// player interaction
 	Vector3 move(const Vector3& pos, const Vector2& dir, bool& success);
@@ -66,6 +66,7 @@ public:
 	bool getLevelStarted() const;
 	bool getLevelEnded() const;
 	bool getLevelSwitch() const;
+	bool getWinStatus() const;
 
 private:
 	int pickupNo_;
@@ -73,10 +74,15 @@ private:
 	const Vector3 anchorPos;
 	const float tileWidth;
 
-	bool levelReadyToPlay;
-	bool playerInPlay;
-	bool playerReachedGoal;
-	bool readyToTransition;
+	bool playerBeatLevel;		// When the level transitions, this is used to check whether to restart or proceed
+
+	bool levelFinishedLoading;  // For pausing any updates called in the Init function
+	bool levelReadyToPlay;		// When the level has finished transitioning
+	bool playerInPlay;			// The player has moved away from the start and is playing
+	bool endTheGame;			// The player has touched the end tile of the game or died
+	bool readyToTransition;		// The level has 'exploded' and is ready to change level
+
+	bool playerFrozen;			// Whether the player can move
 
 	int cellDim;
 	float tilePadding;
@@ -101,7 +107,7 @@ private:
 
 	// Tile creation
 	Tile* createTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch);
-	TileFloor* createFloorTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch);
+	TileFloor* createFloorTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch, float safeTime, float fallSpeedSafe, float fallSpeedDead);
 
 	// Locating functions
 	Vector2 getCellFromCoords(const Vector3& pos) const;
@@ -111,14 +117,13 @@ private:
 	void countPickups(const Tile::TileType& layout);
 
 	// Stat updating
-	void checkLevel();
 	void checkTile(Tile* tile);
+	void checkTileFloor(TileFloor* tile);
 
 	// Controlling the flow of play
 	void checkGameState(float dTime);	
 
 	// Progress of loading the level
-
 	
 };
 

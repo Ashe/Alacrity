@@ -13,6 +13,7 @@ void Timer::resetTimer(){
 }
 void Timer::setTimer(float time){
 	mTotalTime = time;
+	resetTimer();
 }
 
 void Timer::updateTimer(float dtime){

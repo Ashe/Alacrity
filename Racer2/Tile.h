@@ -42,9 +42,6 @@ public:
 	virtual void Initialise(Mesh& tileMesh);
 	virtual void Release();
 
-	// Function to call when you wish to remove the tile from play
-	virtual void killTile();
-
 	//game models that reference meshes
 	Model tile;
 
@@ -57,7 +54,7 @@ public:
 	int getDim();
 
 	Vector3 getAnchor();
-	Vector3 getPosition();
+	virtual Vector3 getPosition();
 
 	Vector3 getDisplacement();
 	void addDisplacement(const Vector3& disp);

@@ -28,10 +28,12 @@ void Player::Update(float dTime){
 
 	move();
 
-	if (!buttonHold || (buttonHold && moveWait <= 0) && (moveDirection.x != 0 && moveDirection.y != 0)){
+	if ((!buttonHold || (buttonHold && moveWait <= 0)) && (moveDirection.x != 0 || moveDirection.y != 0)){
 		adjustVector = levelManager->move(player.GetPosition(), moveDirection, success);
 		moveWait = 50;
 	}
+	else // If the player is not moving, retrieve the current tile's coords
+		adjustVector = levelManager->getCurrentLocationOfTile(adjustVector);
 
 	if (moveDirection != Vector2(0, 0))
 		buttonHold = true;
@@ -44,7 +46,6 @@ void Player::Update(float dTime){
 }
 void Player::Render(float dTime){
 	mFX.Render(player, gd3dImmediateContext);
-	adjustVector = levelManager->getCurrentLocationOfTile(adjustVector);
 	player.GetPosition() = adjustVector;
 
 	// This is so that the player sits on top of his tile. You need to add the size of the player on the end so that he's not inside it

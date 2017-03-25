@@ -33,7 +33,10 @@ void LevelMGR::Update(float dTime)
 	level.Update(dTime);
 	if (level.getLevelSwitch())
 	{
-		changeLevel(0);
+		//if (level.getWinStatus())
+			//currentLevel += 1;
+
+		changeLevel(currentLevel);
 	}
 }
 

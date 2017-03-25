@@ -24,21 +24,23 @@ void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::Tile
 	cellDim = dim;
 	tilePadding = padding;
 
+	// Set values for the 'explosive' transitions
 	maxAdditionalPadding = 40;
 	levelTransitionSpeed = 26;
 	additionalPadding = maxAdditionalPadding;
 
+	// Initialise bools to control the flow of the game
 	levelReadyToPlay = false;
 	playerInPlay = false;
 	endTheGame = false;
 	playerBeatLevel = false;
 	readyToTransition = false;
+	playerFrozen = false;
 
 	// In prep for counting pickups
 	pickupNo_ = 0;
 
-	playerFrozen = false;
-
+	// Before initialising the next level, release anything stored in tile vectors
 	Release();
 
 	// Initialise both foreground and background
@@ -47,10 +49,8 @@ void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::Tile
 		vector<TileFloor*> tempBack;
 
 		for (int j = 0; j < dim; j++) {
-			// Create and intialise a floor tile and place it on the background grid
+			// Create and intialise tiles and place it in the appropriate vector
 			tempBack.push_back(createFloorTile(layout[i][j], j, i, tileWidth, tilePadding + additionalPadding, anchorPos, safeTime, fallSpeedSafe, fallSpeedDead));
-
-			// Create and initialise a tile given in the layout, created in the levelMGR
 			tempLevel.push_back(createTile(layout[i][j],j, i, tileWidth,tilePadding,anchorPos));
 
 			countPickups(layout[i][j]);
@@ -65,6 +65,7 @@ void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::Tile
 	waveEffect = 0;
 	waveLevel = true;
 
+	// Allow the level to animate
 	levelFinishedLoading = true;
 }
 
@@ -74,29 +75,36 @@ void Level::Release()
 	{
 		for (int j = 0; j < floor.size(); j++)
 		{
+			// Delete dynamically allocated memory
 			delete floor[i][j];
 			delete level[i][j];
 		}
+		// Ensure that the sub-vector is cleared of any pointers
 		floor[i].clear();
 		level[i].clear();
 	}
 
+	// Finally, empty the main vectors
 	floor.clear();
 	level.clear();
 }
 
 void Level::Update(float dTime)
 {
+	// If the tiles have finished generating
 	if (levelFinishedLoading)
 	{
+		// Transitions in/out depending on game conditions and resets amount collected
 		checkGameState(dTime);
 		collectedNo_ = 0;
 
+		// Iterate through the 2D array, updating and then checking their info
 		for (int i = 0; i < cellDim; i++)
 			for (int j = 0; j < cellDim; j++) {
 				floor[i][j]->Update(dTime, tilePadding + additionalPadding);  
 				level[i][j]->Update(dTime, tilePadding + additionalPadding);
 
+				// These functions check tile-types and acts on info gathered
 				checkTileFloor(floor[i][j]);
 				checkTile(level[i][j]);
 			}
@@ -105,9 +113,9 @@ void Level::Update(float dTime)
 
 void Level::Render(float dTime)
 {
+	// If the level is set to wave, animate it
 	if (waveLevel)
 		waveEffect += dTime * 1.5;
-
 	
 	for (int i = 0; i < cellDim; i++)
 		for (int j = 0; j < cellDim; j++) {
@@ -117,6 +125,7 @@ void Level::Render(float dTime)
 			else
 				floor[i][j]->Render(dTime);
 
+			// The main level uses the floor's positioning
 			level[i][j]->Render(dTime, floor[i][j]->getPosition().z, true);
 		}
 }
@@ -124,20 +133,16 @@ void Level::Render(float dTime)
 void Level::Load(MeshManager meshMGR)
 {
 	// TODO: Load meshes from an array to coincide with ENUM
-
-	//Mesh& cubeMesh = BuildCube(mMeshMgr);
-
-	//// The following list is in sync with the enum - the order these are inserted into the mesh array are important
-	//meshArray.push_back(cubeMesh);
-	//meshArray.push_back(cubeMesh);
-	//meshArray.push_back(cubeMesh);
+	// Turns out this function is no longer needed, but will keep it in case it's needed later
 }
 
 Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch)
 {
+	// Declare the pointer that will be returned later
 	Tile* peter;
 	Mesh* randy = mMeshMgr->GetMesh("cube");
 
+	// Depending on the type of tile, create an instance of the appropriate class
 	switch (type) {
 	case Tile::TileType::eBasic:
 		peter = new Tile(type, x, y, width, pad, anch, cellDim);
@@ -158,30 +163,37 @@ Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, f
 	case Tile::TileType::eEnd:
 		peter = new TileEnd(type, x, y, width, pad, anch, cellDim, false, true);
 	}
-
+	
+	// Initialise the tile with the mesh in randy reference
 	peter->Initialise(*randy);
 	return peter;
 }
 
 TileFloor* Level::createFloorTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch, float safeTime, float fallSpeedSafe, float fallSpeedDead)
 {
+	// Declare the pointer that will be returned later
 	TileFloor* peter;
 	Mesh* randy = mMeshMgr->GetMesh("cube");
 
+	// Depending on the floor tile specified, create an appropriate floor (For now, just spawn the default floor)
 	switch (type) {
 	default:
 		peter = new TileFloor(type, x, y, width, pad, anch, cellDim, safeTime, fallSpeedSafe, fallSpeedDead, false, true);
 		break;
 	}
 
+	// Return the initialised tile
 	peter->Initialise(*randy);
 	return peter;
 }
 
+// This function receives a position and a direction and returns the location the player should be along with if it was successful
 Vector3 Level::move(const Vector3& pos, const Vector2& dir, bool& success)
 {
+	// If the player is able to move
 	if (levelReadyToPlay && !playerFrozen)
 	{
+		// Get the cell coordinates of the player's current and next position
 		const Vector2 pPos = getCellFromCoords(pos);
 		const Vector2 newPos = pPos + dir;
 
@@ -235,10 +247,13 @@ Vector3 Level::getEndingPosition() const
 				return getCoordsFromCell(Vector2(i, j));
 	}
 
-	// If this function gets this far, there is no starting tile and MUST be fixed
+	// If this function gets this far, there is no ending tile and MUST be fixed
 	assert(false);
 }
 
+// This function takes a position and returns where the player would be if he's on the same tile
+// This is necessary due to the amount of movement the tiles can do, and thus makes positioning 
+// the player easier.
 Vector3 Level::getCurrentLocationOfTile(const Vector3 & pos)
 {
 	Vector3 pPos;
@@ -258,7 +273,6 @@ Vector3 Level::getCurrentLocationOfTile(const Vector3 & pos)
 
 Vector2 Level::getCellFromCoords(const Vector3& pos) const
 {
-	//return Vector2(std::floor((pos.y - anchorPos.x) / (tileWidth + tilePadding + additionalPadding)), std::floor((pos.x - anchorPos.y) / (tileWidth + tilePadding + additionalPadding)));
 	return Vector2(std::ceil((pos.y - anchorPos.x) / (tileWidth + tilePadding + additionalPadding)) + cellDim / 2, std::ceil((pos.x - anchorPos.y) / (tileWidth + tilePadding + additionalPadding)) + cellDim / 2);
 }
 
@@ -319,6 +333,7 @@ void Level::checkTileFloor(TileFloor* tile)
 
 void Level::checkGameState(float dTime)
 {
+	// Depending on if the game is over or starting, explode (or implode) the level
 	if (endTheGame) {
 		levelReadyToPlay = false;
 

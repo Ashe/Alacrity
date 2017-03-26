@@ -48,7 +48,7 @@ void LevelMGR::Render(float dTime)
 
 void LevelMGR::changeLevel(int levelNo) {
 	levelTemplate nextLevel = getLayout(levelNo);
-	level.Initialise(texInfo, nextLevel.tileList, nextLevel.tilePadding, nextLevel.tileDim, nextLevel.safeTime, nextLevel.fallSpeedSafe, nextLevel.fallSpeedDead);
+	level.Initialise(texInfo, nextLevel.tileList, nextLevel.levelCaption, nextLevel.levelTime, nextLevel.tileWidth, nextLevel.tilePadding, nextLevel.tileDim, nextLevel.safeTime, nextLevel.fallSpeedSafe, nextLevel.fallSpeedDead);
 }
 
 // Complex one. Pass in your coordinate position and your direction (0/1 x, 0/1 y) and a bool.
@@ -77,11 +77,16 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 	{
 		case 0:
 		{
-			nextLevel.tileDim = 10;			// Amount of tiles (n*n)
-			nextLevel.tilePadding = 1.25;	// Padding between blocks
+			nextLevel.levelTime = 30;		// Time the player has to complete the level
+			nextLevel.levelCaption = "Get to the end with both pickups!";
+
 			nextLevel.safeTime = 3;			// Players have 3 seconds before death
 			nextLevel.fallSpeedSafe = 3;	// Speed at which the tiles fall when safe
 			nextLevel.fallSpeedDead = 10;	// Speed at which the tiles fall when not safe
+
+			nextLevel.tileWidth = 1;		// Width of tles
+			nextLevel.tileDim = 10;			// Amount of tiles (n*n)
+			nextLevel.tilePadding = 1.25;	// Padding between blocks
 
 			nextLevel.tileList = {
 
@@ -116,6 +121,16 @@ int LevelMGR::getPickupNo() const
 int LevelMGR::getCollectedNo() const
 {
 	return level.getCollectedNo();
+}
+
+float LevelMGR::getTimer() const
+{
+	return level.getTimer();
+}
+
+string LevelMGR::getMessage() const
+{
+	return level.getMessage();
 }
 
 bool LevelMGR::getLevelStarted() const

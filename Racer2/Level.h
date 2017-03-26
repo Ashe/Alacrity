@@ -19,8 +19,8 @@ class Level
 {
 public:
 	//start up and shut down
-	Level(MeshManager& meshMGR, const Vector3& anch, const float width)
-		: mMeshMgr(&meshMGR), anchorPos(anch), tileWidth(width), pickupNo_(0)
+	Level(MeshManager& meshMGR, const Vector3& anch)
+		: mMeshMgr(&meshMGR), anchorPos(anch)
 	{
 		Load(meshMGR);
 	}
@@ -44,7 +44,7 @@ public:
 	void OnResize(int screenWidth, int screenHeight);
 
 	// Called everytime a new level is created
-	void Initialise(const TextureInfo& textInf, const vector<vector<Tile::TileType>>& layout, float padding = 1.25, int dim = 10, float safeTime = 5, float fallSpeedSafe = 3, float fallSpeedDead = 10);
+	void Initialise(const TextureInfo& textInf, const vector<vector<Tile::TileType>>& layout, const string& caption, float levelTime, float width = 1, float padding = 1.25, int dim = 10, float safeTime = 5, float fallSpeedSafe = 3, float fallSpeedDead = 10);
 
 	// player interaction
 	Vector3 move(const Vector3& pos, const Vector2& dir, bool& success);
@@ -52,11 +52,12 @@ public:
 	Vector3 getEndingPosition() const;
 	Vector3 getCurrentLocationOfTile(const Vector3& pos);
 
+	float getTimer() const;
+
 	void Release();
 
 	//handy rendering state
 	FX::MyFX mFX;
-
 
 	//Number of pickups on current level
 	int getPickupNo() const;
@@ -68,11 +69,18 @@ public:
 	bool getLevelSwitch() const;
 	bool getWinStatus() const;
 
+	// Get any messages to print to the UI
+	string getMessage() const;
+
 private:
 	int pickupNo_;
 	int collectedNo_;
 	const Vector3 anchorPos;
-	const float tileWidth;
+	float tileWidth;
+	string levelCaption;
+
+	float levelMaxTime;
+	Timer timer;
 
 	bool playerBeatLevel;		// When the level transitions, this is used to check whether to restart or proceed
 
@@ -99,8 +107,6 @@ private:
 
 	//ensure each mesh is loaded and release exactly once
 	MeshManager* mMeshMgr;
-	//vector<Mesh> meshArray;
-
 
 	// Load all the meshes required to build a level
 	void Load(MeshManager meshMGR);
@@ -121,10 +127,7 @@ private:
 	void checkTileFloor(TileFloor* tile);
 
 	// Controlling the flow of play
-	void checkGameState(float dTime);	
-
-	// Progress of loading the level
-	
+	void checkGameState(float dTime);		
 };
 
 #endif

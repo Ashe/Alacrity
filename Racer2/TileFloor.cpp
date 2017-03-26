@@ -54,7 +54,7 @@ void TileFloor::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 		tile.GetPosition().x = getAnchor().x + (getCellX() - getDim() / 2) * (getCellWidth() + getPadding());
 		tile.GetPosition().y = getAnchor().y + (getCellY() - getDim() / 2) * (getCellWidth() + getPadding());
 
-		tile.GetScale().z = 0.2;
+		tile.GetScale() = Vector3(getCellWidth(), getCellWidth(), 0.2);
 
 		if (!setInsteadOfAdd)
 			tile.GetPosition().z = getAnchor().z + getCellWidth() - (getCellWidth() * tile.GetScale().z) + zAdjust + getPadding();

@@ -43,7 +43,7 @@ public:
 	MeshManager mMeshMgr;
 
 	// Level Manager
-	LevelMGR levelMGR = LevelMGR(mMeshMgr, DirectX::SimpleMath::Vector3(0, 0, 0), 1);
+	LevelMGR levelMGR = LevelMGR(mMeshMgr, DirectX::SimpleMath::Vector3(0, 0, 0));
 
 	//handy rendering state
 	FX::MyFX mFX;
@@ -81,7 +81,6 @@ private:
 	LoadData mLoadData;
 	MouseAndKeys mMKInput;
 	UserInterface mUI;
-	Timer mGameTimer;
 };
 
 #endif

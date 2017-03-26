@@ -10,7 +10,7 @@ void Level::OnResize(int screenWidth, int screenHeight)
 	OnResize_Default(screenWidth, screenHeight);
 }
 
-void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::TileType>>& layout,float padding, int dim, float safeTime, float fallSpeedSafe, float fallSpeedDead)
+void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::TileType>>& layout, const string& caption, float levelTime, float width, float padding, int dim, float safeTime, float fallSpeedSafe, float fallSpeedDead)
 {
 	// Pause any animations
 	levelFinishedLoading = false;
@@ -21,8 +21,10 @@ void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::Tile
 	mFX.Init(gd3dDevice);
 
 	// Set level specific params
+	tileWidth = width;
 	cellDim = dim;
 	tilePadding = padding;
+	levelCaption = caption;
 
 	// Set values for the 'explosive' transitions
 	maxAdditionalPadding = 40;
@@ -67,6 +69,10 @@ void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::Tile
 
 	// Allow the level to animate
 	levelFinishedLoading = true;
+
+	timer.pauseTimer();
+	levelMaxTime = levelTime;
+	timer.setTimer(levelMaxTime);
 }
 
 void Level::Release()
@@ -94,6 +100,11 @@ void Level::Update(float dTime)
 	// If the tiles have finished generating
 	if (levelFinishedLoading)
 	{
+		// Updates the timer for later use
+		timer.updateTimer(dTime);
+		if (timer.getTimer() <= 0)
+			endTheGame = true;
+
 		// Transitions in/out depending on game conditions and resets amount collected
 		checkGameState(dTime);
 		collectedNo_ = 0;
@@ -191,7 +202,7 @@ TileFloor* Level::createFloorTile(const Tile::TileType& type, int x, int y, floa
 Vector3 Level::move(const Vector3& pos, const Vector2& dir, bool& success)
 {
 	// If the player is able to move
-	if (levelReadyToPlay && !playerFrozen)
+	if (levelReadyToPlay && !playerFrozen && !endTheGame)
 	{
 		// Get the cell coordinates of the player's current and next position
 		const Vector2 pPos = getCellFromCoords(pos);
@@ -271,6 +282,11 @@ Vector3 Level::getCurrentLocationOfTile(const Vector3 & pos)
 	return pPos;
 }
 
+float Level::getTimer() const
+{
+	return timer.getTimer();
+}
+
 Vector2 Level::getCellFromCoords(const Vector3& pos) const
 {
 	return Vector2(std::ceil((pos.y - anchorPos.x) / (tileWidth + tilePadding + additionalPadding)) + cellDim / 2, std::ceil((pos.x - anchorPos.y) / (tileWidth + tilePadding + additionalPadding)) + cellDim / 2);
@@ -303,17 +319,27 @@ void Level::checkTile(Tile* tile)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	// Count how many pickups have been collected
-	if (tile->getTileType() == Tile::ePickup && tile->getInfo()) {
-		collectedNo_++;
+	if (tile->getTileType() == Tile::ePickup) {
+
+		if (tile->getInfo())
+			collectedNo_++;
 	}
 	// Check if the player has begun the level
 	else if (tile->getTileType() == Tile::eStart) {
-		playerInPlay = tile->getInfo();
+
+		if (!playerInPlay && tile->getInfo()) {
+			timer.startTimer();
+			playerInPlay = true;
+		}
 	}
 	// Check if the player has reached the end
-	else if (tile->getTileType() == Tile::eEnd && tile->getInfo()) {
-		playerBeatLevel = true;
-		endTheGame = true;
+	else if (tile->getTileType() == Tile::eEnd) {
+
+		if (tile->getInfo() && (collectedNo_ >= pickupNo_)) {
+			timer.pauseTimer();
+			playerBeatLevel = true;
+			endTheGame = true;
+		}
 	}
 }
 
@@ -325,10 +351,14 @@ void Level::checkTileFloor(TileFloor* tile)
 	// Check if the floor tiles are killing the player
 	const int status = tile->getInfo();
 	if (status > 0)
+	{
+		timer.pauseTimer();
+
 		if (status == 1)
 			playerFrozen = true;
 		else
 			endTheGame = true;
+	}
 }
 
 void Level::checkGameState(float dTime)
@@ -374,5 +404,19 @@ bool Level::getLevelSwitch() const
 bool Level::getWinStatus() const
 {
 	return playerBeatLevel;
+}
+
+string Level::getMessage() const
+{
+	if (!endTheGame)
+		return levelCaption;
+
+	else if (endTheGame && playerBeatLevel) {
+		const float time = levelMaxTime - timer.getTimer();
+		const string temp = std::to_string(time);
+		return "Congratulations! You beat the level in " + temp + " seconds!";
+	}
+	else
+		return "Try again!";
 }
 

@@ -110,9 +110,6 @@ void Game::Initialise()
 	mLoadData.loader = std::async(launch::async, &Game::Load, this);
 
 	mMKInput.Initialise(GetMainWnd());
-
-	
-	mGameTimer.startTimer();
 }
 
 void Game::Release()
@@ -141,7 +138,6 @@ void Game::Update(float dTime)
 
 	if (mLoadData.running)
 		return;
-	mGameTimer.updateTimer(dTime);
 }
 
 
@@ -192,8 +188,7 @@ void Game::Render(float dTime)
 	//mpFont->DrawString(mpSpriteBatch, ss.str().c_str(), Vector2(10, 550), Colours::White, 0, Vector2(0, 0), Vector2(0.5f, 0.5f));
 
 	//mpSpriteBatch->End();
-	string message = "This is a game message sent to UI";
-	mUI.DisplayMessage(message, mGameTimer.getTimer(), levelMGR.getCollectedNo(), levelMGR.getPickupNo());
+	mUI.DisplayMessage(levelMGR.getMessage(), levelMGR.getTimer(), levelMGR.getCollectedNo(), levelMGR.getPickupNo());
 
 	EndRender();
 

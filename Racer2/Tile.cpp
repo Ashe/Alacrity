@@ -42,6 +42,8 @@ void Tile::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 			tile.GetPosition().z = zAdjust + 1.1 * padding;
 
 		tile.GetPosition() += adjustVector;
+
+		tile.GetScale() = Vector3(cellWidth, cellWidth, cellWidth);
 	}
 }
 

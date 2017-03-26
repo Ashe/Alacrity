@@ -14,8 +14,8 @@ class LevelMGR : public Singleton<LevelMGR>
 {
 public:
 	//start up and shut down
-	LevelMGR(MeshManager& meshMGR, const Vector3& anch, float width)
-		: mMeshMgr(&meshMGR), level(meshMGR, anch, width)
+	LevelMGR(MeshManager& meshMGR, const Vector3& anch)
+		: mMeshMgr(&meshMGR), level(meshMGR, anch)
 	{}
 	~LevelMGR() {
 		Release();
@@ -44,6 +44,8 @@ public:
 	//Number of pickups on current level
 	int getPickupNo() const;
 	int getCollectedNo() const;
+	float getTimer() const;
+	string getMessage() const;
 
 	// Get whether the player has started
 	bool getLevelStarted() const;
@@ -52,11 +54,17 @@ private:
 
 	struct levelTemplate
 	{
-		int tileDim;
-		float tilePadding;
-		float safeTime;
-		float fallSpeedSafe;
-		float fallSpeedDead;
+		float levelTime;		// The time the player has to complete the level
+		string levelCaption;	// The hint of the level displayed on the UI
+
+		float safeTime;			// The time the player can spend on a tile before they die
+		float fallSpeedSafe;	// The speed of the falling tile before the player jumps off
+		float fallSpeedDead;	// The speed of the tile after the player has left
+
+		float tileWidth;		// The size of the tiles
+		int tileDim;			// The size of the grid
+		float tilePadding;		// The size of the padding between the tiles
+
 		vector<vector<Tile::TileType>> tileList;
 	};
 

@@ -4,9 +4,22 @@ void TileFloor::Initialise(Mesh& tileMesh)
 {
 	Tile::Initialise(tileMesh);
 
-	destroyStatus = stable;
 	playerIsOn = false;
 	floorIsDead = false;
+	destroyStatus = stable;
+
+	switch (protection) {
+	case -1:
+		// Invincible tile
+		break;
+	case -2:
+		// Destroyed tile
+		destroyStatus = destroyed;
+		protection = 0;
+		floorIsDead = true;
+		break;
+	}
+
 }
 
 void TileFloor::Update(float dTime, float newPadding) {

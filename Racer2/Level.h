@@ -46,7 +46,7 @@ public:
 	void OnResize(int screenWidth, int screenHeight);
 
 	// Called everytime a new level is created
-	void Initialise(const TextureInfo& textInf, const vector<vector<Tile::TileType>>& layout, const string& caption, float levelTime, float width = 1, float padding = 1.25, int dim = 10, float safeTime = 5, float fallSpeedSafe = 3, float fallSpeedDead = 10);
+	void Initialise(const TextureInfo& textInf, const vector<vector<Tile::TileType>>& layout, const vector<vector<int>>& floorLayout, const string& caption, float levelTime, float width = 1, float padding = 1.25, int dim = 10, float safeTime = 5, float fallSpeedSafe = 3, float fallSpeedDead = 10);
 
 	// player interaction
 	Vector3 move(const Vector3& pos, const Vector2& dir, bool& success);
@@ -115,7 +115,7 @@ private:
 
 	// Tile creation
 	Tile* createTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch);
-	TileFloor* createFloorTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch, float safeTime, float fallSpeedSafe, float fallSpeedDead);
+	TileFloor* createFloorTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch, float safeTime, float fallSpeedSafe, float fallSpeedDead, int protection = 0);
 
 	// Locating functions
 	Vector2 getCellFromCoords(const Vector3& pos) const;

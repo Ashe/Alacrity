@@ -64,6 +64,7 @@ private:
 		float tilePadding;		// The size of the padding between the tiles
 
 		vector<vector<Tile::TileType>> tileList;
+		vector<vector<int>> floorList;
 	};
 
 	Level::TextureInfo texInfo;

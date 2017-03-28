@@ -48,7 +48,7 @@ void LevelMGR::Render(float dTime)
 
 void LevelMGR::changeLevel(int levelNo) {
 	levelTemplate nextLevel = getLayout(levelNo);
-	level.Initialise(texInfo, nextLevel.tileList, nextLevel.levelCaption, nextLevel.levelTime, nextLevel.tileWidth, nextLevel.tilePadding, nextLevel.tileDim, nextLevel.safeTime, nextLevel.fallSpeedSafe, nextLevel.fallSpeedDead);
+	level.Initialise(texInfo, nextLevel.tileList, nextLevel.floorList, nextLevel.levelCaption, nextLevel.levelTime, nextLevel.tileWidth, nextLevel.tilePadding, nextLevel.tileDim, nextLevel.safeTime, nextLevel.fallSpeedSafe, nextLevel.fallSpeedDead);
 }
 
 // Complex one. Pass in your coordinate position and your direction (0/1 x, 0/1 y) and a bool.
@@ -102,6 +102,22 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 				{Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEnd, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eBasic}
 
 			};
+
+			nextLevel.floorList = {
+
+				{ -2, -1, -1, 0, 0, 0, 0, 0, 0, 0 },
+				{ -1, -1, -1, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+
+			};
+
 			break;
 		}
 	}

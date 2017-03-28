@@ -10,7 +10,7 @@ void Level::OnResize(int screenWidth, int screenHeight)
 	OnResize_Default(screenWidth, screenHeight);
 }
 
-void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::TileType>>& layout, const string& caption, float levelTime, float width, float padding, int dim, float safeTime, float fallSpeedSafe, float fallSpeedDead)
+void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::TileType>>& layout, const vector<vector<int>>& floorLayout, const string& caption, float levelTime, float width, float padding, int dim, float safeTime, float fallSpeedSafe, float fallSpeedDead)
 {
 	// Pause any animations
 	levelFinishedLoading = false;
@@ -50,7 +50,7 @@ void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::Tile
 
 		for (int j = 0; j < dim; j++) {
 			// Create and intialise tiles and place it in the appropriate vector
-			tempBack.push_back(createFloorTile(layout[i][j], j, i, tileWidth, tilePadding + additionalPadding, anchorPos, safeTime, fallSpeedSafe, fallSpeedDead));
+			tempBack.push_back(createFloorTile(layout[i][j], j, i, tileWidth, tilePadding + additionalPadding, anchorPos, safeTime, fallSpeedSafe, fallSpeedDead, floorLayout[i][j]));
 			tempLevel.push_back(createTile(layout[i][j],j, i, tileWidth,tilePadding,anchorPos));
 
 			countPickups(layout[i][j]);
@@ -178,7 +178,7 @@ Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, f
 	return peter;
 }
 
-TileFloor* Level::createFloorTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch, float safeTime, float fallSpeedSafe, float fallSpeedDead)
+TileFloor* Level::createFloorTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch, float safeTime, float fallSpeedSafe, float fallSpeedDead, int protection)
 {
 	// Declare the pointer that will be returned later
 	TileFloor* peter;
@@ -187,7 +187,7 @@ TileFloor* Level::createFloorTile(const Tile::TileType& type, int x, int y, floa
 	// Depending on the floor tile specified, create an appropriate floor (For now, just spawn the default floor)
 	switch (type) {
 	default:
-		peter = new TileFloor(*mFX, type, x, y, width, pad, anch, cellDim, safeTime, fallSpeedSafe, fallSpeedDead, false, true);
+		peter = new TileFloor(*mFX, type, x, y, width, pad, anch, cellDim, safeTime, fallSpeedSafe, fallSpeedDead, false, true, protection);
 		break;
 	}
 

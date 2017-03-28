@@ -49,7 +49,7 @@ void TileFloor::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 
 	if (!getHidden())
 	{
-		mFX.Render(tile, gd3dImmediateContext);
+		mFX->Render(tile, gd3dImmediateContext);
 
 		tile.GetPosition().x = getAnchor().x + (getCellX() - getDim() / 2) * (getCellWidth() + getPadding());
 		tile.GetPosition().y = getAnchor().y + (getCellY() - getDim() / 2) * (getCellWidth() + getPadding());

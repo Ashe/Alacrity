@@ -18,8 +18,6 @@ void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::Tile
 	// Import references to the textures
 	textureInfo = texInf;
 
-	mFX.Init(gd3dDevice);
-
 	// Set level specific params
 	tileWidth = width;
 	cellDim = dim;
@@ -156,23 +154,23 @@ Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, f
 	// Depending on the type of tile, create an instance of the appropriate class
 	switch (type) {
 	case Tile::TileType::eBasic:
-		peter = new Tile(type, x, y, width, pad, anch, cellDim);
+		peter = new Tile(*mFX, type, x, y, width, pad, anch, cellDim);
 		break;
 
 	case Tile::TileType::eEmpty:
-		peter = new Tile(type, x, y, width, pad, anch, cellDim, true, true);
+		peter = new Tile(*mFX, type, x, y, width, pad, anch, cellDim, true, true);
 		break;
 
 	case Tile::TileType::ePickup:
-		peter = new TilePickup(type, x, y, width, pad, anch, cellDim, false, true);
+		peter = new TilePickup(*mFX, type, x, y, width, pad, anch, cellDim, false, true);
 		break;
 
 	case Tile::TileType::eStart:
-		peter = new TileStart(type, x, y, width, pad, anch, cellDim, false, true);
+		peter = new TileStart(*mFX, type, x, y, width, pad, anch, cellDim, false, true);
 		break;
 
 	case Tile::TileType::eEnd:
-		peter = new TileEnd(type, x, y, width, pad, anch, cellDim, false, true);
+		peter = new TileEnd(*mFX, type, x, y, width, pad, anch, cellDim, false, true);
 	}
 	
 	// Initialise the tile with the mesh in randy reference
@@ -189,7 +187,7 @@ TileFloor* Level::createFloorTile(const Tile::TileType& type, int x, int y, floa
 	// Depending on the floor tile specified, create an appropriate floor (For now, just spawn the default floor)
 	switch (type) {
 	default:
-		peter = new TileFloor(type, x, y, width, pad, anch, cellDim, safeTime, fallSpeedSafe, fallSpeedDead, false, true);
+		peter = new TileFloor(*mFX, type, x, y, width, pad, anch, cellDim, safeTime, fallSpeedSafe, fallSpeedDead, false, true);
 		break;
 	}
 

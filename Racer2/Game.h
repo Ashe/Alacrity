@@ -43,7 +43,7 @@ public:
 	MeshManager mMeshMgr;
 
 	// Level Manager
-	LevelMGR levelMGR = LevelMGR(mMeshMgr, DirectX::SimpleMath::Vector3(0, 0, 0));
+	LevelMGR levelMGR = LevelMGR(mFX, mMeshMgr, DirectX::SimpleMath::Vector3(0, 0, 0));
 
 	//handy rendering state
 	FX::MyFX mFX;

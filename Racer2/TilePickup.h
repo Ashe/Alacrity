@@ -5,8 +5,8 @@
 class TilePickup : public Tile
 {
 public:
-	TilePickup(const TileType& type, int x, int y, float width, float pad, const Vector3& anch, int gridDim, bool isHidden = false, bool isTraverseable = false)
-		:Tile(type, x, y, width, pad, anch, gridDim, isHidden, isTraverseable) {};
+	TilePickup(FX::MyFX& fxRef, const TileType& type, int x, int y, float width, float pad, const Vector3& anch, int gridDim, bool isHidden = false, bool isTraverseable = false)
+		:Tile(fxRef, type, x, y, width, pad, anch, gridDim, isHidden, isTraverseable) {};
 
 	void Initialise(Mesh& tileMesh) override;
 	void Render(float dTime, float zAdjust = 0, bool setInsteadOfAdd = false) override;

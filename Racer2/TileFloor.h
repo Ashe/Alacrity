@@ -14,8 +14,8 @@ class TileFloor : public Tile
 {
 public:
 	//start up and shut down
-	TileFloor(const TileType& type, int x, int y, float width, float pad, const Vector3& anch, int gridDim, float safeTime, float safeFallSpeed, float pingFallSpeed, bool isHidden = false, bool isTraverseable = false, int prot = 0)
-		:Tile(type, x, y, width, pad, anch, gridDim, isHidden, isTraverseable), unstableTime(safeTime), unstableSpeed(safeFallSpeed), pingSpeed(pingFallSpeed), protection(prot) {}
+	TileFloor(FX::MyFX& fxRef, const TileType& type, int x, int y, float width, float pad, const Vector3& anch, int gridDim, float safeTime, float safeFallSpeed, float pingFallSpeed, bool isHidden = false, bool isTraverseable = false, int prot = 0)
+		:Tile(fxRef, type, x, y, width, pad, anch, gridDim, isHidden, isTraverseable), unstableTime(safeTime), unstableSpeed(safeFallSpeed), pingSpeed(pingFallSpeed), protection(prot) {}
 
 	void Initialise(Mesh& tileMesh) override;
 	void Update(float dTime, float newPadding = -1) override;

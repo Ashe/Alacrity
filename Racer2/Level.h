@@ -7,6 +7,8 @@
 #include "TileStart.h"
 #include "TileEnd.h"
 
+#include "FX.h"
+
 #include "D3D.h"
 #include "GeometryBuilder.h"
 
@@ -19,8 +21,8 @@ class Level
 {
 public:
 	//start up and shut down
-	Level(MeshManager& meshMGR, const Vector3& anch)
-		: mMeshMgr(&meshMGR), anchorPos(anch)
+	Level(FX::MyFX& fxRef,MeshManager& meshMGR, const Vector3& anch)
+		: mFX(&fxRef), mMeshMgr(&meshMGR), anchorPos(anch)
 	{
 		Load(meshMGR);
 	}
@@ -57,7 +59,7 @@ public:
 	void Release();
 
 	//handy rendering state
-	FX::MyFX mFX;
+	FX::MyFX* mFX;
 
 	//Number of pickups on current level
 	int getPickupNo() const;

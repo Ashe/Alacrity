@@ -7,10 +7,8 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-void Player::Initialise(Mesh& playerMesh, LevelMGR* levelPointer, MouseAndKeys* mMKPointer){
-
-	mFX.Init(gd3dDevice);
-
+void Player::Initialise(FX::MyFX& fxRef, Mesh& playerMesh, LevelMGR* levelPointer, MouseAndKeys* mMKPointer){
+	mFX = &fxRef;
 	player.Initialise(playerMesh);
 	player.GetPosition() = levelPointer->getStartingPosition();
 	adjustVector = player.GetPosition();
@@ -45,7 +43,7 @@ void Player::Update(float dTime){
 	moveDirection = Vector2(0, 0);
 }
 void Player::Render(float dTime){
-	mFX.Render(player, gd3dImmediateContext);
+	mFX->Render(player, gd3dImmediateContext);
 	player.GetPosition() = adjustVector;
 
 	// This is so that the player sits on top of his tile. You need to add the size of the player on the end so that he's not inside it

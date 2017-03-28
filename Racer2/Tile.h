@@ -24,8 +24,8 @@ public:
 	};
 
 	//start up and shut down
-	Tile(const TileType& type, int x, int y, float width, float pad, const Vector3& anch, int gridDim, bool isHidden = false, bool isTraverseable = false) 
-		:tileType(type), cellX(x), cellY(y), cellWidth(width), padding(pad), anchor(anch), gridDimensions(gridDim), hidden(isHidden), traverseable(isTraverseable) {}
+	Tile(FX::MyFX&(fxRef), const TileType& type, int x, int y, float width, float pad, const Vector3& anch, int gridDim, bool isHidden = false, bool isTraverseable = false) 
+		:mFX(&fxRef), tileType(type), cellX(x), cellY(y), cellWidth(width), padding(pad), anchor(anch), gridDimensions(gridDim), hidden(isHidden), traverseable(isTraverseable) {}
 
 	~Tile() {
 		Release();
@@ -46,7 +46,7 @@ public:
 	Model tile;
 
 	//handy rendering state
-	FX::MyFX mFX;
+	FX::MyFX* mFX;
 
 	// getters & setters
 	int getCellX();

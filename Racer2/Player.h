@@ -13,7 +13,7 @@ using namespace DirectX::SimpleMath;
 
 class Player{
 public:
-	void Initialise(Mesh&, LevelMGR*, MouseAndKeys*);
+	void Initialise(FX::MyFX&, Mesh&, LevelMGR*, MouseAndKeys*);
 	void Release();
 	void Update(float);
 	void Render(float);
@@ -27,7 +27,7 @@ public:
 	Model player;
 
 	//handy rendering state
-	FX::MyFX mFX;
+	FX::MyFX* mFX;
 private:
 	int cellX;
 	int cellY;

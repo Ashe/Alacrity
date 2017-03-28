@@ -83,7 +83,7 @@ void Game::Initialise()
 	mFX.Init(gd3dDevice);
 	levelMGR.Initialise();
 	Mesh& playerMesh = BuildPyramid(mMeshMgr);
-	player.Initialise(playerMesh, &levelMGR, &mMKInput);
+	player.Initialise(mFX, playerMesh, &levelMGR, &mMKInput);
 
 	mQuad.Initialise(BuildQuad(mMeshMgr));
 	MaterialExt *pMat = &mQuad.GetMesh().GetSubMesh(0).material;

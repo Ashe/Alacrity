@@ -3,6 +3,7 @@
 
 #include "Level.h"
 #include "Tile.h"
+#include "FX.h"
 #include "Singleton.h"
 
 using namespace std;
@@ -14,8 +15,8 @@ class LevelMGR : public Singleton<LevelMGR>
 {
 public:
 	//start up and shut down
-	LevelMGR(MeshManager& meshMGR, const Vector3& anch)
-		: mMeshMgr(&meshMGR), level(meshMGR, anch)
+	LevelMGR(FX::MyFX& fxRef, MeshManager& meshMGR, const Vector3& anch)
+		: mFX(&fxRef), mMeshMgr(&meshMGR), level(fxRef, meshMGR, anch)
 	{}
 	~LevelMGR() {
 		Release();
@@ -37,9 +38,6 @@ public:
 	Vector3 move(const Vector3& pos, const Vector2& dir, bool& success);
 	Vector3 getStartingPosition() const;
 	Vector3 getCurrentLocationOfTile(const Vector3& pos);
-
-	//handy rendering state
-	FX::MyFX mFX;
 
 	//Number of pickups on current level
 	int getPickupNo() const;
@@ -74,6 +72,9 @@ private:
 
 	//ensure each mesh is loaded and release exactly once
 	MeshManager* mMeshMgr;
+
+	//handy rendering state
+	FX::MyFX* mFX;
 
 	int getLayoutDim(int levelNo);
 	levelTemplate getLayout(int LevelNo);

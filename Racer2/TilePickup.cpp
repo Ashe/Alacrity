@@ -3,10 +3,6 @@
 void TilePickup::Initialise(Mesh & tileMesh)
 {
 	Tile::Initialise(tileMesh);
-	MaterialExt *pMat = &tile.GetMesh().GetSubMesh(0).material;
-	pMat->gfxData.Set(Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
-	pMat->pTextureRV = mFX->mCache.LoadTexture("block.dds", true, gd3dDevice);
-	pMat->texture = "block";
 
 	spinAngle = 0;
 	isCollected = false;

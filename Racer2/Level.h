@@ -77,6 +77,7 @@ public:
 private:
 	int pickupNo_;
 	int collectedNo_;
+	int trueCollectedNo_; // This is necessary so that, when checked, the collectedNo isn't in the process of counting
 	const Vector3 anchorPos;
 	float tileWidth;
 	string levelCaption;

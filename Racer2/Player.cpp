@@ -28,7 +28,7 @@ void Player::Update(float dTime){
 
 	if ((!buttonHold || (buttonHold && moveWait <= 0)) && (moveDirection.x != 0 || moveDirection.y != 0)){
 		adjustVector = levelManager->move(player.GetPosition(), moveDirection, success);
-		moveWait = 50;
+		moveWait = 250;
 	}
 	else // If the player is not moving, retrieve the current tile's coords
 		adjustVector = levelManager->getCurrentLocationOfTile(adjustVector);
@@ -38,7 +38,7 @@ void Player::Update(float dTime){
 	else
 		buttonHold = false;
 
-	--moveWait;
+	moveWait -= dTime;
 
 	moveDirection = Vector2(0, 0);
 }

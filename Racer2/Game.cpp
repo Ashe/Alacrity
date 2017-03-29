@@ -110,6 +110,10 @@ void Game::Initialise()
 	mLoadData.loader = std::async(launch::async, &Game::Load, this);
 
 	mMKInput.Initialise(GetMainWnd());
+
+
+	// May want to delete this
+	mCamPos = mDefCamPos;
 }
 
 void Game::Release()

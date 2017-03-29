@@ -77,7 +77,6 @@ private:
 	//handy rendering state
 	FX::MyFX* mFX;
 
-	int getLayoutDim(int levelNo);
 	levelTemplate getLayout(int LevelNo);
 
 	Level level;

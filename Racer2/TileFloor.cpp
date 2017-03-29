@@ -14,9 +14,9 @@ void TileFloor::Initialise(Mesh& tileMesh)
 		break;
 	case -2:
 		// Destroyed tile
-		destroyStatus = destroyed;
 		protection = 0;
 		floorIsDead = true;
+		removeTile();
 		break;
 	}
 

@@ -9,6 +9,11 @@ void Tile::Initialise(Mesh& tileMesh)
 {
 	tile.Initialise(tileMesh);
 
+	MaterialExt *pMat = &tile.GetMesh().GetSubMesh(0).material;
+	pMat->gfxData.Set(Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
+	pMat->pTextureRV = mFX->mCache.LoadTexture("block.dds", true, gd3dDevice);
+	pMat->texture = "block";
+
 	// Remove any displacement to reset the location
 	adjustVector = { 0, 0, 0 };
 }

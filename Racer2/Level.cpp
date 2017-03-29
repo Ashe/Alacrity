@@ -39,6 +39,7 @@ void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::Tile
 
 	// In prep for counting pickups
 	pickupNo_ = 0;
+	trueCollectedNo_ = 0;
 
 	// Before initialising the next level, release anything stored in tile vectors
 	Release();
@@ -117,6 +118,9 @@ void Level::Update(float dTime)
 				checkTileFloor(floor[i][j]);
 				checkTile(level[i][j]);
 			}
+
+		if (collectedNo_ > trueCollectedNo_)
+			trueCollectedNo_ = collectedNo_;
 	}
 }
 
@@ -302,7 +306,7 @@ int Level::getPickupNo() const
 
 int Level::getCollectedNo() const
 {
-	return collectedNo_;
+	return trueCollectedNo_;
 }
 
 void Level::countPickups(const Tile::TileType& layout){
@@ -333,7 +337,7 @@ void Level::checkTile(Tile* tile)
 	// Check if the player has reached the end
 	else if (tile->getTileType() == Tile::eEnd) {
 
-		if (tile->getInfo() && (collectedNo_ >= pickupNo_)) {
+		if (tile->getInfo() && (trueCollectedNo_ >= pickupNo_)) {
 			timer.pauseTimer();
 			playerBeatLevel = true;
 			endTheGame = true;

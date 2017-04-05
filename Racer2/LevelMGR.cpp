@@ -133,19 +133,21 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 			nextLevel.fallSpeedDead = 10;	// Speed at which the tiles fall when not safe
 
 			nextLevel.tileWidth = 3;		// Width of tles
-			nextLevel.tileDim = 3;			// Amount of tiles (n*n)
+			nextLevel.tileDim = 4;			// Amount of tiles (n*n)
 			nextLevel.tilePadding = 3.25;	// Padding between blocks
 
 			nextLevel.tileList = {
-				{ Tile::eStart, Tile::eEmpty, Tile::eEmpty },
-				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
-				{ Tile::eEmpty, Tile::eEmpty, Tile::eEnd }
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eStart, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty},
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty},
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEnd, Tile::eEmpty }
 			};
 
 			nextLevel.floorList = {
-				{-1,-1,-1},
-				{-2,-2,-1},
-				{-2,-2,-1}
+				{-2,-2,-2,-2},
+				{-1,-1,-1,-2},
+				{-2,-2,-1,-2},
+				{-2,-2,-1,-2}
 			};
 
 			break;
@@ -160,21 +162,25 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 			nextLevel.fallSpeedDead = 10;	// Speed at which the tiles fall when not safe
 
 			nextLevel.tileWidth = 2;		// Width of tles
-			nextLevel.tileDim = 4;			// Amount of tiles (n*n)
+			nextLevel.tileDim = 6;			// Amount of tiles (n*n)
 			nextLevel.tilePadding = 2.25;	// Padding between blocks
 
 			nextLevel.tileList = {
-				{ Tile::eStart, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
-				{ Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty },
-				{ Tile::eEnd, Tile::eBasic, Tile::eBasic, Tile::eEmpty },
-				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty }
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eStart, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eBasic, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEnd, Tile::eBasic, Tile::eBasic, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty }
 			};
 
 			nextLevel.floorList = {
-				{ 0, 0, 0, 0 },
-				{ 0, 0, 0, 0 },
-				{ 0, 0, 0, 0 },
-				{ 0, 0, 0, 0 }
+				{ -2,-2,-2,-2,-2, -2 },
+				{ -2, 0, 0, 0, 0, -2 },
+				{ -2, 0, 0, 0, 0, -2 },
+				{ -2, 0, 0, 0, 0, -2 },
+				{ -2, 0, 0, 0, 0, -2 },
+				{ -2,-2,-2,-2,-2, -2 },
 			};
 
 			break;

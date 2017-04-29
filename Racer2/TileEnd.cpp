@@ -10,7 +10,9 @@ void TileEnd::Initialise(Mesh& tileMesh)
 
 void TileEnd::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 {
+	
 	Tile::Render(dTime, zAdjust, setInsteadOfAdd);
+
 }
 
 void TileEnd::moveOn()

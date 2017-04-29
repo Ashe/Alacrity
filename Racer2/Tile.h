@@ -75,8 +75,8 @@ public:
 	virtual void moveOn();
 	virtual void moveOff();
 
+	MaterialExt *pMat;
 private:
-
 	const TileType tileType;
 	bool traverseable;
 	// attributes for positioning

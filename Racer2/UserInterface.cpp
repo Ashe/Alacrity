@@ -14,7 +14,7 @@ using namespace DirectX::SimpleMath;
 void UserInterface::Initialise(){
 	mpSpriteBatch = new SpriteBatch(gd3dImmediateContext);
 	assert(mpSpriteBatch);
-	mpFont = new SpriteFont(gd3dDevice, L"data/comicSansMS.spritefont");
+	mpFont = new SpriteFont(gd3dDevice, L"data/cabin.spritefont");
 	assert(mpFont);
 }
 
@@ -22,17 +22,17 @@ void UserInterface::DisplayMessage(string& message, float timer, int currentPick
 	mpSpriteBatch->Begin();
 
 	wstringstream ssMessage;
-	ssMessage << message.c_str();
-	mpFont->DrawString(mpSpriteBatch, ssMessage.str().c_str(), Vector2(10, 550), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+	ssMessage << message.c_str(); 
+	mpFont->DrawString(mpSpriteBatch, ssMessage.str().c_str(), Vector2(10, 110), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 
 	wstringstream ssTimer;
-	ssTimer << timer;
-	mpFont->DrawString(mpSpriteBatch, ssTimer.str().c_str(), Vector2(10, 570), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+	ssTimer << "Time left : " << timer << "s";
+	mpFont->DrawString(mpSpriteBatch, ssTimer.str().c_str(), Vector2(10, 10), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 	wstringstream ssPickUps;
 	ssPickUps << currentPickUps << "/" << pickupTotal << " pick ups!";
-	mpFont->DrawString(mpSpriteBatch, ssPickUps.str().c_str(), Vector2(10, 590), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+	mpFont->DrawString(mpSpriteBatch, ssPickUps.str().c_str(), Vector2(10, 70), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 	mpSpriteBatch->End();
 }

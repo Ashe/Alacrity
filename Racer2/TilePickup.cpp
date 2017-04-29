@@ -10,6 +10,8 @@ void TilePickup::Initialise(Mesh & tileMesh)
 
 void TilePickup::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
 {
+
+
 	spinAngle += dTime;
 
 	Tile::Render(dTime, zAdjust, setInsteadOfAdd);

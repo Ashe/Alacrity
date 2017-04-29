@@ -134,6 +134,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GeometryBuilder.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="TileEnd.h" />
     <ClInclude Include="TilePickup.h" />
     <ClInclude Include="TileStart.h" />
@@ -200,6 +201,12 @@
     <ProjectReference Include="..\..\..\DirectXTK\DirectXTK_Desktop_2013.vcxproj">
       <Project>{e0b52ae7-e160-4d32-bf3f-910b785e5a8e}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="P4G.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bitmap1.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

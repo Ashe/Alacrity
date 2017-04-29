@@ -8,10 +8,8 @@ void TilePickup::Initialise(Mesh & tileMesh)
 	isCollected = false;
 }
 
-void TilePickup::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
+void TilePickup::Render(float dTime, float zAdjust, bool setInsteadOfAdd, bool matSet)
 {
-
-
 	spinAngle += dTime;
 
 	Tile::Render(dTime, zAdjust, setInsteadOfAdd);

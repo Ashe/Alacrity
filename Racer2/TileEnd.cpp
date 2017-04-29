@@ -8,11 +8,9 @@ void TileEnd::Initialise(Mesh& tileMesh)
 	endReached = false;
 }
 
-void TileEnd::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
+void TileEnd::Render(float dTime, float zAdjust, bool setInsteadOfAdd, bool matSet)
 {
-	
 	Tile::Render(dTime, zAdjust, setInsteadOfAdd);
-
 }
 
 void TileEnd::moveOn()

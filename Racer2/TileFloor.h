@@ -19,7 +19,7 @@ public:
 
 	void Initialise(Mesh& tileMesh) override;
 	void Update(float dTime, float newPadding = -1) override;
-	void Render(float dTime, float zAdjust = 0, bool setInsteadOfAdd = false) override;
+	void Render(float dTime, float zAdjust = 0, bool setInsteadOfAdd = false, bool matAlreadySet = false) override;
 
 	Vector3 getPosition() override;
 

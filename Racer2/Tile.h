@@ -35,7 +35,7 @@ public:
 	virtual void Update(float dTime, float newPadding = -1);
 
 	//render images, called constantly, elapsed time passed in
-	virtual void Render(float dTime, float zAdjust = 0, bool setInsteadOfAdd = false);
+	virtual void Render(float dTime, float zAdjust = 0, bool setInsteadOfAdd = false, bool matAlreadySet = false);
 
 	//called when ALT+ENTER or drag
 	void OnResize(int screenWidth, int screenHeight);

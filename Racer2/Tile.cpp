@@ -27,15 +27,15 @@ void Tile::Update(float dTime, float newPadding)
 }
 
 
-void Tile::Render(float dTime, float zAdjust, bool setInsteadOfAdd)
+void Tile::Render(float dTime, float zAdjust, bool setInsteadOfAdd, bool matSetAlready)
 {
 	
-	//MATERIAL
-	pMat->gfxData.Set(Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
-	pMat->pTextureRV = mFX->mCache.LoadTexture("block.dds", true, gd3dDevice);
-	pMat->texture = "block";
-
-
+	if (!matSetAlready) {
+		//MATERIAL
+		pMat->gfxData.Set(Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
+		pMat->pTextureRV = mFX->mCache.LoadTexture("block.dds", true, gd3dDevice);
+		pMat->texture = "block";
+	}
 
 	if (!hidden)
 	{

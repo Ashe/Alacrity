@@ -9,7 +9,7 @@ public:
 		:Tile(fxRef, type, x, y, width, pad, anch, gridDim, isHidden, isTraverseable) {};
 
 	void Initialise(Mesh& tileMesh) override;
-	void Render(float dTime, float zAdjust = 0, bool setInsteadOfAdd = false) override;
+	void Render(float dTime, float zAdjust = 0, bool setInsteadOfAdd = false, bool matSet = false) override;
 
 	// movement functions
 	void moveOn() override;

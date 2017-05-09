@@ -4,6 +4,8 @@
 #include "Tile.h"
 #include "TileFloor.h"
 #include "TilePickup.h"
+#include "TileInvisibleWall.h"
+#include "TileInverseInvisibleWall.h"
 #include "TileStart.h"
 #include "TileEnd.h"
 

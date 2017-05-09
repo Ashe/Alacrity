@@ -20,7 +20,7 @@ public:
 
 	enum TileType
 	{
-		eEmpty, eBasic, eStart, eEnd, ePickup
+		eEmpty, eBasic, eStart, eEnder, ePikup, eInviW, eFakeW
 	};
 
 	//start up and shut down

@@ -6,6 +6,7 @@ void TileEnd::Initialise(Mesh& tileMesh)
 	setHidden(true);
 
 	endReached = false;
+	tileKilled = false;
 }
 
 void TileEnd::Render(float dTime, float zAdjust, bool setInsteadOfAdd, bool matSet)
@@ -18,8 +19,14 @@ void TileEnd::moveOn()
 	endReached = true;
 }
 
+void TileEnd::moveOff()
+{
+	endReached = false;
+	tileKilled = true;
+}
+
 int TileEnd::getInfo() const
 {
 	// Returns if the game is in play
-	return endReached;
+	return endReached && !tileKilled;
 }

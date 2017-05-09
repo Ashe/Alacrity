@@ -105,6 +105,7 @@
     <ClCompile Include="FX.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GeometryBuilder.cpp" />
+    <ClCompile Include="InverseInvisibleWall.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LevelMGR.cpp" />
@@ -116,6 +117,7 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileEnd.cpp" />
     <ClCompile Include="TileFloor.cpp" />
+    <ClCompile Include="TileInvisibleWall.cpp" />
     <ClCompile Include="TilePickup.cpp" />
     <ClCompile Include="TileStart.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -136,6 +138,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="TileEnd.h" />
+    <ClInclude Include="TileInverseInvisibleWall.h" />
+    <ClInclude Include="TileInvisibleWall.h" />
     <ClInclude Include="TilePickup.h" />
     <ClInclude Include="TileStart.h" />
     <ClInclude Include="Timer.h" />

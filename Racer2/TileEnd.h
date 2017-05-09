@@ -13,11 +13,13 @@ public:
 
 	// movement functions
 	void moveOn() override;
+	void moveOff() override;
 
 	int getInfo() const override;
 
 private:
 	bool endReached;
+	bool tileKilled;
 
 };
 #endif

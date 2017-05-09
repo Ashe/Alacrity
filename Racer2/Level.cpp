@@ -165,16 +165,25 @@ Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, f
 		peter = new Tile(*mFX, type, x, y, width, pad, anch, cellDim, true, true);
 		break;
 
-	case Tile::TileType::ePickup:
+	case Tile::TileType::ePikup:
 		peter = new TilePickup(*mFX, type, x, y, width, pad, anch, cellDim, false, true);
+		break;
+
+	case Tile::TileType::eInviW:
+		peter = new TileInvisibleWall(*mFX, type, x, y, width, pad, anch, cellDim);
+		break;
+
+	case Tile::TileType::eFakeW:
+		peter = new TileInverseInvisibleWall(*mFX, type, x, y, width, pad, anch, cellDim);
 		break;
 
 	case Tile::TileType::eStart:
 		peter = new TileStart(*mFX, type, x, y, width, pad, anch, cellDim, false, true);
 		break;
 
-	case Tile::TileType::eEnd:
+	case Tile::TileType::eEnder:
 		peter = new TileEnd(*mFX, type, x, y, width, pad, anch, cellDim, false, true);
+		break;
 	}
 	
 	// Initialise the tile with the mesh in randy reference
@@ -256,7 +265,7 @@ Vector3 Level::getEndingPosition() const
 	for (int i = 0; i < cellDim; i++)
 	{
 		for (int j = 0; j < cellDim; j++)
-			if (level[i][j]->getTileType() == Tile::eEnd)
+			if (level[i][j]->getTileType() == Tile::eEnder)
 				return getCoordsFromCell(Vector2(i, j));
 	}
 
@@ -310,7 +319,7 @@ int Level::getCollectedNo() const
 }
 
 void Level::countPickups(const Tile::TileType& layout){
-	if (layout == Tile::ePickup){
+	if (layout == Tile::ePikup){
 		pickupNo_++;
 	}
 }
@@ -321,7 +330,7 @@ void Level::checkTile(Tile* tile)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	// Count how many pickups have been collected
-	if (tile->getTileType() == Tile::ePickup) {
+	if (tile->getTileType() == Tile::ePikup) {
 
 		if (tile->getInfo())
 			collectedNo_++;
@@ -335,7 +344,7 @@ void Level::checkTile(Tile* tile)
 		}
 	}
 	// Check if the player has reached the end
-	else if (tile->getTileType() == Tile::eEnd) {
+	else if (tile->getTileType() == Tile::eEnder) {
 
 		if (tile->getInfo() && (trueCollectedNo_ >= pickupNo_)) {
 			timer.pauseTimer();

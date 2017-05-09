@@ -60,7 +60,7 @@ void TileFloor::Render(float dTime, float zAdjust, bool setInsteadOfAdd, bool ma
 {
 	if (!matSet) {
 		switch (getTileType()) {
-		case Tile::eEnd:
+		case Tile::eEnder:
 			pMat->gfxData.Set(Vector4(0.0f, 0.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
 			break;
 		case Tile::eStart:

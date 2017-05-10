@@ -62,7 +62,7 @@ public:
 
 	TileType getTileType();
 	bool getHidden() const;
-	virtual int getInfo() const;
+	virtual int getInfo(int = 0) ;
 	void setHidden(bool b);
 	bool getTraverseable() const;
 	void setTraverseable(bool b);

@@ -10,7 +10,7 @@ void Level::OnResize(int screenWidth, int screenHeight)
 	OnResize_Default(screenWidth, screenHeight);
 }
 
-void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::TileType>>& layout, const vector<vector<int>>& floorLayout, const string& caption, float levelTime, float width, float padding, int dim, float safeTime, float fallSpeedSafe, float fallSpeedDead)
+void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::TileType>>& layout, const vector<vector<int>>& floorLayout, const vector<vector<int>>& extraInfo, const string& caption, float levelTime, float width, float padding, int dim, float safeTime, float fallSpeedSafe, float fallSpeedDead)
 {
 	// Pause any animations
 	levelFinishedLoading = false;
@@ -52,7 +52,7 @@ void Level::Initialise(const TextureInfo& texInf, const vector<vector<Tile::Tile
 		for (int j = 0; j < dim; j++) {
 			// Create and intialise tiles and place it in the appropriate vector
 			tempBack.push_back(createFloorTile(layout[i][j], j, i, tileWidth, tilePadding + additionalPadding, anchorPos, safeTime, fallSpeedSafe, fallSpeedDead, floorLayout[i][j]));
-			tempLevel.push_back(createTile(layout[i][j],j, i, tileWidth,tilePadding,anchorPos));
+			tempLevel.push_back(createTile(layout[i][j],j, i, tileWidth,tilePadding,anchorPos, extraInfo[i][j]));
 
 			countPickups(layout[i][j]);
 		}
@@ -149,7 +149,7 @@ void Level::Load(MeshManager meshMGR)
 	// Turns out this function is no longer needed, but will keep it in case it's needed later
 }
 
-Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch)
+Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch, int info)
 {
 	// Declare the pointer that will be returned later
 	Tile* peter;
@@ -166,7 +166,7 @@ Tile* Level::createTile(const Tile::TileType& type, int x, int y, float width, f
 		break;
 
 	case Tile::TileType::ePikup:
-		peter = new TilePickup(*mFX, type, x, y, width, pad, anch, cellDim, false, true);
+		peter = new TilePickup(*mFX, type, x, y, width, pad, anch, cellDim, false, true, info);
 		break;
 
 	case Tile::TileType::eInviW:
@@ -331,8 +331,7 @@ void Level::checkTile(Tile* tile)
 
 	// Count how many pickups have been collected
 	if (tile->getTileType() == Tile::ePikup) {
-
-		if (tile->getInfo())
+		if (tile->getInfo(trueCollectedNo_))
 			collectedNo_++;
 	}
 	// Check if the player has begun the level

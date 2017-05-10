@@ -15,7 +15,7 @@ public:
 	void moveOn() override;
 	void moveOff() override;
 
-	int getInfo() const override;
+	int getInfo(int = 0)  override;
 
 private:
 	bool endReached;

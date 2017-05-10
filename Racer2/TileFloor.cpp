@@ -71,6 +71,9 @@ void TileFloor::Render(float dTime, float zAdjust, bool setInsteadOfAdd, bool ma
 			case 1:
 				pMat->gfxData.Set(Vector4(1.0f, 1.0f, 0.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
 				break;
+			case 2:
+				pMat->gfxData.Set(Vector4(1.0f, 0.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
+				break;
 			default:
 				pMat->gfxData.Set(Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
 			}
@@ -119,7 +122,7 @@ void TileFloor::moveOff()
 	stepOffTile();
 }
 
-int TileFloor::getInfo() const
+int TileFloor::getInfo(int) 
 {
 	if (!playerIsOn || destroyStatus == unstable)
 		return 0;		

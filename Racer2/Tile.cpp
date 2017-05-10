@@ -139,7 +139,7 @@ void Tile::resetDisplacement() {
 	adjustVector = { 0, 0, 0 };
 }
 
-int Tile::getInfo() const
+int Tile::getInfo(int) 
 {
 	return 0;
 }

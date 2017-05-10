@@ -25,7 +25,7 @@ void TileStart::moveOff()
 	safe = false;
 }
 
-int TileStart::getInfo() const
+int TileStart::getInfo(int) 
 {
 	// Returns if the game is in play
 	return !safe;

@@ -25,7 +25,7 @@ void TileEnd::moveOff()
 	tileKilled = true;
 }
 
-int TileEnd::getInfo() const
+int TileEnd::getInfo(int) 
 {
 	// Returns if the game is in play
 	return endReached && !tileKilled;

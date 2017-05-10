@@ -14,7 +14,7 @@ public:
 	// movement functions
 	void moveOff() override;
 
-	int getInfo() const override;
+	int getInfo(int = 0)  override;
 
 private:
 	bool safe;

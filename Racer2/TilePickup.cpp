@@ -32,8 +32,11 @@ void TilePickup::moveOff()
 {
 }
 
-int TilePickup::getInfo() const
+int TilePickup::getInfo(int amountCollected)
 {
+	setHidden((amountCollected < reqCollectedToShow) || isCollected);
+
+	// Use the info received to update self
 	return getCollected();
 }
 

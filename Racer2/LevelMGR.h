@@ -65,6 +65,7 @@ private:
 
 		vector<vector<Tile::TileType>> tileList;
 		vector<vector<int>> floorList;
+		vector<vector<int>> extraInfoList;
 	};
 
 	Level::TextureInfo texInfo;

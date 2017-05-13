@@ -37,6 +37,7 @@ private:
 	bool playerOne;
 	void move();
 	Vector3 adjustVector;
+	Vector2 cellLocation;
 	Vector2 moveDirection;
 	LevelMGR* levelManager;
 

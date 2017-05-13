@@ -210,14 +210,14 @@ TileFloor* Level::createFloorTile(const Tile::TileType& type, int x, int y, floa
 }
 
 // This function receives a position and a direction and returns the location the player should be along with if it was successful
-Vector3 Level::move(const Vector3& pos, const Vector2& dir, bool& success)
+Vector2 Level::move(const Vector2& pos, const Vector2& dir, bool& success)
 {
 	// If the player is able to move
 	if (levelReadyToPlay && !playerFrozen && !endTheGame)
 	{
 		// Get the cell coordinates of the player's current and next position
-		const Vector2 pPos = getCellFromCoords(pos);
-		const Vector2 newPos = pPos + dir;
+		//const Vector2 pPos = getCellFromCoords(pos);
+		const Vector2 newPos = pos + dir;
 
 		success = (newPos.x >= 0 && newPos.x < cellDim && newPos.y >= 0 && newPos.y < cellDim);
 		if (success)
@@ -227,33 +227,28 @@ Vector3 Level::move(const Vector3& pos, const Vector2& dir, bool& success)
 
 			if (success) {
 				// Move off of the previous tile and floor
-				floor[pPos.x][pPos.y]->moveOff();
-				level[pPos.x][pPos.y]->moveOff();
+				floor[pos.x][pos.y]->moveOff();
+				level[pos.x][pos.y]->moveOff();
 
 				// Call any important functions for moving onto a new tile
 				floor[newPos.x][newPos.y]->moveOn();
 				level[newPos.x][newPos.y]->moveOn();
 
-
-				return getCoordsFromCell(newPos, pos);
+				return newPos;
 			}
-			else
-				return getCurrentLocationOfTile(pos);
 		}
-		else
-			return getCurrentLocationOfTile(pos);
 	}
-	else
-		return getCurrentLocationOfTile(pos);
+
+	return (pos);
 }
 
-Vector3 Level::getStartingPosition() const
+Vector2 Level::getStartingPosition() const
 {
 	for (int i = 0; i < cellDim; i++)
 	{
 		for (int j = 0; j < cellDim; j++)
 			if (level[i][j]->getTileType() == Tile::eStart)
-				return getCoordsFromCell(Vector2(i, j));
+				return Vector2(i, j);
 	}
 
 	// If this function gets this far, there is no starting tile and MUST be fixed
@@ -273,24 +268,28 @@ Vector3 Level::getEndingPosition() const
 	assert(false);
 }
 
-// This function takes a position and returns where the player would be if he's on the same tile
-// This is necessary due to the amount of movement the tiles can do, and thus makes positioning 
-// the player easier.
-Vector3 Level::getCurrentLocationOfTile(const Vector3 & pos)
+// This function takes the player's cell coords and returns the 3D coords for the player
+// to position to. If the Game hasn't started yet, the player is forced to go to the start
+// (hence why not a constant function). Helpful when external forces want to move the player.
+// A forced check occurs when the player isn't in game so that they aren't moved back to the start,
+// otherwise the first move isn't checked until the update call which is after this, resulting in
+// the player not leaving the starting tile.
+Vector3 Level::getCurrentLocationOfTile(Vector2 & pos)
 {
-	Vector3 pPos;
+	// Easy out for if the player is playing
+	if (endTheGame || playerInPlay)
+		return getCoordsFromCell(pos);
 
-	if (!endTheGame && playerInPlay) {
-		const Vector3 temp = { std::floor(pos.x * 100) / 100, std::floor(pos.y * 100) / 100, pos.z };
-		const Vector2 v2 = getCellFromCoords(temp);
-		pPos = getCoordsFromCell(v2);
-	}
-	else if (endTheGame && !playerFrozen)
-		pPos = getEndingPosition();
-	else 
-		pPos = getStartingPosition();
+	// If the game hasn't started, adjust the player's coordinates before returning
+	Vector2 start = getStartingPosition();
+	checkTile(level[start.x][start.y]);
 
-	return pPos;
+	// Forced check so that player isn't moved back to start
+	if (!endTheGame && !playerInPlay)
+		pos = start;
+
+	// Now that the player is positioned correctly, return
+	return getCoordsFromCell(pos);
 }
 
 float Level::getTimer() const
@@ -298,12 +297,12 @@ float Level::getTimer() const
 	return timer.getTimer();
 }
 
-Vector2 Level::getCellFromCoords(const Vector3& pos) const
-{
-	return Vector2(std::ceil((pos.y - anchorPos.x) / (tileWidth + tilePadding + additionalPadding)) + cellDim / 2, std::ceil((pos.x - anchorPos.y) / (tileWidth + tilePadding + additionalPadding)) + cellDim / 2);
-}
+//Vector2 Level::getCellFromCoords(const Vector3& pos) const
+//{
+//	return Vector2(std::ceil((pos.y - anchorPos.x) / (tileWidth + tilePadding + additionalPadding)) + cellDim / 2, std::ceil((pos.x - anchorPos.y) / (tileWidth + tilePadding + additionalPadding)) + cellDim / 2);
+//}
 
-Vector3 Level::getCoordsFromCell(const Vector2& cell, const Vector3& prevPos) const
+Vector3 Level::getCoordsFromCell(const Vector2& cell) const
 {
 	return Vector3((cell.y - cellDim / 2) * (tileWidth + tilePadding + additionalPadding) + anchorPos.x, (cell.x - cellDim / 2) * (tileWidth + tilePadding + additionalPadding) + anchorPos.y, floor[cell.x][cell.y]->getPosition().z);
 }

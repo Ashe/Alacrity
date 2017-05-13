@@ -51,10 +51,10 @@ public:
 	void Initialise(const TextureInfo& textInf, const vector<vector<Tile::TileType>>& layout, const vector<vector<int>>& floorLayout, const vector<vector<int>>& extraInfo, const string& caption, float levelTime, float width = 1, float padding = 1.25, int dim = 10, float safeTime = 5, float fallSpeedSafe = 3, float fallSpeedDead = 10);
 
 	// player interaction
-	Vector3 move(const Vector3& pos, const Vector2& dir, bool& success);
-	Vector3 getStartingPosition() const;
+	Vector2 move(const Vector2& pos, const Vector2& dir, bool& success);
+	Vector2 getStartingPosition() const;
 	Vector3 getEndingPosition() const;
-	Vector3 getCurrentLocationOfTile(const Vector3& pos);
+	Vector3 getCurrentLocationOfTile(Vector2& pos);
 
 	float getTimer() const;
 
@@ -121,8 +121,8 @@ private:
 	TileFloor* createFloorTile(const Tile::TileType& type, int x, int y, float width, float pad, const Vector3& anch, float safeTime, float fallSpeedSafe, float fallSpeedDead, int protection = 0);
 
 	// Locating functions
-	Vector2 getCellFromCoords(const Vector3& pos) const;
-	Vector3 getCoordsFromCell(const Vector2& cell, const Vector3& prevPos = Vector3(0, 0, 0)) const;
+	//Vector2 getCellFromCoords(const Vector3& pos) const;
+	Vector3 getCoordsFromCell(const Vector2& cell) const;
 
 	//Count number of pickups on current level
 	void countPickups(const Tile::TileType& layout);

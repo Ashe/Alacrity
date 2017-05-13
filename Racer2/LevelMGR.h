@@ -35,9 +35,9 @@ public:
 	void changeLevel(int levelNo);
 
 	//player interaction
-	Vector3 move(const Vector3& pos, const Vector2& dir, bool& success);
-	Vector3 getStartingPosition() const;
-	Vector3 getCurrentLocationOfTile(const Vector3& pos);
+	Vector2 move(const Vector2& pos, const Vector2& dir, bool& success);
+	Vector2 getStartingPosition() const;
+	Vector3 getCurrentLocationOfTile(Vector2& pos);
 
 	//Number of pickups on current level
 	int getPickupNo() const;

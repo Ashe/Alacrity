@@ -10,13 +10,15 @@ using namespace DirectX::SimpleMath;
 void Player::Initialise(FX::MyFX* fxRef, Mesh& playerMesh, LevelMGR* levelPointer, MouseAndKeys* mMKPointer){
 	mFX = fxRef;
 	player.Initialise(playerMesh);
-	player.GetPosition() = levelPointer->getStartingPosition();
 	adjustVector = player.GetPosition();
 	levelManager = levelPointer;
 	mMKInput = mMKPointer;
 	buttonHold = false;
 	moveWait = 0;
 	playerOne = true;
+
+	cellLocation = levelPointer->getStartingPosition();
+	player.GetPosition() = levelManager->getCurrentLocationOfTile(cellLocation);
 }
 void Player::Release(){
 
@@ -27,11 +29,14 @@ void Player::Update(float dTime){
 	move();
 
 	if ((!buttonHold || (buttonHold && moveWait <= 0)) && (moveDirection.x != 0 || moveDirection.y != 0)){
-		adjustVector = levelManager->move(player.GetPosition(), moveDirection, success);
+		cellLocation = levelManager->move(cellLocation, moveDirection, success);
+
+		adjustVector = levelManager->getCurrentLocationOfTile(cellLocation);
+
 		moveWait = 250;
 	}
 	else // If the player is not moving, retrieve the current tile's coords
-		adjustVector = levelManager->getCurrentLocationOfTile(adjustVector);
+		adjustVector = levelManager->getCurrentLocationOfTile(cellLocation);
 
 	if (moveDirection != Vector2(0, 0))
 		buttonHold = true;

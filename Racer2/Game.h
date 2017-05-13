@@ -14,6 +14,8 @@
 #include "UserInterface.h"
 #include "Timer.h"
 
+#include "GameScreen.h"
+
 //wrap up common behaviors, initialization+shutdown
 class Game
 {
@@ -34,27 +36,12 @@ public:
 	//message handling
 	LRESULT WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-	
-	//camera
-	const DirectX::SimpleMath::Vector3 mDefCamPos = DirectX::SimpleMath::Vector3(0, 0.5f, -5);
-	DirectX::SimpleMath::Vector3 mCamPos = DirectX::SimpleMath::Vector3(5, 4, -6);
-
-	//ensure each mesh is loaded and release exactly once
-	MeshManager mMeshMgr;
-
-	// Level Manager
-	LevelMGR levelMGR = LevelMGR(mFX, mMeshMgr, DirectX::SimpleMath::Vector3(0, 0, 0));
-
 	//handy rendering state
 	FX::MyFX mFX;
 
-
-	Model mQuad;
 private:
 	Game& operator=(const Game&) = delete;
 	Game(const Game& m) = delete;
-
-	Player player;
 
 	//load meshes
 	void Load();
@@ -62,9 +49,6 @@ private:
 	void LoadDisplay(float dTime);
 	//light position
 	DirectX::SimpleMath::Vector3 mLightPos = DirectX::SimpleMath::Vector3(0, 0, 0);
-	//text
-	//DirectX::SpriteBatch *mpSpriteBatch = nullptr;
-	//DirectX::SpriteFont *mpFont = nullptr, *mpFont2 = nullptr;
 	
 	//loading handler
 	struct LoadData
@@ -79,8 +63,10 @@ private:
 		bool running = false;
 	};
 	LoadData mLoadData;
-	MouseAndKeys mMKInput;
-	UserInterface mUI;
+
+	// SCREENS
+	GameScreen* game;
+	Screen* currentScreen;
 };
 
 #endif

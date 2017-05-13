@@ -13,7 +13,7 @@ using namespace DirectX::SimpleMath;
 
 class Player{
 public:
-	void Initialise(FX::MyFX&, Mesh&, LevelMGR*, MouseAndKeys*);
+	void Initialise(FX::MyFX*, Mesh&, LevelMGR*, MouseAndKeys*);
 	void Release();
 	void Update(float);
 	void Render(float);

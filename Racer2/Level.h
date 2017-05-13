@@ -23,8 +23,8 @@ class Level
 {
 public:
 	//start up and shut down
-	Level(FX::MyFX& fxRef,MeshManager& meshMGR, const Vector3& anch)
-		: mFX(&fxRef), mMeshMgr(&meshMGR), anchorPos(anch)
+	Level(FX::MyFX* fxRef,MeshManager& meshMGR, const Vector3& anch)
+		: mFX(fxRef), mMeshMgr(&meshMGR), anchorPos(anch)
 	{
 		Load(meshMGR);
 	}

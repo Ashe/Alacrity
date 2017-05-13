@@ -15,8 +15,8 @@ class LevelMGR : public Singleton<LevelMGR>
 {
 public:
 	//start up and shut down
-	LevelMGR(FX::MyFX& fxRef, MeshManager& meshMGR, const Vector3& anch)
-		: mFX(&fxRef), mMeshMgr(&meshMGR), level(fxRef, meshMGR, anch)
+	LevelMGR(FX::MyFX* fxRef, MeshManager& meshMGR, const Vector3& anch)
+		: mFX(fxRef), mMeshMgr(&meshMGR), level(fxRef, meshMGR, anch)
 	{}
 	~LevelMGR() {
 		Release();

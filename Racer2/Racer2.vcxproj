@@ -104,6 +104,7 @@
     <ClCompile Include="File.cpp" />
     <ClCompile Include="FX.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="GeometryBuilder.cpp" />
     <ClCompile Include="InverseInvisibleWall.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -134,9 +135,11 @@
     <ClInclude Include="File.h" />
     <ClInclude Include="FX.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameScreen.h" />
     <ClInclude Include="GeometryBuilder.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Screen.h" />
     <ClInclude Include="TileEnd.h" />
     <ClInclude Include="TileInverseInvisibleWall.h" />
     <ClInclude Include="TileInvisibleWall.h" />

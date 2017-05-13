@@ -7,8 +7,8 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-void Player::Initialise(FX::MyFX& fxRef, Mesh& playerMesh, LevelMGR* levelPointer, MouseAndKeys* mMKPointer){
-	mFX = &fxRef;
+void Player::Initialise(FX::MyFX* fxRef, Mesh& playerMesh, LevelMGR* levelPointer, MouseAndKeys* mMKPointer){
+	mFX = fxRef;
 	player.Initialise(playerMesh);
 	player.GetPosition() = levelPointer->getStartingPosition();
 	adjustVector = player.GetPosition();

@@ -285,7 +285,7 @@ Vector3 Level::getCurrentLocationOfTile(const Vector3 & pos)
 		const Vector2 v2 = getCellFromCoords(temp);
 		pPos = getCoordsFromCell(v2);
 	}
-	else if (endTheGame)
+	else if (endTheGame && !playerFrozen)
 		pPos = getEndingPosition();
 	else 
 		pPos = getStartingPosition();

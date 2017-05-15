@@ -85,28 +85,26 @@ void TileFloor::Render(float dTime, float zAdjust, bool setInsteadOfAdd, bool ma
 	}
 	
 	if (!getHidden())
-	{
 		mFX->Render(tile, gd3dImmediateContext);
 
-		tile.GetPosition().x = getAnchor().x + (getCellX() - getDim() / 2) * (getCellWidth() + getPadding());
-		tile.GetPosition().y = getAnchor().y + (getCellY() - getDim() / 2) * (getCellWidth() + getPadding());
+	tile.GetPosition().x = getAnchor().x + (getCellX() - getDim() / 2) * (getCellWidth() + getPadding());
+	tile.GetPosition().y = getAnchor().y + (getCellY() - getDim() / 2) * (getCellWidth() + getPadding());
 
-		tile.GetScale() = Vector3(getCellWidth(), getCellWidth(), 0.2);
+	tile.GetScale() = Vector3(getCellWidth(), getCellWidth(), 0.2);
 
-		if (!setInsteadOfAdd)
-			tile.GetPosition().z = getAnchor().z + getCellWidth() - (getCellWidth() * tile.GetScale().z) + zAdjust + getPadding();
-		else
-			tile.GetPosition().z = zAdjust;
+	if (!setInsteadOfAdd)
+		tile.GetPosition().z = getAnchor().z + getCellWidth() - (getCellWidth() * tile.GetScale().z) + zAdjust + getPadding();
+	else
+		tile.GetPosition().z = zAdjust;
 
-		tile.GetPosition() += getDisplacement();
-	}
+	tile.GetPosition() += getDisplacement();
 }
 
 Vector3 TileFloor::getPosition()
 {
 	Vector3 temp = Tile::getPosition();
 
-	if (floorIsDead)
+	if (floorIsDead && protection == -2)
 		temp.z = getDisplacement().z + getPadding() + getCellWidth() - (getCellWidth() * tile.GetScale().z);
 
 	return temp;

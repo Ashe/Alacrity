@@ -18,6 +18,8 @@ using namespace DirectX::SimpleMath;
 void MenuScreen::OnResize(int screenWidth, int screenHeight)
 {
 	OnResize_Default(screenWidth, screenHeight);
+	screenCenterX = screenWidth / 2;
+	screenCenterY = screenHeight / 2;
 }
 
 void MenuScreen::Initialise()
@@ -26,6 +28,8 @@ void MenuScreen::Initialise()
 	assert(mpSpriteBatch);
 	mpFont = new SpriteFont(gd3dDevice, L"data/cabin.spritefont");
 	assert(mpFont);
+	screenCenterX = 512;
+	screenCenterY = 384;
 }
 
 void MenuScreen::Release()
@@ -66,13 +70,13 @@ void MenuScreen::Render(float dTime)
 	mpSpriteBatch->Begin();
 
 	wstringstream ssMessage;
-	ssMessage << "Test Message 1: Press Space to play, and ESC/Q to come back.\nPress ESC/Q again to quit the game.";
-	mpFont->DrawString(mpSpriteBatch, ssMessage.str().c_str(), Vector2(10, 110), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+	ssMessage << "Press Space to play";
+	mpFont->DrawString(mpSpriteBatch, ssMessage.str().c_str(), Vector2(screenCenterX - 125, screenCenterY - 40), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 
 	wstringstream ssTimer;
-	ssTimer << "Test Message 2: " << dTime;
-	mpFont->DrawString(mpSpriteBatch, ssTimer.str().c_str(), Vector2(500, 500), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+	ssTimer << "Press Escape to quit";
+	mpFont->DrawString(mpSpriteBatch, ssTimer.str().c_str(), Vector2(screenCenterX - 130, screenCenterY), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 	mpSpriteBatch->End();
 	EndRender();

@@ -20,7 +20,7 @@ void LevelMGR::Initialise()
 {
 	BuildCube(*mMeshMgr);
 
-	currentLevel = 4;
+	currentLevel = 1;
 	changeLevel(currentLevel);
 }
 

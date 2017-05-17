@@ -20,7 +20,7 @@ void LevelMGR::Initialise()
 {
 	BuildCube(*mMeshMgr);
 
-	currentLevel = 1;
+	currentLevel = 4;
 	changeLevel(currentLevel);
 }
 
@@ -304,7 +304,7 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 		}
 		case 5:
 		{
-			nextLevel.levelTime = 6.5;		// Time the player has to complete the level
+			nextLevel.levelTime = 7;		// Time the player has to complete the level
 			nextLevel.levelCaption = "Lv 5: Plan your moves";
 
 			nextLevel.safeTime = 2;			// Players have x seconds before falling to death
@@ -352,7 +352,7 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 		}
 		case 6:
 		{
-			nextLevel.levelTime = 5.5;		// Time the player has to complete the level
+			nextLevel.levelTime = 7;		// Time the player has to complete the level
 			nextLevel.levelCaption = "Lv 6: Tread Carefully";
 
 			nextLevel.safeTime = 2;			// Players have x seconds before falling to death

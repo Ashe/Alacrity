@@ -61,25 +61,20 @@ void TileFloor::Render(float dTime, float zAdjust, bool setInsteadOfAdd, bool ma
 	if (!matSet) {
 		switch (getTileType()) {
 		case Tile::eEnder:
-			pMat->gfxData.Set(Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0.0f, 1.0f, 0.0f, 0), Vector4(0, 0, 0, 1));
+			pMat->pTextureRV = mFX->mCache.LoadTexture("endblock.dds", true, gd3dDevice);
 			break;
-		
 		default:
 			switch (protection) {
 			case 1:
-				pMat->gfxData.Set(Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0.1f, 0.6f, 1.0f, 0), Vector4(0, 0, 0, 1));
+				pMat->pTextureRV = mFX->mCache.LoadTexture("dblock.dds", true, gd3dDevice);
 				break;
 			case 2:
-				pMat->gfxData.Set(Vector4(0.9f, 0.9f, 1.0f, 0), Vector4(0.0f, 0.1f, 1.0f, 0), Vector4(0, 0, 0, 1));
+				pMat->pTextureRV = mFX->mCache.LoadTexture("tblock.dds", true, gd3dDevice);
 				break;
 			default:
-				pMat->gfxData.Set(Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
+				pMat->pTextureRV = mFX->mCache.LoadTexture("block.dds", true, gd3dDevice);
 			}
 		}
-		
-		//MATERIAL
-		pMat->pTextureRV = mFX->mCache.LoadTexture("block.dds", true, gd3dDevice);
-		pMat->texture = "block";
 	}
 	
 	if (!getHidden())

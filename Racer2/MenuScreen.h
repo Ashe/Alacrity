@@ -35,6 +35,7 @@ public:
 	void Release();
 
 private:
+	int screenCenterX, screenCenterY;
 	
 	string mMessage;
 	DirectX::SpriteBatch *mpSpriteBatch = nullptr;

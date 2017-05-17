@@ -61,18 +61,16 @@ void TileFloor::Render(float dTime, float zAdjust, bool setInsteadOfAdd, bool ma
 	if (!matSet) {
 		switch (getTileType()) {
 		case Tile::eEnder:
-			pMat->gfxData.Set(Vector4(0.0f, 0.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
+			pMat->gfxData.Set(Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0.0f, 1.0f, 0.0f, 0), Vector4(0, 0, 0, 1));
 			break;
-		case Tile::eStart:
-			pMat->gfxData.Set(Vector4(0.0f, 1.0f, 0.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
-			break;
+		
 		default:
 			switch (protection) {
 			case 1:
-				pMat->gfxData.Set(Vector4(1.0f, 1.0f, 0.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
+				pMat->gfxData.Set(Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0.1f, 0.6f, 1.0f, 0), Vector4(0, 0, 0, 1));
 				break;
 			case 2:
-				pMat->gfxData.Set(Vector4(1.0f, 0.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
+				pMat->gfxData.Set(Vector4(0.9f, 0.9f, 1.0f, 0), Vector4(0.0f, 0.1f, 1.0f, 0), Vector4(0, 0, 0, 1));
 				break;
 			default:
 				pMat->gfxData.Set(Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));

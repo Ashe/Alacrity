@@ -252,7 +252,7 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 		}
 		case 4:
 		{
-			nextLevel.levelTime = 5.5;		// Time the player has to complete the level
+			nextLevel.levelTime = 6.1;		// Time the player has to complete the level
 			nextLevel.levelCaption = "Lv 4: Some tiles can be stepped on more than once";
 
 			nextLevel.safeTime = 2;			// Players have x seconds before falling to death

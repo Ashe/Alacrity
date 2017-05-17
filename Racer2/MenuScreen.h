@@ -35,13 +35,12 @@ public:
 	void Release();
 
 private:
-	int screenCenterX, screenCenterY;
+	int screenCenterX, screenCenterY, menuOption, menuOptions;
+	bool upPress, downPress;
 	
 	string mMessage;
 	DirectX::SpriteBatch *mpSpriteBatch = nullptr;
 	DirectX::SpriteFont *mpFont = nullptr;
-
-	bool playerHoldingQuit = false;
 };
 
 #endif

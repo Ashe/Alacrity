@@ -30,6 +30,10 @@ void MenuScreen::Initialise()
 	assert(mpFont);
 	screenCenterX = 512;
 	screenCenterY = 384;
+	menuOption = 1;
+	menuOptions = 2;
+	upPress = false;
+	downPress = false;
 }
 
 void MenuScreen::Release()
@@ -44,20 +48,38 @@ int MenuScreen::Update(float dTime)
 {
 	GetIAudioMgr()->Update();
 
-
-
-	if (mMKInput->IsPressed(VK_SPACE)) {
-		playerHoldingQuit = true;
-		return 1;
+	if (mMKInput->IsPressed(VK_W)){
+		if (!upPress){
+			menuOption++;
+			upPress = true;
+		}
+	}
+	else if (mMKInput->IsPressed(VK_S)){
+		if (!downPress){
+			menuOption--;
+			downPress = true;
+		}
+	}
+	else{
+		upPress = false;
+		downPress = false;
 	}
 
-	bool playerWantsToQuit = (mMKInput->IsPressed(VK_ESCAPE) || mMKInput->IsPressed(VK_Q));
-	if (!playerHoldingQuit && playerWantsToQuit)
-		return -1;
+	if (menuOption == 0)
+		menuOption = menuOptions;
+	else if (menuOption > menuOptions)
+		menuOption = 1;
 
-	playerHoldingQuit = playerWantsToQuit;
-
-
+	if (mMKInput->IsPressed(VK_SPACE)){
+		switch (menuOption){
+		case 1:
+			return 1;
+			break;
+		case 2:
+			return -1;
+			break;
+		}
+	}
 
 	return 0;
 }
@@ -69,14 +91,20 @@ void MenuScreen::Render(float dTime)
 
 	mpSpriteBatch->Begin();
 
-	wstringstream ssMessage;
-	ssMessage << "Press Space to play";
-	mpFont->DrawString(mpSpriteBatch, ssMessage.str().c_str(), Vector2(screenCenterX - 125, screenCenterY - 40), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+	wstringstream ssOption1;
+	ssOption1 << "Play";
+	if (menuOption == 1)
+		mpFont->DrawString(mpSpriteBatch, ssOption1.str().c_str(), Vector2(screenCenterX - 25, screenCenterY - 40), Colours::Blue, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+	else
+		mpFont->DrawString(mpSpriteBatch, ssOption1.str().c_str(), Vector2(screenCenterX - 25, screenCenterY - 40), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 
-	wstringstream ssTimer;
-	ssTimer << "Press Escape to quit";
-	mpFont->DrawString(mpSpriteBatch, ssTimer.str().c_str(), Vector2(screenCenterX - 130, screenCenterY), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+	wstringstream ssOption2;
+	ssOption2 << "Quit";
+	if (menuOption == 2)
+		mpFont->DrawString(mpSpriteBatch, ssOption2.str().c_str(), Vector2(screenCenterX - 25, screenCenterY), Colours::Blue, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+	else
+		mpFont->DrawString(mpSpriteBatch, ssOption2.str().c_str(), Vector2(screenCenterX - 25, screenCenterY), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 	mpSpriteBatch->End();
 	EndRender();

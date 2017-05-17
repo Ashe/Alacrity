@@ -111,6 +111,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LevelMGR.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameScreen.h" />
     <ClInclude Include="GeometryBuilder.h" />
+    <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Screen.h" />

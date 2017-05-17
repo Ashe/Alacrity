@@ -63,7 +63,7 @@ void GameScreen::Initialise()
 {
 	levelMGR.Initialise();
 	Mesh& playerMesh = BuildPyramid(mMeshMgr);
-	player.Initialise(mFX, playerMesh, &levelMGR, &mMKInput);
+	player.Initialise(mFX, playerMesh, &levelMGR, mMKInput);
 
 	mQuad.Initialise(BuildQuad(mMeshMgr));
 	MaterialExt *pMat = &mQuad.GetMesh().GetSubMesh(0).material;
@@ -74,25 +74,8 @@ void GameScreen::Initialise()
 
 	FX::SetupDirectionalLight(0, true, Vector3(-0.7f, -0.7f, -0.7f), Vector3(1.0f, 1.0f, 1.0f), Vector3(0.5f, 0.5f, 0.5f), Vector3(1, 1, 1));
 
-	//mpSpriteBatch = new SpriteBatch(gd3dImmediateContext);
-	//assert(mpSpriteBatch);
-	//mpFont = new SpriteFont(gd3dDevice, L"data/comicSansMS.spritefont");
-	//assert(mpFont);
-
-	//mpFont2 = new SpriteFont(gd3dDevice, L"data/algerian.spritefont");
-	//assert(mpFont2);
-
 	mUI.Initialise();
 
-	mLoadData.totalToLoad = 2;
-	mLoadData.loadedSoFar = 0;
-	mLoadData.running = true;
-	mLoadData.loader = std::async(launch::async, &GameScreen::Load, this);
-
-	mMKInput.Initialise(GetMainWnd());
-
-
-	// May want to delete this
 	mCamPos = mDefCamPos;
 }
 
@@ -113,96 +96,40 @@ void GameScreen::Release()
 	mpFont2 = nullptr;*/
 }
 
-void GameScreen::Update(float dTime)
+int GameScreen::Update(float dTime)
 {
 	GetIAudioMgr()->Update();
 
 	levelMGR.Update(dTime);
 	player.Update(dTime);
 
-	if (mLoadData.running)
-		return;
+	if (mMKInput->IsPressed(VK_ESCAPE) || mMKInput->IsPressed(VK_Q))
+		return 1;
+
+	return 0;
 }
 
 
 void GameScreen::Render(float dTime)
 {
-	if (mLoadData.running)
-	{
-		if (!mLoadData.loader._Is_ready())
-		{
-			LoadDisplay(dTime);
-			return;
-		}
-		mLoadData.loader.get();
-		mLoadData.running = false;
-		return;
-	}
-
 	BeginRender(Colours::Black);
 
 	levelMGR.Render(dTime);
-
 	player.Render(dTime);
-
-
 
 	FX::SetPerFrameConsts(gd3dImmediateContext, mCamPos);
 
 	CreateProjectionMatrix(FX::GetProjectionMatrix(), 0.25f*PI, GetAspectRatio(), 1, 1000.f);
-
-
 	CreateViewMatrix(FX::GetViewMatrix(), Vector3(-25, -15, 25), Vector3(0, 0, 0), Vector3(0, 0, 1));
 
-	//mFX.Render(mCar, gd3dImmediateContext);
 	mQuad.GetPosition() = Vector3(100, 60, -40);
 	mQuad.GetRotation() = Vector3(PI / 2, 0, PI / 4);
 	mQuad.GetScale() = Vector3(150, 1, 150);
 	mFX->Render(mQuad, gd3dImmediateContext);
 
 	CommonStates state(gd3dDevice);
-	//mpSpriteBatch->Begin(SpriteSortMode_Deferred, state.NonPremultiplied());
-
-	////general messages
-	//wstringstream ss;
-	//if (dTime > 0)
-	//	ss << L"FPS: " << (int)(1.f / dTime);
-	//else
-	//	ss << L"FPS: 0";
-	//mpFont->DrawString(mpSpriteBatch, ss.str().c_str(), Vector2(10, 550), Colours::White, 0, Vector2(0, 0), Vector2(0.5f, 0.5f));
-
-	//mpSpriteBatch->End();
+	
 	mUI.DisplayMessage(levelMGR.getMessage(), levelMGR.getTimer(), levelMGR.getCollectedNo(), levelMGR.getPickupNo());
 
 	EndRender();
-
-	mMKInput.PostProcess();
 }
-
-LRESULT GameScreen::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-	const float camInc = 20.f * GetElapsedSec();
-	//do something game specific here
-	switch (msg)
-	{
-		// Respond to a keyboard event.
-	case WM_CHAR:
-		switch (wParam)
-		{
-		case 27:
-		case 'q':
-		case 'Q':
-			PostQuitMessage(0);
-			return 0;
-		case ' ':
-			mCamPos = mDefCamPos;
-			break;
-		}
-	case WM_INPUT:
-		mMKInput.MessageEvent((HRAWINPUT)lParam);
-		break;
-	}
-	//default message handling (resize window, full screen, etc)
-	return DefaultMssgHandler(hwnd, msg, wParam, lParam);
-}
-

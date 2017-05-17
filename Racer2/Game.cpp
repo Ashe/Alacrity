@@ -40,15 +40,21 @@ void Game::LoadDisplay(float dTime)
 void Game::Initialise()
 {
 	mFX.Init(gd3dDevice);
+	mMK.Initialise(GetMainWnd());
 
-	game = new GameScreen(&mFX);
+	game = new GameScreen(&mFX, &mMK);
+	menu = new MenuScreen(&mFX, &mMK);
+
 	game->Initialise();
-	currentScreen = game;
+	menu->Initialise();
+
+	currentScreen = menu;
 }
 
 void Game::Release()
 {
 	game->Release();
+	menu->Release();
 }
 
 void Game::Update(float dTime)
@@ -56,7 +62,16 @@ void Game::Update(float dTime)
 	if (mLoadData.running)
 		return;
 
-	currentScreen->Update(dTime);
+	int state = currentScreen->Update(dTime);
+	if (state == -1) {
+		PostQuitMessage(0);
+		return;
+	}
+	else if (state == 1)
+		if (currentScreen == game)
+			currentScreen = menu;
+		else
+			currentScreen = game;
 }
 
 
@@ -76,13 +91,29 @@ void Game::Render(float dTime)
 
 	currentScreen->Render(dTime);
 
+	mMK.PostProcess();
 }
 
 LRESULT Game::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	if (currentScreen != NULL)
-		return currentScreen->WindowsMssgHandler(hwnd, msg, wParam, lParam);
-	else
-		return DefaultMssgHandler(hwnd, msg, wParam, lParam);
+	const float camInc = 20.f * GetElapsedSec();
+	//do something game specific here
+	switch (msg)
+	{
+		// Respond to a keyboard event.
+	case WM_CHAR:
+		/*switch (wParam)
+		{
+		case 'q':
+		case 'Q':
+			PostQuitMessage(0);
+			return 0;
+		}*/
+	case WM_INPUT:
+		mMK.MessageEvent((HRAWINPUT)lParam);
+		break;
+	}
+	//default message handling (resize window, full screen, etc)
+	return DefaultMssgHandler(hwnd, msg, wParam, lParam);
 }
 

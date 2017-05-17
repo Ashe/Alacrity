@@ -15,6 +15,7 @@
 #include "Timer.h"
 
 #include "GameScreen.h"
+#include "MenuScreen.h"
 
 //wrap up common behaviors, initialization+shutdown
 class Game
@@ -38,6 +39,7 @@ public:
 
 	//handy rendering state
 	FX::MyFX mFX;
+	MouseAndKeys mMK;
 
 private:
 	Game& operator=(const Game&) = delete;
@@ -66,7 +68,9 @@ private:
 
 	// SCREENS
 	GameScreen* game;
+	MenuScreen* menu;
 	Screen* currentScreen;
+
 };
 
 #endif

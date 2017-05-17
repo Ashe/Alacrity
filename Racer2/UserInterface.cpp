@@ -23,16 +23,16 @@ void UserInterface::DisplayMessage(string& message, float timer, int currentPick
 
 	wstringstream ssMessage;
 	ssMessage << message.c_str(); 
-	mpFont->DrawString(mpSpriteBatch, ssMessage.str().c_str(), Vector2(10, 110), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+	mpFont->DrawString(mpSpriteBatch, ssMessage.str().c_str(), Vector2(10, 10), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 
 	wstringstream ssTimer;
 	ssTimer << "Time left : " << timer << "s";
-	mpFont->DrawString(mpSpriteBatch, ssTimer.str().c_str(), Vector2(10, 10), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+	mpFont->DrawString(mpSpriteBatch, ssTimer.str().c_str(), Vector2(10, 700), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 	wstringstream ssPickUps;
 	ssPickUps << currentPickUps << "/" << pickupTotal << " pick ups!";
-	mpFont->DrawString(mpSpriteBatch, ssPickUps.str().c_str(), Vector2(10, 70), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+	mpFont->DrawString(mpSpriteBatch, ssPickUps.str().c_str(), Vector2(10, 50), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 	mpSpriteBatch->End();
 }

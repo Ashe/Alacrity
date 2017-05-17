@@ -252,8 +252,47 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 		}
 		case 4:
 		{
-			nextLevel.levelTime = 6.1;		// Time the player has to complete the level
+			nextLevel.levelTime = 3;		// Time the player has to complete the level
 			nextLevel.levelCaption = "Lv 4: Some tiles can be stepped on more than once";
+
+			nextLevel.safeTime = 2;			// Players have x seconds before falling to deathh
+			nextLevel.fallSpeedSafe = 5;	// Speed at which the tiles fall when safe
+			nextLevel.fallSpeedDead = 12;	// Speed at which the tiles fall when not safe
+
+			nextLevel.tileWidth = 2;		// Width of tles
+			nextLevel.tileDim = 5;			// Amount of tiles (n*n)
+			nextLevel.tilePadding = 2.25;	// Padding between blocks
+
+			nextLevel.tileList = {
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::ePikup, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eStart, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEnder },
+				{ Tile::eEmpty, Tile::ePikup, Tile::eEmpty, Tile::ePikup, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty }
+			};
+
+			nextLevel.floorList = {
+				{ -2, -2, -2, -2, -2 },
+				{ -2, -1, -2, -2, -2 },
+				{ -1,  2, -1,  1, -1 },
+				{ -2, -1, -2, -1, -2 },
+				{ -2, -2, -2, -2, -2 }
+			};
+
+			nextLevel.extraInfoList = {
+				{ 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0 }
+			};
+
+			break;
+		}
+		case 5:
+		{
+			nextLevel.levelTime = 6.1;		// Time the player has to complete the level
+			nextLevel.levelCaption = "Lv 5: A little more complex";
 
 			nextLevel.safeTime = 2;			// Players have x seconds before falling to death
 			nextLevel.fallSpeedSafe = 5;	// Speed at which the tiles fall when safe
@@ -277,35 +316,35 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 			};
 
 			nextLevel.floorList = {
-				{ -2,-2,-2,-2,-2,-2,-2,-2,-2 },
-				{ -2,-2,-2, 0, 2, 0,-2,-2,-2 },
-				{ -2,-2,-2,-2, 1,-2,-2,-2,-2 },
-				{ -2,-2,-2, 0, 1, 0,-2,-2,-2 },
-				{ -2,-2, 0, 1, 0, 1, 0,-2,-2 },
-				{ -2,-2,-2, 0, 1, 0,-2,-2,-2 },
-				{ -2,-2,-2,-2, 1,-2,-2,-2,-2 },
-				{ -2,-2,-2, 0, 2, 0,-2,-2,-2 },
-				{ -2,-2,-2,-2,-2,-2,-2,-2,-2 }
+				{ -2, -2, -2, -2, -2, -2, -2, -2, -2 },
+				{ -2, -2, -2, 0, 2, 0, -2, -2, -2 },
+				{ -2, -2, -2, -2, 1, -2, -2, -2, -2 },
+				{ -2, -2, -2, 0, 1, 0, -2, -2, -2 },
+				{ -2, -2, 0, 1, 0, 1, 0, -2, -2 },
+				{ -2, -2, -2, 0, 1, 0, -2, -2, -2 },
+				{ -2, -2, -2, -2, 1, -2, -2, -2, -2 },
+				{ -2, -2, -2, 0, 2, 0, -2, -2, -2 },
+				{ -2, -2, -2, -2, -2, -2, -2, -2, -2 }
 			};
 
 			nextLevel.extraInfoList = {
-				{  0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{  0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{  0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{  0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{  0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{  0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{  0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{  0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{  0, 0, 0, 0, 0, 0, 0, 0, 0 }
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 			};
 
 			break;
 		}
-		case 5:
+		case 6:
 		{
 			nextLevel.levelTime = 7;		// Time the player has to complete the level
-			nextLevel.levelCaption = "Lv 5: Plan your moves";
+			nextLevel.levelCaption = "Lv 6: Plan your moves";
 
 			nextLevel.safeTime = 2;			// Players have x seconds before falling to death
 			nextLevel.fallSpeedSafe = 5;	// Speed at which the tiles fall when safe
@@ -350,10 +389,10 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 
 			break;
 		}
-		case 6:
+		case 7:
 		{
 			nextLevel.levelTime = 7;		// Time the player has to complete the level
-			nextLevel.levelCaption = "Lv 6: Tread Carefully";
+			nextLevel.levelCaption = "Lv 7: Tread Carefully";
 
 			nextLevel.safeTime = 2;			// Players have x seconds before falling to death
 			nextLevel.fallSpeedSafe = 3;	// Speed at which the tiles fall when safe

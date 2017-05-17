@@ -59,6 +59,7 @@ void TileFloor::Update(float dTime, float newPadding) {
 void TileFloor::Render(float dTime, float zAdjust, bool setInsteadOfAdd, bool matSet)
 {
 	if (!matSet) {
+		//change texture depending on the type of block
 		switch (getTileType()) {
 		case Tile::eEnder:
 			pMat->pTextureRV = mFX->mCache.LoadTexture("endblock.dds", true, gd3dDevice);

@@ -62,7 +62,7 @@ void GameScreen::LoadDisplay(float dTime)
 void GameScreen::Initialise()
 {
 	levelMGR.Initialise();
-	Mesh& playerMesh = BuildPyramid(mMeshMgr);
+	Mesh& playerMesh = BuildSphere(mMeshMgr, 20,20);
 	player.Initialise(mFX, playerMesh, &levelMGR, mMKInput);
 
 	mQuad.Initialise(BuildQuad(mMeshMgr));
@@ -71,7 +71,7 @@ void GameScreen::Initialise()
 	pMat->pTextureRV = mFX->mCache.LoadTexture("gamebgd.dds", true, gd3dDevice);
 	pMat->texture = "gamebgd";
 
-
+	
 	FX::SetupDirectionalLight(0, true, Vector3(-0.7f, -0.7f, -0.7f), Vector3(1.0f, 1.0f, 1.0f), Vector3(0.5f, 0.5f, 0.5f), Vector3(1, 1, 1));
 
 	mUI.Initialise();

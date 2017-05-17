@@ -17,6 +17,11 @@ void Player::Initialise(FX::MyFX* fxRef, Mesh& playerMesh, LevelMGR* levelPointe
 	moveWait = 0;
 	playerOne = true;
 
+	MaterialExt *pMat = &player.GetMesh().GetSubMesh(0).material;
+	pMat->gfxData.Set(Vector4(0.7f, 0.7f, 0.7f, 0), Vector4(0.5f, 0.5f, 1.0f, 0), Vector4(0, 0, 0, 1));
+	//pMat->pTextureRV = mFX->mCache.LoadTexture("endblock.dds", true, gd3dDevice);
+
+
 	cellLocation = levelPointer->getStartingPosition();
 	player.GetPosition() = levelManager->getCurrentLocationOfTile(cellLocation);
 }

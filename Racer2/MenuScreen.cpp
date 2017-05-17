@@ -66,7 +66,7 @@ void MenuScreen::Render(float dTime)
 	mpSpriteBatch->Begin();
 
 	wstringstream ssMessage;
-	ssMessage << "Test Message 1: Press Space to play, and ESC to come back here.\nPress Q to quit the game.";
+	ssMessage << "Test Message 1: Press Space to play, and ESC/Q to come back.\nPress ESC/Q again to quit the game.";
 	mpFont->DrawString(mpSpriteBatch, ssMessage.str().c_str(), Vector2(10, 110), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 

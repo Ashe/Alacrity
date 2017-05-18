@@ -55,8 +55,10 @@ void GameScreen::LoadDisplay(float dTime)
 
 void GameScreen::Initialise()
 {
+
+	
 	levelMGR.Initialise();
-	Mesh& playerMesh = BuildSphere(*mMeshMgr, 20,20);
+	Mesh& playerMesh = BuildPyramid(*mMeshMgr);
 	player.Initialise(mFX, playerMesh, &levelMGR, mMKInput);
 
 	mQuad.Initialise(BuildQuad(*mMeshMgr));
@@ -80,18 +82,13 @@ void GameScreen::Release()
 
 	mFX->Release();
 	mUI.Release();
-
-	/*delete mpFont;
-	mpFont = nullptr;
-	delete mpSpriteBatch;
-	mpSpriteBatch = nullptr;
-	delete mpFont2;
-	mpFont2 = nullptr;*/
+	
 }
 
 int GameScreen::Update(float dTime)
 {
-	GetIAudioMgr()->Update();
+
+	
 
 	levelMGR.Update(dTime);
 	player.Update(dTime);

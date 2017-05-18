@@ -18,8 +18,8 @@ void Player::Initialise(FX::MyFX* fxRef, Mesh& playerMesh, LevelMGR* levelPointe
 	playerOne = true;
 
 	MaterialExt *pMat = &player.GetMesh().GetSubMesh(0).material;
-	pMat->gfxData.Set(Vector4(0.7f, 0.7f, 0.7f, 0), Vector4(0.5f, 0.5f, 1.0f, 0), Vector4(0, 0, 0, 1));
-	//pMat->pTextureRV = mFX->mCache.LoadTexture("endblock.dds", true, gd3dDevice);
+	pMat->gfxData.Set(Vector4(1.f, 1.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
+	pMat->pTextureRV = mFX->mCache.LoadTexture("gamebgd.dds", true, gd3dDevice);
 
 
 	cellLocation = levelPointer->getStartingPosition();
@@ -53,9 +53,10 @@ void Player::Update(float dTime){
 	moveDirection = Vector2(0, 0);
 }
 void Player::Render(float dTime){
+
 	mFX->Render(player, gd3dImmediateContext);
 	player.GetPosition() = adjustVector;
-
+	player.GetRotation() = Vector3(PI / 2, -PI/4, PI/6);
 	// This is so that the player sits on top of his tile. You need to add the size of the player on the end so that he's not inside it
 	player.GetPosition().z += 2;
 }

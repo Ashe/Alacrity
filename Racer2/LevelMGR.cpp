@@ -20,8 +20,8 @@ void LevelMGR::Initialise(int currLevel)
 {
 	//BuildCube(*mMeshMgr);
 
-	//currentLevel = currLevel;
-	currentLevel = 9;
+	currentLevel = currLevel;
+	//currentLevel = 9;
 	maxLevels = 10;
 
 	changeLevel(currentLevel);

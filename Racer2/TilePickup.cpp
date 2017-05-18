@@ -12,9 +12,12 @@ void TilePickup::Render(float dTime, float zAdjust, bool setInsteadOfAdd, bool m
 {
 	spinAngle += dTime;
 
-	Tile::Render(dTime, zAdjust, setInsteadOfAdd);
-	tile.GetRotation() = Vector3(PI / 4, PI / 4, spinAngle);
-	tile.GetScale() = Vector3(0.5, 0.5, 0.5);
+	//Set pick up texture
+	pMat->pTextureRV = mFX->mCache.LoadTexture("pblock.dds", true, gd3dDevice);
+
+	Tile::Render(dTime, zAdjust, setInsteadOfAdd, true);
+	tile.GetRotation() = Vector3(PI/4, PI/4, spinAngle);
+	tile.GetScale() = Vector3(0.55, 0.55, 0.55);
 }
 
 bool TilePickup::bump()

@@ -72,7 +72,7 @@ private:
 	GameScreen* game;
 	MenuScreen* menu;
 	Screen* currentScreen;
-
+	unsigned int mMusicHdl;	//keep the music playing
 };
 
 #endif

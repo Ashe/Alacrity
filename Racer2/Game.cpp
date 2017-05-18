@@ -33,6 +33,7 @@ void Game::LoadDisplay(float dTime)
 
 void Game::Initialise()
 {
+	GetIAudioMgr()->Initialise();
 	mFX.Init(gd3dDevice);
 	mMK.Initialise(GetMainWnd());
 
@@ -57,6 +58,11 @@ void Game::Release()
 
 void Game::Update(float dTime)
 {
+
+	GetIAudioMgr()->Update();
+	
+		
+
 	if (mLoadData.running)
 		return;
 
@@ -66,10 +72,17 @@ void Game::Update(float dTime)
 		return;
 	}
 	else if (state == 1)
-		if (currentScreen == game)
+		if (currentScreen == game){
 			currentScreen = menu;
-		else
+			if (GetIAudioMgr()->GetSongMgr()->IsPlaying(mMusicHdl))
+				GetIAudioMgr()->GetSongMgr()->SetPause(true, mMusicHdl);
+		}
+		else{
 			currentScreen = game;
+			GetIAudioMgr()->GetSongMgr()->SetPause(false, mMusicHdl);
+			if (!GetIAudioMgr()->GetSongMgr()->IsPlaying(mMusicHdl))
+				GetIAudioMgr()->GetSongMgr()->Play("song", true, false, &mMusicHdl, 0.2f);
+		}
 }
 
 

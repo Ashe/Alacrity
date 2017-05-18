@@ -123,3 +123,7 @@ void GameScreen::Render(float dTime)
 
 	EndRender();
 }
+
+void GameScreen::reset(){
+	levelMGR.reset();
+}

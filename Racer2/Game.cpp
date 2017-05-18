@@ -82,6 +82,10 @@ void Game::Update(float dTime)
 			GetIAudioMgr()->GetSongMgr()->SetPause(false, mMusicHdl);
 			if (!GetIAudioMgr()->GetSongMgr()->IsPlaying(mMusicHdl))
 				GetIAudioMgr()->GetSongMgr()->Play("song", true, false, &mMusicHdl, 0.2f);
+			if (menu->isReset()){
+				menu->setIsReset(false);
+				game->reset();
+			}
 		}
 }
 

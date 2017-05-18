@@ -33,10 +33,15 @@ public:
 	void OnResize(int screenWidth, int screenHeight);
 	void Initialise();
 	void Release();
+	bool isReset() const;
+	void canReset();
+	void setIsReset(const bool state);
 
 private:
+	void menuInputs();
+
 	int screenCenterX, screenCenterY, menuOption, menuOptions;
-	bool upPress, downPress;
+	bool upPress, downPress, viewCredits, isResetB, canResetB;
 	
 	string mMessage;
 	DirectX::SpriteBatch *mpSpriteBatch = nullptr;

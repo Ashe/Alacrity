@@ -42,6 +42,9 @@ public:
 	// Level Manager
 	LevelMGR levelMGR = LevelMGR(mFX, mMeshMgr, DirectX::SimpleMath::Vector3(0, 0, 0));
 
+	//Reset game
+	void reset();
+
 	Model mQuad;
 private:
 	Player player;

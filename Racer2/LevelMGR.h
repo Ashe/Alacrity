@@ -48,6 +48,9 @@ public:
 	// Get whether the player has started
 	bool getLevelStarted() const;
 
+	// Reset game
+	void reset();
+
 private:
 
 	struct levelTemplate

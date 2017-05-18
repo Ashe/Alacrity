@@ -570,3 +570,8 @@ bool LevelMGR::getLevelStarted() const
 {
 	return level.getLevelStarted();
 }
+
+void LevelMGR::reset(){
+	currentLevel = 1;
+	changeLevel(currentLevel);
+}

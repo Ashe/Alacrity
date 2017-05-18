@@ -21,7 +21,7 @@ class GameScreen : public Screen
 {
 public:
 	//start up and shut down
-	GameScreen(FX::MyFX* fxRef, MouseAndKeys* mMKref) : Screen(fxRef, mMKref) {}
+	GameScreen(FX::MyFX* fxRef, MouseAndKeys* mMKref, MeshManager* mMeshMGRref) : Screen(fxRef, mMKref, mMeshMGRref) {}
 	~GameScreen() {
 		Release();
 	}
@@ -38,9 +38,6 @@ public:
 	//camera
 	const DirectX::SimpleMath::Vector3 mDefCamPos = DirectX::SimpleMath::Vector3(0, 0.5f, -5);
 	DirectX::SimpleMath::Vector3 mCamPos = DirectX::SimpleMath::Vector3(5, 4, -6);
-
-	//ensure each mesh is loaded and release exactly once
-	MeshManager mMeshMgr;
 
 	// Level Manager
 	LevelMGR levelMGR = LevelMGR(mFX, mMeshMgr, DirectX::SimpleMath::Vector3(0, 0, 0));

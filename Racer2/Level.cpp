@@ -430,3 +430,8 @@ string Level::getMessage() const
 		return "Try again!";
 }
 
+void Level::forceLevelEnd()
+{
+	endTheGame = true;
+}
+

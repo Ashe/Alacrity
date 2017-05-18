@@ -4,19 +4,18 @@
 #include "Level.h"
 #include "Tile.h"
 #include "FX.h"
-#include "Singleton.h"
 
 using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 //wrap up common behaviors, initialization+shutdown
-class LevelMGR : public Singleton<LevelMGR>
+class LevelMGR
 {
 public:
 	//start up and shut down
-	LevelMGR(FX::MyFX* fxRef, MeshManager& meshMGR, const Vector3& anch)
-		: mFX(fxRef), mMeshMgr(&meshMGR), level(fxRef, meshMGR, anch)
+	LevelMGR(FX::MyFX* fxRef, MeshManager* meshMGR, const Vector3& anch)
+		: mFX(fxRef), mMeshMgr(meshMGR), level(fxRef, meshMGR, anch)
 	{}
 	~LevelMGR() {
 		Release();
@@ -29,10 +28,11 @@ public:
 
 	//called when ALT+ENTER or drag
 	void OnResize(int screenWidth, int screenHeight);
-	void Initialise();
+	void Initialise(int = 1);
 	void Release();
 
 	void changeLevel(int levelNo);
+	void forceRandomLevel();
 
 	//player interaction
 	Vector2 move(const Vector2& pos, const Vector2& dir, bool& success);
@@ -71,6 +71,7 @@ private:
 	Level::TextureInfo texInfo;
 
 	int currentLevel;
+	int maxLevels;
 
 	//ensure each mesh is loaded and release exactly once
 	MeshManager* mMeshMgr;
@@ -84,5 +85,4 @@ private:
 
 	int pickupNo_;
 };
-SINGLETON_GET(LevelMGR);
 #endif

@@ -23,11 +23,9 @@ class Level
 {
 public:
 	//start up and shut down
-	Level(FX::MyFX* fxRef,MeshManager& meshMGR, const Vector3& anch)
-		: mFX(fxRef), mMeshMgr(&meshMGR), anchorPos(anch)
-	{
-		Load(meshMGR);
-	}
+	Level(FX::MyFX* fxRef,MeshManager* meshMGR, const Vector3& anch)
+		: mFX(fxRef), mMeshMgr(meshMGR), anchorPos(anch)
+	{}
 
 	~Level() {
 		Release();
@@ -75,6 +73,9 @@ public:
 
 	// Get any messages to print to the UI
 	string getMessage() const;
+
+	// For forcing the level to end
+	void forceLevelEnd();
 
 private:
 	int pickupNo_;

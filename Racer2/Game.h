@@ -66,6 +66,8 @@ private:
 	};
 	LoadData mLoadData;
 
+	MeshManager mMM;
+
 	// SCREENS
 	GameScreen* game;
 	MenuScreen* menu;

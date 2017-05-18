@@ -24,6 +24,12 @@ void MenuScreen::OnResize(int screenWidth, int screenHeight)
 
 void MenuScreen::Initialise()
 {
+	SeedRandom();
+
+	levelMGR.Initialise(5);
+	menuTimer.setTimer(10);
+	menuTimer.startTimer();
+
 	mpSpriteBatch = new SpriteBatch(gd3dImmediateContext);
 	assert(mpSpriteBatch);
 	mpFont = new SpriteFont(gd3dDevice, L"data/cabin.spritefont");
@@ -42,11 +48,21 @@ void MenuScreen::Release()
 	mpFont = nullptr;
 	delete mpSpriteBatch;
 	mpSpriteBatch = nullptr;
+
+	levelMGR.Release();
 }
 
 int MenuScreen::Update(float dTime)
 {
 	GetIAudioMgr()->Update();
+	levelMGR.Update(dTime);
+
+	menuTimer.updateTimer(dTime);
+	if (menuTimer.getTimer() <= 0) {
+		levelMGR.forceRandomLevel();
+		menuTimer.resetTimer();
+		menuTimer.startTimer();
+	}
 
 	if (mMKInput->IsPressed(VK_W)){
 		if (!upPress){
@@ -87,7 +103,20 @@ int MenuScreen::Update(float dTime)
 
 void MenuScreen::Render(float dTime)
 {
+	// Camera angle calculations
+	mAngle += dTime * mAngleSpeed;
+	mCamPos.x = camRadHeight.x * cos(mAngle);
+	mCamPos.y = camRadHeight.x * sin(mAngle);
+	mCamPos.z = camRadHeight.y;
+
 	BeginRender(Colours::Black);
+
+	levelMGR.Render(dTime);
+
+	FX::SetPerFrameConsts(gd3dImmediateContext, mCamPos);
+
+	CreateProjectionMatrix(FX::GetProjectionMatrix(), 0.25f*PI, GetAspectRatio(), 1, 1000.f);
+	CreateViewMatrix(FX::GetViewMatrix(), mCamPos, Vector3(0, 0, 0), Vector3(0, 0, 1));
 
 	mpSpriteBatch->Begin();
 
@@ -107,5 +136,6 @@ void MenuScreen::Render(float dTime)
 		mpFont->DrawString(mpSpriteBatch, ssOption2.str().c_str(), Vector2(screenCenterX - 25, screenCenterY), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 	mpSpriteBatch->End();
+
 	EndRender();
 }

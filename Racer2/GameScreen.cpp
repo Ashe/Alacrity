@@ -20,12 +20,6 @@ void GameScreen::OnResize(int screenWidth, int screenHeight)
 	OnResize_Default(screenWidth, screenHeight);
 }
 
-
-void GameScreen::Load()
-{
-	// Not even called
-}
-
 void GameScreen::LoadDisplay(float dTime)
 {
 	BeginRender(Colours::Black);
@@ -62,10 +56,10 @@ void GameScreen::LoadDisplay(float dTime)
 void GameScreen::Initialise()
 {
 	levelMGR.Initialise();
-	Mesh& playerMesh = BuildSphere(mMeshMgr, 20,20);
+	Mesh& playerMesh = BuildSphere(*mMeshMgr, 20,20);
 	player.Initialise(mFX, playerMesh, &levelMGR, mMKInput);
 
-	mQuad.Initialise(BuildQuad(mMeshMgr));
+	mQuad.Initialise(BuildQuad(*mMeshMgr));
 	MaterialExt *pMat = &mQuad.GetMesh().GetSubMesh(0).material;
 	pMat->gfxData.Set(Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0, 0, 0, 1));
 	pMat->pTextureRV = mFX->mCache.LoadTexture("gamebgd.dds", true, gd3dDevice);
@@ -85,7 +79,6 @@ void GameScreen::Release()
 	player.Release();
 
 	mFX->Release();
-	mMeshMgr.Release();
 	mUI.Release();
 
 	/*delete mpFont;

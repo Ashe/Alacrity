@@ -21,7 +21,7 @@ class MenuScreen : public Screen
 {
 public:
 	//start up and shut down
-	MenuScreen(FX::MyFX* fxRef, MouseAndKeys* mMKref) : Screen(fxRef, mMKref) {}
+	MenuScreen(FX::MyFX* fxRef, MouseAndKeys* mMKref, MeshManager* mMeshMGRref) : Screen(fxRef, mMKref, mMeshMGRref) {}
 	~MenuScreen() {
 		Release();
 	}
@@ -41,6 +41,18 @@ private:
 	string mMessage;
 	DirectX::SpriteBatch *mpSpriteBatch = nullptr;
 	DirectX::SpriteFont *mpFont = nullptr;
+
+	//camera
+	float mAngle = 0;
+	float mAngleSpeed = 1;
+	DirectX::SimpleMath::Vector3 mCamPos;
+	DirectX::SimpleMath::Vector2 camRadHeight = Vector2(45, 25);
+
+	// Level Manager
+	LevelMGR levelMGR = LevelMGR(mFX, mMeshMgr, DirectX::SimpleMath::Vector3(0, 0, 0));
+
+	// Timer for animating menu
+	Timer menuTimer;
 };
 
 #endif

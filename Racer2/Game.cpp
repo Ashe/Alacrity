@@ -21,12 +21,6 @@ void Game::OnResize(int screenWidth, int screenHeight)
 		OnResize_Default(screenWidth, screenHeight);
 }
 
-
-void Game::Load()
-{
-	// Not even called?
-}
-
 void Game::LoadDisplay(float dTime)
 {
 	BeginRender(Colours::Black);
@@ -42,8 +36,11 @@ void Game::Initialise()
 	mFX.Init(gd3dDevice);
 	mMK.Initialise(GetMainWnd());
 
-	game = new GameScreen(&mFX, &mMK);
-	menu = new MenuScreen(&mFX, &mMK);
+	// Build a cube for use in both levels
+	BuildCube(mMM);
+
+	game = new GameScreen(&mFX, &mMK, &mMM);
+	menu = new MenuScreen(&mFX, &mMK, &mMM);
 
 	game->Initialise();
 	menu->Initialise();
@@ -55,6 +52,7 @@ void Game::Release()
 {
 	game->Release();
 	menu->Release();
+	mMM.Release();
 }
 
 void Game::Update(float dTime)

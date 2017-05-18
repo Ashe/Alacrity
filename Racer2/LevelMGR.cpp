@@ -16,11 +16,13 @@ void LevelMGR::OnResize(int screenWidth, int screenHeight)
 	OnResize_Default(screenWidth, screenHeight);
 }
 
-void LevelMGR::Initialise()
+void LevelMGR::Initialise(int currLevel)
 {
-	BuildCube(*mMeshMgr);
+	//BuildCube(*mMeshMgr);
 
-	currentLevel = 1;
+	currentLevel = currLevel;
+	maxLevels = 10;
+
 	changeLevel(currentLevel);
 }
 
@@ -37,7 +39,7 @@ void LevelMGR::Update(float dTime)
 		if (level.getWinStatus())
 			currentLevel += 1;
 
-		if (currentLevel > 10 || currentLevel < 1)
+		if (currentLevel > maxLevels || currentLevel < 1)
 			currentLevel = 1;
 
 		changeLevel(currentLevel);
@@ -53,6 +55,16 @@ void LevelMGR::Render(float dTime)
 void LevelMGR::changeLevel(int levelNo) {
 	levelTemplate nextLevel = getLayout(levelNo);
 	level.Initialise(texInfo, nextLevel.tileList, nextLevel.floorList, nextLevel.extraInfoList, nextLevel.levelCaption, nextLevel.levelTime, nextLevel.tileWidth, nextLevel.tilePadding, nextLevel.tileDim, nextLevel.safeTime, nextLevel.fallSpeedSafe, nextLevel.fallSpeedDead);
+}
+
+void LevelMGR::forceRandomLevel() {
+	level.forceLevelEnd();
+
+	int tempLevel = currentLevel;
+	while (tempLevel == currentLevel)
+		tempLevel = rand() % maxLevels + 1;
+
+	currentLevel = tempLevel;
 }
 
 // Complex one. Pass in your coordinate position and your direction (0/1 x, 0/1 y) and a bool.

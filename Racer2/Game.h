@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "UserInterface.h"
 #include "Timer.h"
+#include "UtilsDefines.h"
 
 #include "GameScreen.h"
 #include "MenuScreen.h"
@@ -47,32 +48,16 @@ private:
 
 	//load meshes
 	void Load();
-	//display a message
-	void LoadDisplay(float dTime);
 	//light position
 	DirectX::SimpleMath::Vector3 mLightPos = DirectX::SimpleMath::Vector3(0, 0, 0);
-	
-	//loading handler
-	struct LoadData
-	{
-		//second thread
-		std::future<void> loader;
-		//how many meshes to load
-		int totalToLoad = 0;
-		//tally
-		int loadedSoFar = 0;
-		//is the loader active
-		bool running = false;
-	};
-	LoadData mLoadData;
 
 	MeshManager mMM;
 
 	// SCREENS
-	GameScreen* game;
-	MenuScreen* menu;
+	GameScreen* game = new GameScreen(&mFX, &mMK, &mMM);
+	MenuScreen* menu = new MenuScreen(&mFX, &mMK, &mMM);
 	Screen* currentScreen;
-	unsigned int mMusicHdl;	//keep the music playing
+	unsigned int mMusicHdl = UDEF::MAX_UINT;	//keep the music playing
 };
 
 #endif

@@ -17,40 +17,7 @@ using namespace DirectX::SimpleMath;
 
 void GameScreen::OnResize(int screenWidth, int screenHeight)
 {
-	OnResize_Default(screenWidth, screenHeight);
-}
-
-void GameScreen::LoadDisplay(float dTime)
-{
-	BeginRender(Colours::Black);
-
-	//mpSpriteBatch->Begin();
-
-	static int pips = 0;
-	static float elapsed = 0;
-	elapsed += dTime;
-
-	//if (elapsed > 0.25f){
-	//	pips++;
-	//	elapsed = 0;
-	//}
-	//if (pips > 10)
-	//	pips = 0;
-	//wstringstream ss;
-	//ss << L"Loading meshes(" << (int)(((float)mLoadData.loadedSoFar / (float)mLoadData.totalToLoad)*100.f) << L"%) ";
-	//for (int i = 0; i < pips; ++i)
-	//	ss << L'.';
-	//mpFont2->DrawString(mpSpriteBatch, ss.str().c_str(), Vector2(100, 200), Colours::White, 0, Vector2(0, 0), Vector2(1.f, 1.f));
-
-	//ss.str(L"");
-	//ss << L"FPS:" << (int)(1.f / dTime);
-	//mpFont->DrawString(mpSpriteBatch, ss.str().c_str(), Vector2(10, 550), Colours::White, 0, Vector2(0, 0), Vector2(0.5f, 0.5f));
-
-	//mpSpriteBatch->End();
-
-
-
-	EndRender();
+	mUI.setRes(screenWidth, screenHeight);
 }
 
 void GameScreen::Initialise()
@@ -87,9 +54,6 @@ void GameScreen::Release()
 
 int GameScreen::Update(float dTime)
 {
-
-	
-
 	levelMGR.Update(dTime);
 	player.Update(dTime);
 
@@ -119,7 +83,7 @@ void GameScreen::Render(float dTime)
 
 	CommonStates state(gd3dDevice);
 	
-	mUI.DisplayMessage(levelMGR.getMessage(), levelMGR.getTimer(), levelMGR.getCollectedNo(), levelMGR.getPickupNo());
+	mUI.DisplayMessage(levelMGR.getMessage(), levelMGR.getTimer(), levelMGR.getLevelMaxTime(), levelMGR.getCollectedNo(), levelMGR.getPickupNo());
 
 	EndRender();
 }

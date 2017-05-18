@@ -15,20 +15,13 @@ using namespace DirectX::SimpleMath;
 
 void Game::OnResize(int screenWidth, int screenHeight)
 {
-	if (currentScreen != NULL)
-		currentScreen->OnResize(screenWidth, screenHeight);
-	else
-		OnResize_Default(screenWidth, screenHeight);
-}
+	if (menu != NULL)
+		menu->OnResize(screenWidth, screenHeight);
 
-void Game::LoadDisplay(float dTime)
-{
-	BeginRender(Colours::Black);
+	if (game != NULL)
+		game->OnResize(screenWidth, screenHeight);
 
-	static int pips = 0;
-	static float elapsed = 0;
-	elapsed += dTime;
-	EndRender();
+	OnResize_Default(screenWidth, screenHeight);
 }
 
 void Game::Initialise()
@@ -39,9 +32,6 @@ void Game::Initialise()
 
 	// Build a cube for use in both levels
 	BuildCube(mMM);
-
-	game = new GameScreen(&mFX, &mMK, &mMM);
-	menu = new MenuScreen(&mFX, &mMK, &mMM);
 
 	game->Initialise();
 	menu->Initialise();
@@ -60,11 +50,6 @@ void Game::Update(float dTime)
 {
 
 	GetIAudioMgr()->Update();
-	
-		
-
-	if (mLoadData.running)
-		return;
 
 	int state = currentScreen->Update(dTime);
 	if (state == -1) {
@@ -80,30 +65,21 @@ void Game::Update(float dTime)
 		else{
 			currentScreen = game;
 			GetIAudioMgr()->GetSongMgr()->SetPause(false, mMusicHdl);
-			if (!GetIAudioMgr()->GetSongMgr()->IsPlaying(mMusicHdl))
-				GetIAudioMgr()->GetSongMgr()->Play("song", true, false, &mMusicHdl, 0.2f);
-			if (menu->isReset()){
-				menu->setIsReset(false);
-				game->reset();
-			}
 		}
+
+		if (!GetIAudioMgr()->GetSongMgr()->IsPlaying(mMusicHdl))
+			GetIAudioMgr()->GetSongMgr()->Play("song", true, false, &mMusicHdl, 0.2f);
+
+		if (menu->isReset()){
+			menu->setIsReset(false);
+			game->reset();
+		}
+	
 }
 
 
 void Game::Render(float dTime)
 {
-	if (mLoadData.running)
-	{
-		if (!mLoadData.loader._Is_ready())
-		{
-			LoadDisplay(dTime);
-			return;
-		}
-		mLoadData.loader.get();
-		mLoadData.running = false;
-		return;
-	}
-
 	currentScreen->Render(dTime);
 
 	mMK.PostProcess();

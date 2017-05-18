@@ -43,6 +43,7 @@ public:
 	int getPickupNo() const;
 	int getCollectedNo() const;
 	float getTimer() const;
+	float getLevelMaxTime() const;
 	string getMessage() const;
 
 	// Get whether the player has started
@@ -70,6 +71,8 @@ private:
 		vector<vector<int>> floorList;
 		vector<vector<int>> extraInfoList;
 	};
+
+	levelTemplate nextLevel;
 
 	Level::TextureInfo texInfo;
 

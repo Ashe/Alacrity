@@ -54,7 +54,7 @@ void LevelMGR::Render(float dTime)
 }
 
 void LevelMGR::changeLevel(int levelNo) {
-	levelTemplate nextLevel = getLayout(levelNo);
+	nextLevel = getLayout(levelNo);
 	level.Initialise(texInfo, nextLevel.tileList, nextLevel.floorList, nextLevel.extraInfoList, nextLevel.levelCaption, nextLevel.levelTime, nextLevel.tileWidth, nextLevel.tilePadding, nextLevel.tileDim, nextLevel.safeTime, nextLevel.fallSpeedSafe, nextLevel.fallSpeedDead);
 }
 
@@ -286,9 +286,9 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 
 			nextLevel.floorList = {
 				{ -2, -2, -2, -2, -2 },
-				{ -2, -1, -2, -2, -2 },
-				{ -1,  2, -1,  1, -1 },
-				{ -2, -1, -2, -1, -2 },
+				{ -2,  0, -2, -2, -2 },
+				{ -1,  2,  0,  1,  0 },
+				{ -2,  0, -2,  0, -2 },
 				{ -2, -2, -2, -2, -2 }
 			};
 
@@ -560,6 +560,11 @@ float LevelMGR::getTimer() const
 {
 	return level.getTimer();
 }
+
+float LevelMGR::getLevelMaxTime() const {
+	return nextLevel.levelTime;
+}
+
 
 string LevelMGR::getMessage() const
 {

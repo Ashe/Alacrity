@@ -17,7 +17,6 @@ using namespace DirectX::SimpleMath;
 
 void MenuScreen::OnResize(int screenWidth, int screenHeight)
 {
-	OnResize_Default(screenWidth, screenHeight);
 	screenCenterX = screenWidth / 2;
 	screenCenterY = screenHeight / 2;
 }

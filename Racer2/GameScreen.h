@@ -51,13 +51,11 @@ private:
 
 	//load meshes
 	void Load();
-	//display a message
-	void LoadDisplay(float dTime);
 	//light position
 	DirectX::SimpleMath::Vector3 mLightPos = DirectX::SimpleMath::Vector3(0, 0, 0);
 	
 
-	UserInterface mUI;
+	UserInterface mUI = UserInterface(mFX);
 };
 
 #endif

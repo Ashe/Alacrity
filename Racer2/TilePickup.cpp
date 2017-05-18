@@ -17,7 +17,7 @@ void TilePickup::Render(float dTime, float zAdjust, bool setInsteadOfAdd, bool m
 
 	Tile::Render(dTime, zAdjust, setInsteadOfAdd, true);
 	tile.GetRotation() = Vector3(PI/4, PI/4, spinAngle);
-	tile.GetScale() = Vector3(0.55, 0.55, 0.55);
+	tile.GetScale() = Vector3(0.45, 0.45, 0.45);
 }
 
 bool TilePickup::bump()

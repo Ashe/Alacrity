@@ -17,9 +17,6 @@ void Player::Initialise(FX::MyFX* fxRef, Mesh& playerMesh, LevelMGR* levelPointe
 	moveWait = 0;
 	playerOne = true;
 
-	//MaterialExt *pMat = &player.GetMesh().GetSubMesh(0).material;
-	//pMat->gfxData.Set(Vector4(1.f, 1.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
-	//pMat->pTextureRV = mFX->mCache.LoadTexture("gamebgd.dds", true, gd3dDevice);
 
 	cellLocation = levelPointer->getStartingPosition();
 	player.GetPosition() = levelManager->getCurrentLocationOfTile(cellLocation);
@@ -54,6 +51,9 @@ void Player::Update(float dTime){
 void Player::Render(float dTime){
 
 	angle += -dTime * 2.5;
+	MaterialExt *pMat = &player.GetMesh().GetSubMesh(0).material;
+	pMat->gfxData.Set(Vector4(1.f, 1.0f, 1.0f, 0), Vector4(1.0f, 1.0f, 1.0f, 0), Vector4(0, 0, 0, 1));
+	pMat->pTextureRV = mFX->mCache.LoadTexture("playerblock.dds", true, gd3dDevice);
 
 	mFX->Render(player, gd3dImmediateContext);
 	player.GetPosition() = adjustVector;

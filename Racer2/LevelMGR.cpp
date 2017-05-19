@@ -20,9 +20,9 @@ void LevelMGR::Initialise(int currLevel)
 {
 	//BuildCube(*mMeshMgr);
 
-	//currentLevel = currLevel;
-	currentLevel = 11;
-	maxLevels = 11;
+	currentLevel = currLevel;
+	//currentLevel = 12;
+	maxLevels = 12;
 
 	changeLevel(currentLevel);
 }
@@ -591,7 +591,7 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 		case 11:
 		{
 			nextLevel.levelTime = 11;		// Time the player has to complete the level
-			nextLevel.levelCaption = "Lv 10: ";
+			nextLevel.levelCaption = "Lv 11: ";
 
 			nextLevel.safeTime = 2;			// Players have x seconds before falling to death
 			nextLevel.fallSpeedSafe = 5;	// Speed at which the tiles fall when safe
@@ -632,6 +632,58 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 				{ 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			break;
+		}
+		case 12:
+		{
+			nextLevel.levelTime = 15;		// Time the player has to complete the level
+			nextLevel.levelCaption = "Lv 12: ";
+
+			nextLevel.safeTime = 2;			// Players have x seconds before falling to death
+			nextLevel.fallSpeedSafe = 5;	// Speed at which the tiles fall when safe
+			nextLevel.fallSpeedDead = 12;	// Speed at which the tiles fall when not safe
+
+			nextLevel.tileWidth = 1.75;		// Width of tles
+			nextLevel.tileDim = 9;			// Amount of tiles (n*n)
+			nextLevel.tilePadding = 2;		// Padding between blocks
+
+			nextLevel.tileList = {
+				{ Tile::eEmpty, Tile::eBasic, Tile::ePikup, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::ePikup, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eEmpty, Tile::eBasic, Tile::eEmpty },
+				{ Tile::eStart, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEnder },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::ePikup, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::ePikup, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::ePikup, Tile::eEmpty, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+
+			};
+
+			nextLevel.floorList = {
+				{-2, 0, 0, 1, 0, 0, 0, 0,-2 },
+				{-2, 0,-2, 0,-2, 0,-2, 0,-2 },
+				{-2, 0, 0, 1, 0, 1, 0, 0,-2 },
+				{-2, 0,-2, 0,-2, 0,-2, 0,-2 },
+				{ 0, 1, 0, 1, 0, 0, 0, 0, 0 },
+				{-2, 0,-2, 0,-2, 0,-2, 0,-2 },
+				{-2, 0, 0, 0, 0, 1, 0, 0,-2 },
+				{-2, 0,-2, 0,-2, 0,-2, 0,-2 },
+				{-2, 0, 0, 1, 0, 0, 0, 0,-2 }
+			};
+
+			nextLevel.extraInfoList = {
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 			};
 
 			break;

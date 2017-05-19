@@ -74,6 +74,7 @@ void Game::Update(float dTime)
 		if (menu->isReset()){
 			menu->setIsReset(false);
 			GetIAudioMgr()->GetSongMgr()->Play("song", true, false, &mMusicHdl, 0.2f);
+			GetIAudioMgr()->GetSongMgr()->SetVolume(10);
 			game->reset();
 			
 		}
@@ -96,16 +97,11 @@ LRESULT Game::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 	{
 		// Respond to a keyboard event.
 	case WM_CHAR:
-		/*switch (wParam)
+		switch (wParam)
 		{
-		case 'q':
-		case 'Q':
-			PostQuitMessage(0);
-			return 0;
-		}*/
 		case 'm':
 		case'M':
-		{
+			{
 			if (currentScreen == game)
 				if (GetIAudioMgr()->GetSongMgr()->GetVolume() > 0)
 					GetIAudioMgr()->GetSongMgr()->SetVolume(0);
@@ -113,6 +109,8 @@ LRESULT Game::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 					if (GetIAudioMgr()->GetSongMgr()->GetVolume() == 0)
 						GetIAudioMgr()->GetSongMgr()->SetVolume(10);
 
+			}
+		break;
 		}
 	case WM_INPUT:
 		mMK.MessageEvent((HRAWINPUT)lParam);

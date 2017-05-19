@@ -24,9 +24,11 @@ void GameScreen::Initialise()
 {
 
 	
+	//Mesh& cubeMesh = BuildCube(*mMeshMgr);
 	levelMGR.Initialise();
-	Mesh& playerMesh = BuildOcta(*mMeshMgr);
-	player.Initialise(mFX, playerMesh, &levelMGR, mMKInput);
+
+	Mesh* randy = mMeshMgr->GetMesh("cube");
+	player.Initialise(mFX, *randy , &levelMGR, mMKInput);
 
 	mQuad.Initialise(BuildQuad(*mMeshMgr));
 	MaterialExt *pMat = &mQuad.GetMesh().GetSubMesh(0).material;

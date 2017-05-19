@@ -53,12 +53,12 @@ void Player::Update(float dTime){
 }
 void Player::Render(float dTime){
 
-	angle += dTime;
+	angle += -dTime * 2.5;
 
 	mFX->Render(player, gd3dImmediateContext);
 	player.GetPosition() = adjustVector;
-	//player.GetRotation() = Vector3(PI / 2, -PI/4, PI/6);
-	player.GetRotation() = Vector3(0, 0, angle);
+	player.GetScale() = Vector3(0.7, 0.7, 0.7);
+	player.GetRotation() = Vector3(angle, angle, 0);
 	// This is so that the player sits on top of his tile. You need to add the size of the player on the end so that he's not inside it
 	player.GetPosition().z += 2;
 }

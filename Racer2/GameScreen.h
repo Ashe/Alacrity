@@ -49,8 +49,6 @@ public:
 private:
 	Player player;
 
-	//load meshes
-	void Load();
 	//light position
 	DirectX::SimpleMath::Vector3 mLightPos = DirectX::SimpleMath::Vector3(0, 0, 0);
 	

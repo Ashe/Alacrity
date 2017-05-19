@@ -19,7 +19,6 @@ void LevelMGR::OnResize(int screenWidth, int screenHeight)
 void LevelMGR::Initialise(int currLevel)
 {
 	//BuildCube(*mMeshMgr);
-
 	currentLevel = currLevel;
 	//currentLevel = 12;
 	maxLevels = 12;

@@ -80,31 +80,16 @@ void Player::makePlayerTwo(){
 	playerOne = false;
 }
 void Player::move(){
-	if (playerOne){
-		if (mMKInput->IsPressed(VK_W)){
-			moveDirection = Vector2(0, 1);
-		}
-		else if (mMKInput->IsPressed(VK_A)){
-			moveDirection = Vector2(-1, 0);
-		}
-		else if (mMKInput->IsPressed(VK_S)){
-			moveDirection = Vector2(0, -1);
-		}
-		else if (mMKInput->IsPressed(VK_D)){
-			moveDirection = Vector2(1, 0);
-		}
-	}else{
-		if (mMKInput->IsPressed(VK_UP)){
-			moveDirection = Vector2(0, 1);
-		}
-		else if (mMKInput->IsPressed(VK_LEFT)){
-			moveDirection = Vector2(-1, 0);
-		}
-		else if (mMKInput->IsPressed(VK_DOWN)){
-			moveDirection = Vector2(0, -1);
-		}
-		else if (mMKInput->IsPressed(VK_RIGHT)){
-			moveDirection = Vector2(1, 0);
-		}
+	if (mMKInput->IsPressed(VK_UP) || mMKInput->IsPressed(VK_W)){
+		moveDirection = Vector2(0, 1);
+	}
+	else if (mMKInput->IsPressed(VK_LEFT) || mMKInput->IsPressed(VK_A)){
+		moveDirection = Vector2(-1, 0);
+	}
+	else if (mMKInput->IsPressed(VK_DOWN) || mMKInput->IsPressed(VK_S)){
+		moveDirection = Vector2(0, -1);
+	}
+	else if (mMKInput->IsPressed(VK_RIGHT) || mMKInput->IsPressed(VK_D)){
+		moveDirection = Vector2(1, 0);
 	}
 }

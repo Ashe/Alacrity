@@ -17,6 +17,9 @@ using namespace DirectX::SimpleMath;
 
 void MenuScreen::OnResize(int screenWidth, int screenHeight)
 {
+	screenW = screenWidth;
+	screenH = screenHeight;
+
 	screenCenterX = screenWidth / 2;
 	screenCenterY = screenHeight / 2;
 }
@@ -179,32 +182,32 @@ void MenuScreen::Render(float dTime)
 			posOption3y = 20;
 		}
 		if (menuOption == 1)
-			mpFont->DrawString(mpSpriteBatch, ssOption1.str().c_str(), Vector2(screenCenterX + posOption1x, screenCenterY + posOption1y + 200), Colours::Cyan, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+			mpFont->DrawString(mpSpriteBatch, ssOption1.str().c_str(), Vector2(screenCenterX + posOption1x, screenCenterY + posOption1y + (screenH / 4)), Colours::Cyan, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 		else																														    
-			mpFont->DrawString(mpSpriteBatch, ssOption1.str().c_str(), Vector2(screenCenterX + posOption1x, screenCenterY + posOption1y + 200), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+			mpFont->DrawString(mpSpriteBatch, ssOption1.str().c_str(), Vector2(screenCenterX + posOption1x, screenCenterY + posOption1y + (screenH / 4)), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 																																	
 		if (menuOption == 2)																										
-			mpFont->DrawString(mpSpriteBatch, ssOption2.str().c_str(), Vector2(screenCenterX + posOption2x, screenCenterY + posOption2y + 200), Colours::Cyan, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+			mpFont->DrawString(mpSpriteBatch, ssOption2.str().c_str(), Vector2(screenCenterX + posOption2x, screenCenterY + posOption2y + (screenH / 4)), Colours::Cyan, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 		else																														   
-			mpFont->DrawString(mpSpriteBatch, ssOption2.str().c_str(), Vector2(screenCenterX + posOption2x, screenCenterY + posOption2y + 200), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+			mpFont->DrawString(mpSpriteBatch, ssOption2.str().c_str(), Vector2(screenCenterX + posOption2x, screenCenterY + posOption2y + (screenH / 4)), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 																																	 
 		if (menuOption == 3)																										 
-			mpFont->DrawString(mpSpriteBatch, ssOption3.str().c_str(), Vector2(screenCenterX + posOption3x, screenCenterY + posOption3y + 200), Colours::Cyan, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+			mpFont->DrawString(mpSpriteBatch, ssOption3.str().c_str(), Vector2(screenCenterX + posOption3x, screenCenterY + posOption3y + (screenH / 4)), Colours::Cyan, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 		else																														  
-			mpFont->DrawString(mpSpriteBatch, ssOption3.str().c_str(), Vector2(screenCenterX + posOption3x, screenCenterY + posOption3y + 200), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+			mpFont->DrawString(mpSpriteBatch, ssOption3.str().c_str(), Vector2(screenCenterX + posOption3x, screenCenterY + posOption3y + (screenH / 4)), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 		if (canResetB){
 			if (menuOption == 4)
-				mpFont->DrawString(mpSpriteBatch, ssOption4.str().c_str(), Vector2(screenCenterX + posOption4x, screenCenterY + posOption4y + 200), Colours::Cyan, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+				mpFont->DrawString(mpSpriteBatch, ssOption4.str().c_str(), Vector2(screenCenterX + posOption4x, screenCenterY + posOption4y + (screenH / 4)), Colours::Cyan, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 			else
-				mpFont->DrawString(mpSpriteBatch, ssOption4.str().c_str(), Vector2(screenCenterX + posOption4x, screenCenterY + posOption4y + 200), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+				mpFont->DrawString(mpSpriteBatch, ssOption4.str().c_str(), Vector2(screenCenterX + posOption4x, screenCenterY + posOption4y + (screenH / 4)), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 		}
 		wstringstream ssTitle;
 		wstringstream ssSpace;
 		ssSpace << "(SPACE) Select";
-		ssTitle << "ALACRITY";
-		mpFontTitle->DrawString(mpSpriteBatch, ssTitle.str().c_str(), Vector2(screenCenterX -190, screenCenterY-300), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 		mpFont->DrawString(mpSpriteBatch, ssSpace.str().c_str(), Vector2(5, screenCenterY * 2 - 40), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+		ssTitle << "ALACRITY";
+		mpFontTitle->DrawString(mpSpriteBatch, ssTitle.str().c_str(), Vector2(screenCenterX -190, screenCenterY - screenH / 3), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 	}
 
 	mpSpriteBatch->End();

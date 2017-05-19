@@ -40,7 +40,7 @@ public:
 private:
 	void menuInputs();
 
-	int screenCenterX, screenCenterY, menuOption, menuOptions;
+	int screenW, screenH, screenCenterX, screenCenterY, menuOption, menuOptions;
 	bool upPress, downPress, viewCredits, isResetB, canResetB;
 	
 	string mMessage;

@@ -46,6 +46,7 @@ private:
 	string mMessage;
 	DirectX::SpriteBatch *mpSpriteBatch = nullptr;
 	DirectX::SpriteFont *mpFont = nullptr;
+	DirectX::SpriteFont *mpFontTitle = nullptr;
 
 	//camera
 	float mAngle = 0;

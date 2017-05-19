@@ -32,7 +32,9 @@ void MenuScreen::Initialise()
 	mpSpriteBatch = new SpriteBatch(gd3dImmediateContext);
 	assert(mpSpriteBatch);
 	mpFont = new SpriteFont(gd3dDevice, L"data/cabin.spritefont");
+	mpFontTitle = new SpriteFont(gd3dDevice, L"data/adam.spritefont");
 	assert(mpFont);
+	assert(mpFontTitle);
 	screenCenterX = 512;
 	screenCenterY = 384;
 	menuOption = 1;
@@ -145,12 +147,14 @@ void MenuScreen::Render(float dTime)
 		mpFont->DrawString(mpSpriteBatch, ssBack.str().c_str(), Vector2(5, screenCenterY * 2 - 40), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 	}
 	else{
+		
 		wstringstream ssOption1;
 		wstringstream ssOption2;
 		wstringstream ssOption3;
 		wstringstream ssOption4;
 		int posOption1x, posOption2x, posOption3x, posOption4x, posOption1y, posOption2y, posOption3y, posOption4y;
 		if (canResetB){
+			
 			ssOption1 << "Continue";
 			ssOption2 << "Reset";
 			ssOption3 << "Credits";
@@ -195,8 +199,11 @@ void MenuScreen::Render(float dTime)
 			else
 				mpFont->DrawString(mpSpriteBatch, ssOption4.str().c_str(), Vector2(screenCenterX + posOption4x, screenCenterY + posOption4y + 200), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 		}
+		wstringstream ssTitle;
 		wstringstream ssSpace;
 		ssSpace << "(SPACE) Select";
+		ssTitle << "ALACRITY";
+		mpFontTitle->DrawString(mpSpriteBatch, ssTitle.str().c_str(), Vector2(screenCenterX -190, screenCenterY-300), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 		mpFont->DrawString(mpSpriteBatch, ssSpace.str().c_str(), Vector2(5, screenCenterY * 2 - 40), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 	}
 

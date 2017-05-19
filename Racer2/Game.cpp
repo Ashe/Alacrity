@@ -27,6 +27,7 @@ void Game::OnResize(int screenWidth, int screenHeight)
 void Game::Initialise()
 {
 	GetIAudioMgr()->Initialise();
+	GetIAudioMgr()->GetSongMgr()->SetVolume(10);
 	mFX.Init(gd3dDevice);
 	mMK.Initialise(GetMainWnd());
 
@@ -102,6 +103,17 @@ LRESULT Game::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 			PostQuitMessage(0);
 			return 0;
 		}*/
+		case 'm':
+		case'M':
+		{
+			if (currentScreen == game)
+				if (GetIAudioMgr()->GetSongMgr()->GetVolume() > 0)
+					GetIAudioMgr()->GetSongMgr()->SetVolume(0);
+				else
+					if (GetIAudioMgr()->GetSongMgr()->GetVolume() == 0)
+						GetIAudioMgr()->GetSongMgr()->SetVolume(10);
+
+		}
 	case WM_INPUT:
 		mMK.MessageEvent((HRAWINPUT)lParam);
 		break;

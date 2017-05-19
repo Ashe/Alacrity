@@ -78,7 +78,7 @@ void GameScreen::Render(float dTime)
 
 	mQuad.GetPosition() = Vector3(100, 60, -40);
 	mQuad.GetRotation() = Vector3(PI / 2, 0, PI / 4);
-	mQuad.GetScale() = Vector3(150, 1, 150);
+	mQuad.GetScale() = Vector3(150, 1, 200);
 	mFX->Render(mQuad, gd3dImmediateContext);
 
 	CommonStates state(gd3dDevice);

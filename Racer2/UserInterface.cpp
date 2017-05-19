@@ -22,8 +22,11 @@ void UserInterface::DisplayMessage(string& message, float timer, float maxTime, 
 	mpSpriteBatch->Begin();
 
 	wstringstream ssMessage;
-	ssMessage << message.c_str(); 
+	ssMessage << "(Esc) Pause - (M) Mute" << endl << endl 
+		<< message.c_str() << endl
+		<< currentPickUps << "/" << pickupTotal << " pick ups!";
 	mpFont->DrawString(mpSpriteBatch, ssMessage.str().c_str(), Vector2(10, 10), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+
 
 	const float progress = timer / maxTime;
 	float temp = (progress)* (screenWidth * 0.4);
@@ -56,14 +59,7 @@ void UserInterface::DisplayMessage(string& message, float timer, float maxTime, 
 
 	mpSpriteBatch->Draw(pmFX->mCache.LoadTexture("barp.dds", true, gd3dDevice), bar, colour);
 
-	//XMVECTOR loc = mpFont->MeasureString((to_wstring(timer) + to_wstring('s')).c_str());
-	//ssTimer << round(timer);
 
-	//mpFont->DrawString(mpSpriteBatch, ssTimer.str().c_str(), Vector2(screenCenterX, 650), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
-
-	wstringstream ssPickUps;
-	ssPickUps << currentPickUps << "/" << pickupTotal << " pick ups!";
-	mpFont->DrawString(mpSpriteBatch, ssPickUps.str().c_str(), Vector2(10, 50), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 	mpSpriteBatch->End();
 }

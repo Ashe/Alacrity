@@ -131,17 +131,17 @@ void MenuScreen::Render(float dTime)
 	mpSpriteBatch->Begin();
 
 	if (viewCredits){
-		wstringstream ssCredit1;
-		wstringstream ssCredit2;
-		wstringstream ssCredit3;
+		wstringstream ssCreditNames;
+		wstringstream ssCreditTwitter;
 		wstringstream ssBack;
-		ssCredit1 << "Scrum Master: Holly Savin";
-		ssCredit2 << "Behaviour Programmer: Ashley Smith";
-		ssCredit3 << "Player Programmer: Elliott Hill";
+		ssCreditNames << "Game by " << endl << "Holly Savin" << endl
+			<< "Ashley Smith" << endl
+			<< "Elliott Hill" << endl
+			 << endl<< "Music by Tom Bellingham";
+		ssCreditTwitter <<endl << "@hollysavin" << endl << "@Cryskirend" << endl << "@MrHilster" << endl << endl << "@tom_bellingham";
 		ssBack << "(Q) Back";
-		mpFont->DrawString(mpSpriteBatch, ssCredit1.str().c_str(), Vector2(screenCenterX - 170, screenCenterY - 60), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
-		mpFont->DrawString(mpSpriteBatch, ssCredit2.str().c_str(), Vector2(screenCenterX - 250, screenCenterY - 20), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
-		mpFont->DrawString(mpSpriteBatch, ssCredit3.str().c_str(), Vector2(screenCenterX - 200, screenCenterY + 20), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+		mpFont->DrawString(mpSpriteBatch, ssCreditNames.str().c_str(), Vector2(screenCenterX - 400, screenCenterY + 100), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+		mpFont->DrawString(mpSpriteBatch, ssCreditTwitter.str().c_str(), Vector2(screenCenterX + 200, screenCenterY + 100), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 		mpFont->DrawString(mpSpriteBatch, ssBack.str().c_str(), Vector2(5, screenCenterY * 2 - 40), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 	}
 	else{
@@ -175,25 +175,25 @@ void MenuScreen::Render(float dTime)
 			posOption3y = 20;
 		}
 		if (menuOption == 1)
-			mpFont->DrawString(mpSpriteBatch, ssOption1.str().c_str(), Vector2(screenCenterX + posOption1x, screenCenterY + posOption1y), Colours::Blue, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
-		else
-			mpFont->DrawString(mpSpriteBatch, ssOption1.str().c_str(), Vector2(screenCenterX + posOption1x, screenCenterY + posOption1y), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
-
-		if (menuOption == 2)
-			mpFont->DrawString(mpSpriteBatch, ssOption2.str().c_str(), Vector2(screenCenterX + posOption2x, screenCenterY + posOption2y), Colours::Blue, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
-		else
-			mpFont->DrawString(mpSpriteBatch, ssOption2.str().c_str(), Vector2(screenCenterX + posOption2x, screenCenterY + posOption2y), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
-
-		if (menuOption == 3)
-			mpFont->DrawString(mpSpriteBatch, ssOption3.str().c_str(), Vector2(screenCenterX + posOption3x, screenCenterY + posOption3y), Colours::Blue, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
-		else
-			mpFont->DrawString(mpSpriteBatch, ssOption3.str().c_str(), Vector2(screenCenterX + posOption3x, screenCenterY + posOption3y), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+			mpFont->DrawString(mpSpriteBatch, ssOption1.str().c_str(), Vector2(screenCenterX + posOption1x, screenCenterY + posOption1y + 200), Colours::Cyan, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+		else																														    
+			mpFont->DrawString(mpSpriteBatch, ssOption1.str().c_str(), Vector2(screenCenterX + posOption1x, screenCenterY + posOption1y + 200), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+																																	
+		if (menuOption == 2)																										
+			mpFont->DrawString(mpSpriteBatch, ssOption2.str().c_str(), Vector2(screenCenterX + posOption2x, screenCenterY + posOption2y + 200), Colours::Cyan, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+		else																														   
+			mpFont->DrawString(mpSpriteBatch, ssOption2.str().c_str(), Vector2(screenCenterX + posOption2x, screenCenterY + posOption2y + 200), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+																																	 
+		if (menuOption == 3)																										 
+			mpFont->DrawString(mpSpriteBatch, ssOption3.str().c_str(), Vector2(screenCenterX + posOption3x, screenCenterY + posOption3y + 200), Colours::Cyan, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+		else																														  
+			mpFont->DrawString(mpSpriteBatch, ssOption3.str().c_str(), Vector2(screenCenterX + posOption3x, screenCenterY + posOption3y + 200), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 
 		if (canResetB){
 			if (menuOption == 4)
-				mpFont->DrawString(mpSpriteBatch, ssOption4.str().c_str(), Vector2(screenCenterX + posOption4x, screenCenterY + posOption4y), Colours::Blue, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+				mpFont->DrawString(mpSpriteBatch, ssOption4.str().c_str(), Vector2(screenCenterX + posOption4x, screenCenterY + posOption4y + 200), Colours::Cyan, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 			else
-				mpFont->DrawString(mpSpriteBatch, ssOption4.str().c_str(), Vector2(screenCenterX + posOption4x, screenCenterY + posOption4y), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
+				mpFont->DrawString(mpSpriteBatch, ssOption4.str().c_str(), Vector2(screenCenterX + posOption4x, screenCenterY + posOption4y + 200), Colours::White, 0, Vector2(0, 0), Vector2(1.0f, 1.0f));
 		}
 		wstringstream ssSpace;
 		ssSpace << "(SPACE) Select";

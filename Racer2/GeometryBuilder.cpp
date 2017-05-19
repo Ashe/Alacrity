@@ -154,19 +154,9 @@ Mesh& BuildOcta(MeshManager& mgr)
 		5, 0, 3,
 
 		0, 1, 4,
-		5, 4, 1
+		5, 1, 0
 		
 	};
-
-	////make some face normals
-	//for (int i = 0; i < 8; ++i)
-	//{
-	//	int idx = i * 3;
-	//	Vector3 a(vertices[idx].Pos - vertices[idx + 1].Pos), b(vertices[idx + 2].Pos - vertices[idx + 1].Pos);
-	//	a.Normalize();
-	//	b.Normalize();
-	//	vertices[idx].Norm = vertices[idx + 1].Norm = vertices[idx + 2].Norm = b.Cross(a);
-	//}
 
 	Mesh &mesh = mgr.CreateMesh("octahedron");
 	MaterialExt mat = MaterialExt::default;

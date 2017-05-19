@@ -25,7 +25,7 @@ void GameScreen::Initialise()
 
 	
 	levelMGR.Initialise();
-	Mesh& playerMesh = BuildPyramid(*mMeshMgr);
+	Mesh& playerMesh = BuildOcta(*mMeshMgr);
 	player.Initialise(mFX, playerMesh, &levelMGR, mMKInput);
 
 	mQuad.Initialise(BuildQuad(*mMeshMgr));

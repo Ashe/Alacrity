@@ -14,6 +14,8 @@ Mesh& BuildQuadPyramid(MeshManager& mgr);
 
 Mesh& BuildCube(MeshManager& mgr);
 
+Mesh& BuildOcta(MeshManager& mgr);
+
 Mesh& BuildSphere(MeshManager& mgr, int LatLines, int LongLines);
 
 #endif

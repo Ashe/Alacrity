@@ -42,6 +42,8 @@ private:
 	LevelMGR* levelManager;
 
 	MouseAndKeys* mMKInput;
+
+	float angle = 0;
 };
 
 #endif

@@ -130,6 +130,50 @@ Mesh& BuildQuadPyramid(MeshManager& mgr)
 	return mesh;
 }
 
+Mesh& BuildOcta(MeshManager& mgr)
+{
+	VertexPosNormTex vertices[]
+	{	//front
+		{ Vector3(-0.5, -0.5, 0) }, // 0
+		{ Vector3(-0.5, 0.5, 0) },	// 1
+		{ Vector3(0.5, 0.5, 0) },	// 2
+		{ Vector3(0.5, -0.5, 0) },	// 3
+		{ Vector3(0, 0, 1) },		// 4
+		{ Vector3(0, 0, -1) }		// 5
+	};
+
+	// Create the index buffer
+	UINT indices[]  {
+		1, 2, 4,
+		5, 2, 1,
+
+		2, 3, 4,
+		5, 3, 2,
+
+		3, 0, 4,
+		5, 0, 3,
+
+		0, 1, 4,
+		5, 4, 1
+		
+	};
+
+	////make some face normals
+	//for (int i = 0; i < 8; ++i)
+	//{
+	//	int idx = i * 3;
+	//	Vector3 a(vertices[idx].Pos - vertices[idx + 1].Pos), b(vertices[idx + 2].Pos - vertices[idx + 1].Pos);
+	//	a.Normalize();
+	//	b.Normalize();
+	//	vertices[idx].Norm = vertices[idx + 1].Norm = vertices[idx + 2].Norm = b.Cross(a);
+	//}
+
+	Mesh &mesh = mgr.CreateMesh("octahedron");
+	MaterialExt mat = MaterialExt::default;
+	mesh.CreateFrom(vertices, 6, indices, 24, mat, 24);
+	return mesh;
+}
+
 Mesh& BuildCube(MeshManager& mgr)
 {
 	// Create vertex buffer

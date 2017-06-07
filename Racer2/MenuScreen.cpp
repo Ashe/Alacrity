@@ -72,11 +72,11 @@ int MenuScreen::Update(float dTime)
 	}
 
 	if (viewCredits){
-		if (mMKInput->IsPressed(VK_Q))
+		if (mMKInput->IsPressed(VK_Q) || mMKInput->IsPressed(VK_ESCAPE))
 			viewCredits = false;
 	}else if (canResetB){
 		menuInputs();
-		if (mMKInput->IsPressed(VK_SPACE)){
+		if (mMKInput->IsPressed(VK_SPACE) || mMKInput->IsPressed(VK_RETURN)){
 			switch (menuOption){
 			case 1:
 				canReset();
@@ -96,7 +96,7 @@ int MenuScreen::Update(float dTime)
 		}
 	}else{
 		menuInputs();
-		if (mMKInput->IsPressed(VK_SPACE)){
+		if (mMKInput->IsPressed(VK_SPACE) || mMKInput->IsPressed(VK_RETURN)){
 			switch (menuOption){
 			case 1:
 				canReset();
@@ -216,13 +216,13 @@ void MenuScreen::Render(float dTime)
 }
 
 void MenuScreen::menuInputs(){
-	if (mMKInput->IsPressed(VK_W)){
+	if (mMKInput->IsPressed(VK_W) || mMKInput->IsPressed(VK_UP)){
 		if (!upPress){
 			menuOption--;
 			upPress = true;
 		}
 	}
-	else if (mMKInput->IsPressed(VK_S)){
+	else if (mMKInput->IsPressed(VK_S) || mMKInput->IsPressed(VK_DOWN)){
 		if (!downPress){
 			menuOption++;
 			downPress = true;

@@ -303,8 +303,98 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 		}
 		case 5:
 		{
-			nextLevel.levelTime = 6.1;		// Time the player has to complete the level
-			nextLevel.levelCaption = "Lv 5: A little more complex";
+			nextLevel.levelTime = 7;		// Time the player has to complete the level
+			nextLevel.levelCaption = "Lv 5: Tread Carefully";
+
+			nextLevel.safeTime = 2;			// Players have x seconds before falling to death
+			nextLevel.fallSpeedSafe = 3;	// Speed at which the tiles fall when safe
+			nextLevel.fallSpeedDead = 30;	// Speed at which the tiles fall when not safe
+
+			nextLevel.tileWidth = 1.5;		// Width of tles
+			nextLevel.tileDim = 7;			// Amount of tiles (n*n)
+			nextLevel.tilePadding = 1.75;	// Padding between blocks
+
+			nextLevel.tileList = {
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::ePikup, Tile::eBasic, Tile::ePikup, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEnder, Tile::ePikup, Tile::eEmpty, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eStart },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::ePikup, Tile::eBasic, Tile::ePikup, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty }
+			};
+
+			nextLevel.floorList = {
+				{ -2,-2,-2,-2,-2,-2,-2 },
+				{ -2, 0, 0, 0, 0, 0,-2 },
+				{ -2, 0, 2, 1, 2, 0,-2 },
+				{  0, 0, 1, 0, 1, 1, 0 },
+				{ -2, 0, 1, 1, 1, 1,-2 },
+				{ -2, 0, 0, 0, 0, 0,-2 },
+				{ -2,-2,-2,-2,-2,-2,-2 }
+			};
+
+			nextLevel.extraInfoList = {
+				{  0, 0, 0, 0, 0, 0, 0 },
+				{  0, 0, 0, 0, 2, 0, 0 },
+				{  0, 0, 0, 0, 0, 0, 0 },
+				{  0, 4, 0, 0, 0, 0, 0 },
+				{  0, 0, 0, 0, 0, 0, 0 },
+				{  0, 0, 3, 0, 1, 0, 0 },
+				{  0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			break;
+		}
+		case 6:
+		{
+			nextLevel.levelTime = 8;		// Time the player has to complete the level
+			nextLevel.levelCaption = "Lv 6: ";
+
+			nextLevel.safeTime = 2;			// Players have x seconds before falling to death
+			nextLevel.fallSpeedSafe = 3;	// Speed at which the tiles fall when safe
+			nextLevel.fallSpeedDead = 30;	// Speed at which the tiles fall when not safe
+
+			nextLevel.tileWidth = 1.75;		// Width of tles
+			nextLevel.tileDim = 7;			// Amount of tiles (n*n)
+			nextLevel.tilePadding = 2.5;	// Padding between blocks
+
+			nextLevel.tileList = {
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::ePikup, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eBasic, Tile::eEmpty, Tile::ePikup, Tile::eBasic, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEnder, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eStart },
+				{ Tile::eEmpty, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::ePikup, Tile::eEmpty, Tile::eBasic, Tile::ePikup, Tile::eBasic, Tile::eEmpty },
+				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty }
+			};
+
+			nextLevel.floorList = {
+				{ -2,-2,-2,-2,-2,-2,-2 },
+				{ -2, 0, 1, 1, 0, 0,-2 },
+				{ -2, 0, 0, 0, 0, 0,-2 },
+				{  0, 0, 1, 0, 0, 1, 0 },
+				{ -2, 0, 2, 1, 2, 0,-2 },
+				{ -2, 0, 1, 0, 0, 0,-2 },
+				{ -2,-2,-2,-2,-2,-2,-2 }
+			};
+
+			nextLevel.extraInfoList = {
+				{ 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			break;
+		}
+		case 7:
+		{
+			nextLevel.levelTime = 7.0;		// Time the player has to complete the level
+			nextLevel.levelCaption = "Lv 7: A little more complex";
 
 			nextLevel.safeTime = 2;			// Players have x seconds before falling to death
 			nextLevel.fallSpeedSafe = 5;	// Speed at which the tiles fall when safe
@@ -353,10 +443,10 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 
 			break;
 		}
-		case 6:
+		case 8:
 		{
-			nextLevel.levelTime = 7;		// Time the player has to complete the level
-			nextLevel.levelCaption = "Lv 6: Plan your moves";
+			nextLevel.levelTime = 8;		// Time the player has to complete the level
+			nextLevel.levelCaption = "Lv 8: Plan your moves";
 
 			nextLevel.safeTime = 2;			// Players have x seconds before falling to death
 			nextLevel.fallSpeedSafe = 5;	// Speed at which the tiles fall when safe
@@ -397,96 +487,6 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 				{ 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0 }
-			};
-
-			break;
-		}
-		case 7:
-		{
-			nextLevel.levelTime = 7;		// Time the player has to complete the level
-			nextLevel.levelCaption = "Lv 7: Tread Carefully";
-
-			nextLevel.safeTime = 2;			// Players have x seconds before falling to death
-			nextLevel.fallSpeedSafe = 3;	// Speed at which the tiles fall when safe
-			nextLevel.fallSpeedDead = 30;	// Speed at which the tiles fall when not safe
-
-			nextLevel.tileWidth = 1.5;		// Width of tles
-			nextLevel.tileDim = 7;			// Amount of tiles (n*n)
-			nextLevel.tilePadding = 1.75;	// Padding between blocks
-
-			nextLevel.tileList = {
-				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
-				{ Tile::eEmpty, Tile::eEmpty, Tile::ePikup, Tile::eBasic, Tile::ePikup, Tile::eEmpty, Tile::eEmpty },
-				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
-				{ Tile::eEnder, Tile::ePikup, Tile::eEmpty, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eStart },
-				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
-				{ Tile::eEmpty, Tile::eEmpty, Tile::ePikup, Tile::eBasic, Tile::ePikup, Tile::eEmpty, Tile::eEmpty },
-				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty }
-			};
-
-			nextLevel.floorList = {
-				{ -2,-2,-2,-2,-2,-2,-2 },
-				{ -2, 0, 0, 0, 0, 0,-2 },
-				{ -2, 0, 2, 1, 2, 0,-2 },
-				{  0, 0, 1, 0, 1, 1, 0 },
-				{ -2, 0, 1, 1, 1, 1,-2 },
-				{ -2, 0, 0, 0, 0, 0,-2 },
-				{ -2,-2,-2,-2,-2,-2,-2 }
-			};
-
-			nextLevel.extraInfoList = {
-				{  0, 0, 0, 0, 0, 0, 0 },
-				{  0, 0, 0, 0, 2, 0, 0 },
-				{  0, 0, 0, 0, 0, 0, 0 },
-				{  0, 4, 0, 0, 0, 0, 0 },
-				{  0, 0, 0, 0, 0, 0, 0 },
-				{  0, 0, 3, 0, 1, 0, 0 },
-				{  0, 0, 0, 0, 0, 0, 0 }
-			};
-
-			break;
-		}
-		case 8:
-		{
-			nextLevel.levelTime = 8;		// Time the player has to complete the level
-			nextLevel.levelCaption = "Lv 8: ";
-
-			nextLevel.safeTime = 2;			// Players have x seconds before falling to death
-			nextLevel.fallSpeedSafe = 3;	// Speed at which the tiles fall when safe
-			nextLevel.fallSpeedDead = 30;	// Speed at which the tiles fall when not safe
-
-			nextLevel.tileWidth = 1.75;		// Width of tles
-			nextLevel.tileDim = 7;			// Amount of tiles (n*n)
-			nextLevel.tilePadding = 2.5;	// Padding between blocks
-
-			nextLevel.tileList = {
-				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
-				{ Tile::eEmpty, Tile::ePikup, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
-				{ Tile::eEmpty, Tile::eBasic, Tile::eEmpty, Tile::ePikup, Tile::eBasic, Tile::eEmpty, Tile::eEmpty },
-				{ Tile::eEnder, Tile::eEmpty, Tile::eEmpty, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eStart },
-				{ Tile::eEmpty, Tile::eBasic, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty },
-				{ Tile::eEmpty, Tile::ePikup, Tile::eEmpty, Tile::eBasic, Tile::ePikup, Tile::eBasic, Tile::eEmpty },
-				{ Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty, Tile::eEmpty }
-			};
-
-			nextLevel.floorList = {
-				{ -2,-2,-2,-2,-2,-2,-2 },
-				{ -2, 0, 1, 1, 0, 0,-2 },
-				{ -2, 0, 0, 0, 0, 0,-2 },
-				{  0, 0, 1, 0, 0, 1, 0 },
-				{ -2, 0, 2, 1, 2, 0,-2 },
-				{ -2, 0, 1, 0, 0, 0,-2 },
-				{ -2,-2,-2,-2,-2,-2,-2 }
-			};
-
-			nextLevel.extraInfoList = {
-				{ 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0 }
 			};
 
 			break;
@@ -541,7 +541,7 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 		}
 		case 10:
 		{
-			nextLevel.levelTime = 11;		// Time the player has to complete the level
+			nextLevel.levelTime = 5;		// Time the player has to complete the level
 			nextLevel.levelCaption = "Lv 10: ";
 
 			nextLevel.safeTime = 2;			// Players have x seconds before falling to death
@@ -589,7 +589,7 @@ LevelMGR::levelTemplate LevelMGR::getLayout(int layoutNo) {
 		}
 		case 11:
 		{
-			nextLevel.levelTime = 11;		// Time the player has to complete the level
+			nextLevel.levelTime = 5;		// Time the player has to complete the level
 			nextLevel.levelCaption = "Lv 11: ";
 
 			nextLevel.safeTime = 2;			// Players have x seconds before falling to death

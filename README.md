@@ -3,6 +3,9 @@
 ## What is this?
 Alacrity is a tile-based puzzle game where you have to collect pickups and get to to the finish before time expires. It was made as a university assignment between myself, [my good friend Holly](https://twitter.com/holiwhirl) and [our teammate Elliott](https://twitter.com/MrHilster). Alacrity is quite a special game to me, as it was one of the first times in my life where I have felt that I was truly recognised for my efforts. Note that the time-attack element of the game came from the requirement that we needed to make a 'racing' game.
 
+## How can I play?
+Check out [the releases page](https://github.com/Ashe/Alacrity/releases/) and download the latest release. Simply extract the `.zip` folder and run `Alacrity.exe` to begin playing! Use the arrow keys or `WASD` to move around --- your goal is to collect all the pickups and make it to the goal before time runs out! Good luck!
+
 ## How was it made?
 Holly was the team leader, so while the game was a combination of our ideas, she had to design a plan of attack as well as keep track of progress. Elliott handled the character, and the rest came to me. Not by force, I was just constantly wanting more to do. The level design as well as the way that we built and deconstructed them in game, the way the player interacts with it (such as the platforms falling down and the player dying), the smooth wave motion the tiles all do and the major implementation of the main menu were all done by myself.
 
